@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#00923F;stroke-width:155.864}
+    .fil1 {fill:white}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="256.005" y1="43.3792" x2="2449.27" y2="2590.99">
+   <stop offset="0" style="stop-color:#84C225"/>
+   <stop offset="1" style="stop-color:#449284"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="125.366" y="89.9142" width="2454.54" height="2454.55" rx="165.8" ry="165.8"/>
+  <g id="_90665328">
+   <rect id="_90666480" class="fil1" x="414.357" y="461.008" width="455.516" height="273.869"/>
+   <rect id="_90666408" class="fil1" x="1124.88" y="461.008" width="455.516" height="273.869"/>
+   <rect id="_90666336" class="fil1" x="1835.4" y="461.008" width="455.516" height="273.869"/>
+   <rect id="_90666264" class="fil1" x="414.357" y="940.503" width="455.516" height="273.869"/>
+   <rect id="_90666192" class="fil1" x="1124.88" y="940.503" width="455.516" height="273.869"/>
+   <rect id="_90666120" class="fil1" x="1835.4" y="940.503" width="455.516" height="273.869"/>
+   <rect id="_90666048" class="fil1" x="414.357" y="1420" width="455.516" height="273.869"/>
+   <rect id="_90665976" class="fil1" x="1124.88" y="1420" width="455.516" height="273.869"/>
+   <rect id="_90665904" class="fil1" x="1835.4" y="1420" width="455.516" height="273.869"/>
+   <rect id="_90665760" class="fil1" x="414.357" y="1899.49" width="455.516" height="273.869"/>
+   <rect id="_90665688" class="fil1" x="1124.88" y="1899.49" width="455.516" height="273.869"/>
+   <rect id="_90664992" class="fil1" x="1835.4" y="1899.49" width="455.516" height="273.869"/>
+  </g>
+ </g>
+</svg>

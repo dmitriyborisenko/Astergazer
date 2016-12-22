@@ -1,0 +1,136 @@
+.div-repository {
+    background: #cecede;
+    border-right: 1px solid #005775;
+    text-align: center;
+    height: 100%;        
+    width: 180px;
+}
+
+.div-canvas-wrapper {
+    background: #DDDDDD;
+    border-bottom: 2px solid #005775;
+    height: 100%;
+    position: absolute;
+    left: 181px;
+    right: 0px;
+    top: 0px;
+    bottom: 25px;
+}
+
+.div-canvas-subwrapper {
+    background: #ffffff none repeat scroll 0 0;
+    border-bottom: 1px solid #005775;
+    padding: 0px;
+    overflow: scroll !important;
+    background-color: white;
+    position: absolute;
+    left :0px;
+    right :0px;
+    top: 0px;
+    bottom: 153px;
+}
+
+.div-canvas {
+    background: #ffffff none repeat scroll 0 0;
+    border-bottom: 1px solid #005775;
+    padding: 0px;
+    cursor: default;
+    overflow: visible;
+    background-color: white;
+    position: absolute;
+    left :0px;
+    top: 0px;
+}
+
+.div-block-properties {
+    background: linear-gradient(to bottom, #DDDDDD, #EEEEEE);
+    height: 150px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.div-block-properties button {
+    margin-left: 20px;
+}
+
+#div-command-list {
+    border-top: 1px solid #005775;
+    margin: 5px 5px;
+}
+
+.label-current-block-name {
+    margin-left: 10px;
+}
+
+.input-current-block-name {
+    margin-top: 3px
+}
+
+.label-block-param-key {
+    font-size: 8pt;
+    white-space: nowrap;
+}
+
+.input-block-param-value {
+    font-size: 8pt;
+    width: 300px;
+}
+
+.div-repository-block {
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    margin: 5px;
+}
+
+.label-application {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.label-application-value {
+    margin-left: 10px;
+}
+
+.input-current-block-name {
+    margin-left: 10px;
+    font-weight: bold;
+    width: 300px;
+}
+
+.div-block-properties .ui-button {
+    vertical-align: inherit !important;
+}
+
+#div-selection {
+    display: none;
+    z-index: 9000;
+    position: absolute !important;
+    cursor: default !important;
+}
+
+#div-selection span {
+    background-color: rgba(166, 185, 247, 0.3);
+    border: 1px solid #54ddc6;
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+
+.selection-active {
+    display: block !important;
+}
+
+.input-digit {
+    margin: 10px 10px 5px 5px;
+}
+
+input[disabled] {
+    pointer-events:none
+}
+
+button[disabled] {
+    pointer-events:none
+}

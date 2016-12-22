@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#005CA1;stroke-width:155.864}
+    .fil1 {fill:#005CA1}
+    .fil2 {fill:#383431}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="256.005" y1="43.3792" x2="2449.27" y2="2590.99">
+   <stop offset="0" style="stop-color:white"/>
+   <stop offset="1" style="stop-color:#C2C1C1"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="125.366" y="89.9142" width="2454.54" height="2454.55" rx="165.8" ry="165.8"/>
+  <g id="_89754064">
+   <rect id="_89754232" class="fil1" transform="matrix(1.89672E-014 -0.71616 0.841806 2.22949E-014 1196.33 1729.14)" width="1281.94" height="371.354"/>
+   <polygon id="_89755096" class="fil1" points="1352.64,338.055 1543.63,600.365 1734.62,862.668 1352.64,862.668 970.652,862.668 1161.64,600.365 "/>
+  </g>
+  <ellipse class="fil1" cx="666.836" cy="2061.59" rx="214.772" ry="214.773"/>
+  <ellipse class="fil2" cx="1352.64" cy="2061.59" rx="214.772" ry="214.773"/>
+  <ellipse class="fil1" cx="2038.44" cy="2061.59" rx="214.772" ry="214.773"/>
+ </g>
+</svg>

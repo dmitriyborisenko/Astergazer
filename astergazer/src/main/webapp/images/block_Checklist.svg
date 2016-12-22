@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#974578;stroke-width:155.864}
+    .fil2 {fill:#974578}
+    .fil1 {fill:white}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="253.434" y1="45.9871" x2="2451.84" y2="2588.39">
+   <stop offset="0" style="stop-color:#DD137B"/>
+   <stop offset="1" style="stop-color:#B74F8F"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="125.366" y="89.9142" width="2454.54" height="2454.55" rx="165.8" ry="165.8"/>
+  <rect class="fil1" transform="matrix(-0.000618321 -0.712802 0.640509 -0.00093719 642.823 2244.28)" width="2579.99" height="2210.66"/>
+  <rect class="fil2" x="827.535" y="638.143" width="1060.92" height="143.944"/>
+  <rect class="fil2" x="827.535" y="887.524" width="1060.92" height="143.944"/>
+  <rect class="fil2" x="827.535" y="1136.91" width="1060.92" height="143.944"/>
+  <rect class="fil2" x="827.535" y="1386.29" width="1060.92" height="143.944"/>
+  <rect class="fil2" x="827.535" y="1635.67" width="1060.92" height="143.944"/>
+  <rect class="fil2" x="827.535" y="1885.05" width="1060.92" height="143.944"/>
+ </g>
+</svg>

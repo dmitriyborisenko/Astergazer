@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:#005CA1;stroke-width:103.908}
+    .str0 {stroke:#005CA1;stroke-width:155.864}
+    .fil1 {fill:none}
+    .fil3 {fill:#383431}
+    .fil2 {fill:#DA251D}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="256.005" y1="43.3792" x2="2449.27" y2="2590.99">
+   <stop offset="0" style="stop-color:white"/>
+   <stop offset="1" style="stop-color:#C2C1C1"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="125.366" y="89.9142" width="2454.54" height="2454.55" rx="165.8" ry="165.8"/>
+  <g id="_244766600">
+   <ellipse id="_245464616" class="fil1 str1" cx="1764.75" cy="1052.2" rx="505.704" ry="168.568"/>
+   <path id="_245466560" class="fil1 str1" d="M1259.05 1052.2c0,0 0,934.509 0,1027.59 0,93.0825 226.459,168.568 505.705,168.568 279.245,0 505.704,-75.4859 505.704,-168.568 0,-93.0813 0,-1027.59 0,-1027.59"/>
+   <path id="_244766120" class="fil1 str1" d="M2270.45 1874.28c0,93.0813 -226.459,168.568 -505.704,168.568 -279.246,0 -505.705,-75.4871 -505.705,-168.568"/>
+   <path id="_244766216" class="fil1 str1" d="M2270.45 1668.76c0,93.0813 -226.459,168.567 -505.704,168.567 -279.246,0 -505.705,-75.4859 -505.705,-168.567"/>
+   <path id="_245466920" class="fil1 str1" d="M2270.45 1463.24c0,93.0825 -226.459,168.568 -505.704,168.568 -279.246,0 -505.705,-75.4859 -505.705,-168.568"/>
+   <path id="_244766456" class="fil1 str1" d="M2270.45 1257.72c0,93.0825 -226.459,168.568 -505.704,168.568 -279.246,0 -505.705,-75.4859 -505.705,-168.568"/>
+  </g>
+  <g id="_245124760">
+   <rect id="_245464760" class="fil2" transform="matrix(0.707107 -0.707107 0.707107 0.707107 418.938 950.126)" width="797.727" height="184.091"/>
+   <rect id="_244768328" class="fil2" transform="matrix(-0.707107 -0.707107 0.707107 -0.707107 983.017 1080.3)" width="797.727" height="184.091"/>
+  </g>
+  <rect class="fil3" x="487.964" y="1129.09" width="122.727" height="993.6"/>
+  <rect class="fil3" transform="matrix(1.32423E-014 -1 0.5 2.64845E-014 552.273 1374.55)" width="122.727" height="981.818"/>
+  <rect class="fil3" transform="matrix(1.32423E-014 -1 0.5 2.64845E-014 552.273 1623.93)" width="122.727" height="981.818"/>
+  <rect class="fil3" transform="matrix(1.32423E-014 -1 0.5 2.64845E-014 552.273 1873.31)" width="122.727" height="981.818"/>
+  <rect class="fil3" transform="matrix(1.32423E-014 -1 0.5 2.64845E-014 552.273 2122.69)" width="122.727" height="981.818"/>
+ </g>
+</svg>

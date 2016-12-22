@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str2 {stroke:#1F1A17;stroke-width:0.935182}
+    .str1 {stroke:#383431;stroke-width:103.908}
+    .str0 {stroke:#383431;stroke-width:155.864}
+    .fil1 {fill:none}
+    .fil2 {fill:#383431}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="211.069" y1="-10.4576" x2="2494.21" y2="2644.83">
+   <stop offset="0" style="stop-color:white"/>
+   <stop offset="1" style="stop-color:#C2C1C1"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="125.366" y="89.9142" width="2454.54" height="2454.55" rx="165.8" ry="165.8"/>
+  <rect class="fil1 str1" x="729.38" y="466.744" width="1266.67" height="966.539"/>
+  <g id="_91338456">
+   <path id="_91338432" class="fil2 str2" d="M406.447 1629.19l131.913 0 0 132.263 -131.913 0 0 -132.263zm264.177 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l131.913 0 0 132.263 -131.913 0 0 -132.263z"/>
+   <path id="_91338408" class="fil2 str2" d="M406.447 1878.57l131.913 0 0 132.263 -131.913 0 0 -132.263zm264.177 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l131.913 0 0 132.263 -131.913 0 0 -132.263z"/>
+   <path id="_92753056" class="fil2 str2" d="M406.447 2127.96l131.913 0 0 132.263 -131.913 0 0 -132.263zm264.177 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l117.119 0 0 132.263 -117.119 0 0 -132.263zm249.382 0l131.913 0 0 132.263 -131.913 0 0 -132.263z"/>
+  </g>
+ </g>
+</svg>

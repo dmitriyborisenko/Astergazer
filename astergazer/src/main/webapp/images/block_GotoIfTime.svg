@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#B7673C;stroke-width:155.864}
+    .fil2 {fill:#6B6060}
+    .fil1 {fill:white}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="253.434" y1="45.9871" x2="2451.84" y2="2588.39">
+   <stop offset="0" style="stop-color:#F8C300"/>
+   <stop offset="1" style="stop-color:#E77817"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="125.366" y="89.9142" width="2454.54" height="2454.55" rx="165.8" ry="165.8"/>
+  <circle class="fil1" cx="1352.64" cy="1317.19" r="991.869"/>
+  <ellipse class="fil2" cx="1355.68" cy="474.25" rx="92.046" ry="92.0452"/>
+  <ellipse class="fil2" cx="1355.68" cy="2129.82" rx="92.046" ry="92.0452"/>
+  <ellipse class="fil2" transform="matrix(4.35481E-014 -1.64424 1.81737 4.81309E-014 527.897 1302.04)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(4.35481E-014 -1.64424 1.81737 4.81309E-014 2183.47 1302.04)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(1.09607 -0.632814 0.699426 1.21144 941.79 585.153)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(1.09607 -0.632814 0.699426 1.21144 1769.58 2018.92)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(0.632814 -1.09607 1.21144 0.699426 638.8 888.143)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(0.632814 -1.09607 1.21144 0.699426 2072.57 1715.93)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(-0.632814 -1.09607 1.21144 -0.699426 638.8 1715.93)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(-0.632814 -1.09607 1.21144 -0.699426 2072.57 888.143)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(-1.09607 -0.632814 0.699426 -1.21144 941.79 2018.92)" rx="55.9784" ry="50.6471"/>
+  <ellipse class="fil2" transform="matrix(-1.09607 -0.632814 0.699426 -1.21144 1769.58 585.153)" rx="55.9784" ry="50.6471"/>
+  <rect class="fil2" x="1321.98" y="1255.21" width="516.922" height="93.665"/>
+  <rect class="fil2" transform="matrix(3.05779E-014 -1.29106 4.16615 1.23384E-013 1308.85 1348.87)" width="557.146" height="22.4824"/>
+ </g>
+</svg>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#00923F;stroke-width:155.864}
+    .fil1 {fill:white}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <radialGradient id="id0" gradientUnits="userSpaceOnUse" cx="955.438" cy="628.727" r="1250.42" fx="955.438" fy="628.727">
+   <stop offset="0" style="stop-color:#84C225"/>
+   <stop offset="1" style="stop-color:#009240"/>
+  </radialGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <ellipse class="fil0 str0" cx="1323.62" cy="1316" rx="1227.27" ry="1227.27"/>
+  <g id="_91537400">
+   <ellipse id="_91537568" class="fil1" cx="700.165" cy="1352.54" rx="184.091" ry="184.091"/>
+   <ellipse id="_91537496" class="fil1" cx="1323.62" cy="1352.54" rx="184.091" ry="184.091"/>
+   <ellipse id="_91537424" class="fil1" cx="1947.07" cy="1352.54" rx="184.091" ry="184.091"/>
+  </g>
+ </g>
+</svg>

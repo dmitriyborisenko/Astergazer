@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#00923F;stroke-width:155.864}
+    .fil1 {fill:#00923F}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="256.005" y1="43.3792" x2="2449.27" y2="2590.99">
+   <stop offset="0" style="stop-color:white"/>
+   <stop offset="1" style="stop-color:#C2C1C1"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="125.366" y="89.9142" width="2454.54" height="2454.55" rx="165.8" ry="165.8"/>
+  <g id="_93178536">
+   <g>
+    <polygon id="_92051992" class="fil1" points="1607.99,393.887 874.271,1015.8 874.271,1613.6 1613.86,2240.48 1613.86,2240.48 1613.86,393.887 "/>
+    <rect id="_93771720" class="fil1" x="427.11" y="1015.8" width="362.4" height="593.045"/>
+   </g>
+   <path id="_93771768" class="fil1" d="M2106.56 658.28l-71.5831 60.6751c96.3937,177.93 151.146,381.697 151.146,598.232 0,215.149 -54.0859,417.673 -149.333,594.792l71.6555 60.7365c108.074,-194.13 169.723,-417.625 169.723,-655.528 0,-239.281 -62.3663,-463.996 -171.608,-658.907z"/>
+   <path id="_92463184" class="fil1" d="M1939.12 694.509l-72.1538 61.1587c84.4953,169.043 132.113,359.719 132.113,561.519 0,200.41 -46.969,389.842 -130.376,558.016l72.2275 61.2213c95.9506,-185.492 150.194,-396.032 150.194,-619.238 0,-224.588 -54.9389,-436.348 -152.005,-622.678z"/>
+   <path id="_92051824" class="fil1" d="M1770.74 731.54l-72.7822 61.6913c73.2117,159.528 114.086,336.97 114.086,523.955 0,185.588 -40.2374,361.785 -112.422,520.388l72.7883 61.6975c84.3873,-176.263 131.679,-373.655 131.679,-582.086 0,-209.826 -47.8968,-408.488 -133.349,-585.646z"/>
+   <path id="_92052640" class="fil1" d="M1230.86 713.554l-73.5713 62.359c60.3168,147.078 93.6544,308.061 93.6544,476.838 0,203.651 -48.4748,395.98 -134.428,566.172l72.0544 61.074c98.561,-187.436 154.419,-400.813 154.419,-627.246 0,-191.694 -40.0619,-374.024 -112.129,-539.197z"/>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<web-app>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext*.xml</param-value>
+	</context-param>
+    
+    <listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+    
+    <servlet>
+        <servlet-name>webmvc-servlet</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value></param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>webmvc-servlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/simpleError404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>400</error-code>
+		<location>/WEB-INF/jsp/simpleError400.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/jsp/simpleError500.jsp</location>
+	</error-page>
+</web-app>

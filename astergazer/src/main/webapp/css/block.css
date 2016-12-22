@@ -1,0 +1,295 @@
+.block:hover {
+    background-color: #aaffaa;
+    box-shadow: 0px 0px 10px 5px #aaffaa;
+}
+
+.block {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    padding: 1px;
+    background-color: rgba(255, 255, 255, 0);
+    background-size: cover;
+    cursor: move;
+    z-index: 4;
+}
+
+.selected-block {
+    background-color: #8CA7FF !important;
+    box-shadow: 0px 0px 10px 5px #8CA7FF !important;
+}
+
+.ep {
+    cursor: pointer;
+    height: 33px;
+    width: 33px;
+}
+
+.caption {
+    float: left;
+    text-align: center;
+    margin-top: 4px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3)
+}
+
+.block-AddQueueMember {
+    background-image: url("../images/block_AddQueueMember.svg");
+}
+
+.block-Agi {
+    background-image: url("../images/block_Agi.svg");
+}
+
+.block-Amd {
+    background-image: url("../images/block_Amd.svg");
+}
+
+.block-Answer {
+    background-image: url("../images/block_Answer.svg");
+}
+
+.block-Background {
+    background-image: url("../images/block_Background.svg");
+}
+
+.block-Busy {
+    background-image: url("../images/block_Busy.svg");
+}
+
+.block-ChannelRedirect {
+    background-image: url("../images/block_ChannelRedirect.svg");
+}
+
+.block-ChanSpy {
+    background-image: url("../images/block_ChanSpy.svg");
+}
+
+.block-Checklist {
+    background-image: url("../images/block_Checklist.svg");
+}
+
+.block-Congestion {
+    background-image: url("../images/block_Congestion.svg");
+}
+
+.block-ConfBridge {
+    background-image: url("../images/block_ConfBridge.svg");
+}
+
+.block-Custom {
+    background-image: url("../images/block_Custom.svg");
+}
+
+.block-DbDel {
+    background-image: url("../images/block_DbDel.svg");
+}
+
+.block-DbDelTree {
+    background-image: url("../images/block_DbDelTree.svg");
+}
+
+.block-DbSet {
+    background-image: url("../images/block_DbSet.svg");
+}
+
+.block-Dial {
+    background-image: url("../images/block_Dial.svg");
+}
+
+.block-DumpChan {
+    background-image: url("../images/block_DumpChan.svg");
+}
+
+.block-EqualCase {
+    background-image: url("../images/block_EqualCase.svg");
+    height: 25px;
+    width: 25px;
+}
+
+.block-EqualCase .caption {
+    margin-top: -7px;
+}
+
+.block-FalseCase {
+    background-image: url("../images/block_FalseCase.svg");
+    height: 25px;
+    width: 25px;
+}
+
+.block-FalseCase .caption {
+    margin-top: -7px;
+    margin-left: -4px !important;
+}
+
+.block-Gosub {
+    background-image: url("../images/block_Gosub.svg");
+}
+
+.block-Goto {
+    background-image: url("../images/block_Goto.svg");
+}
+
+.block-GotoIf {
+    background-image: url("../images/block_GotoIf.svg");
+}
+
+.block-GotoIfTime {
+    background-image: url("../images/block_GotoIfTime.svg");
+}
+
+.block-Hangup {
+    background-image: url("../images/block_Hangup.svg");
+}
+
+.block-Macro {
+    background-image: url("../images/block_Macro.svg");
+}
+
+.block-MeetMe {
+    background-image: url("../images/block_MeetMe.svg");
+}
+
+.block-MixMonitor {
+    background-image: url("../images/block_MixMonitor.svg");
+}
+
+.block-Monitor {
+    background-image: url("../images/block_Monitor.svg");
+}
+
+.block-MusicOnHold {
+    background-image: url("../images/block_MusicOnHold.svg");
+}
+
+.block-NoCdr {
+    background-image: url("../images/block_NoCdr.svg");
+}
+
+.block-NoOp {
+    background-image: url("../images/block_NoOp.svg");
+}
+
+.block-Pickup {
+    background-image: url("../images/block_Pickup.svg");
+}
+
+.block-Playback {
+    background-image: url("../images/block_Playback.svg");
+}
+
+.block-Progress {
+    background-image: url("../images/block_Progress.svg");
+}
+
+.block-Queue {
+    background-image: url("../images/block_Queue.svg");
+}
+
+.block-Read {
+    background-image: url("../images/block_Read.svg");
+}
+
+.block-Record {
+    background-image: url("../images/block_Record.svg");
+}
+
+.block-RemoveQueueMember {
+    background-image: url("../images/block_RemoveQueueMember.svg");
+}
+
+.block-Return {
+    background-image: url("../images/block_Return.svg");
+}
+
+.block-Ringing {
+    background-image: url("../images/block_Ringing.svg");
+}
+
+.block-SayDigits {
+    background-image: url("../images/block_SayDigits.svg");
+}
+
+.block-SayNumber {
+    background-image: url("../images/block_SayNumber.svg");
+}
+
+.block-SendDtmf {
+    background-image: url("../images/block_SendDtmf.svg");
+}
+
+.block-Set {
+    background-image: url("../images/block_Set.svg");
+}
+
+.block-SetGlobal {
+    background-image: url("../images/block_SetGlobal.svg");
+}
+
+.block-SipAddHeader {
+    background-image: url("../images/block_SipAddHeader.svg");
+}
+
+.block-SipRemoveHeader {
+    background-image: url("../images/block_SipRemoveHeader.svg");
+}
+
+.block-Start {
+    background-image: url("../images/block_Start.svg");
+}
+
+.block-StartMusicOnHold {
+    background-image: url("../images/block_StartMusicOnHold.svg");
+}
+
+.block-StopMixMonitor {
+    background-image: url("../images/block_StopMixMonitor.svg");
+}
+
+.block-StopMonitor {
+    background-image: url("../images/block_StopMonitor.svg");
+}
+
+.block-StopMusicOnHold {
+    background-image: url("../images/block_StopMusicOnHold.svg");
+}
+
+.block-Switch {
+    background-image: url("../images/block_Switch.svg");
+}
+
+.block-System {
+    background-image: url("../images/block_System.svg");
+}
+
+.block-Transfer {
+    background-image: url("../images/block_Transfer.svg");
+}
+
+.block-TrueCase {
+    background-image: url("../images/block_TrueCase.svg");
+    height: 25px;
+    width: 25px;
+}
+
+.block-TrueCase .caption {
+    margin-top: -7px;
+    margin-left: -4px !important;
+}
+
+.block-UserEvent {
+    background-image: url("../images/block_UserEvent.svg");
+}
+
+.block-VoiceMenu {
+    background-image: url("../images/block_VoiceMenu.svg");
+}
+
+.block-Wait {
+    background-image: url("../images/block_Wait.svg");
+}
+
+.block-WaitExten {
+    background-image: url("../images/block_WaitExten.svg");
+}

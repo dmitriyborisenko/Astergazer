@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Context>
+	<Resource 
+		name="jdbc/dataSource"
+		auth="Container"
+		type="javax.sql.DataSource"
+		username="astergazer"
+		password="Ga45Sfg36%9Bc"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://127.0.0.1:3306/astergazer?useSSL=false"
+		maxTotal="50"
+		maxIdle="10"
+		maxWaitMillis="10000"
+	/>
+</Context>

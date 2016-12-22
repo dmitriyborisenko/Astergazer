@@ -1,0 +1,35 @@
+.div-panel-checklists {
+	float: left;
+	margin: 5px 5px 10px 10px;
+	position: absolute;	
+	top: 0px;
+    bottom: 0px;
+}
+
+.div-checklists-panel-header {
+	background: rgb(245,246,246); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(245,246,246,1) 0%, rgba(219,220,226,1) 21%, rgba(184,186,198,1) 49%, rgba(221,223,227,1) 80%, rgba(245,246,246,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(245,246,246,1) 0%,rgba(219,220,226,1) 21%,rgba(184,186,198,1) 49%,rgba(221,223,227,1) 80%,rgba(245,246,246,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f6f6', endColorstr='#f5f6f6',GradientType=0 ); /* IE6-9 */
+    border: 1px solid #aaa;
+    padding: 6px;
+    width: 768px;
+    box-shadow: 3px 3px 10px -5px #000000
+}
+
+.div-checklists-panel-caption {
+	height: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.div-checklists-tree-subwrapper {
+    position: absolute; 
+    top: 50px;
+    bottom: 0px;
+    border: 1px solid #aaa;
+    box-shadow: 3px 3px 10px -5px #000000;
+    background-color: #fff; 
+}
+

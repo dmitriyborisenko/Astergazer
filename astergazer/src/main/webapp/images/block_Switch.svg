@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="2700px" height="3600px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2700 3645"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#B7673C;stroke-width:155.864}
+    .fil2 {fill:white}
+    .fil1 {fill:white;fill-rule:nonzero}
+    .fil0 {fill:url(#id0)}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="213.207" y1="-12.6029" x2="2492.07" y2="2646.98">
+   <stop offset="0" style="stop-color:#F8C300"/>
+   <stop offset="0.666667" style="stop-color:#E58518"/>
+   <stop offset="1" style="stop-color:#E77817"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <rect class="fil0 str0" x="125.366" y="89.9142" width="2454.54" height="2454.55" rx="165.8" ry="165.8"/>
+  <g id="_165116384">
+   <path id="_93179208" class="fil1" d="M1450.64 990.841l-233.308 0 0 -23.2679c0,-39.6188 4.40223,-71.8998 13.4153,-96.6355 9.01432,-24.9443 22.4296,-47.374 40.2472,-67.9173 17.8188,-20.5421 57.8561,-56.5981 120.113,-108.164 33.1204,-27.0405 49.68,-51.7762 49.68,-74.2058 0,-22.6395 -6.70705,-40.0373 -19.9137,-52.6144 -13.4153,-12.3685 -33.5389,-18.657 -60.5806,-18.657 -29.1367,0 -53.0341,9.64268 -72.1096,28.928 -19.0755,19.0755 -31.2329,52.8243 -36.4733,100.618l-238.34 -29.5564c8.17486,-87.6224 40.0373,-158.054 95.3775,-211.508 55.55,-53.4526 140.657,-80.0746 255.319,-80.0746 89.2988,0 161.199,18.6558 216.119,55.7587 74.4157,50.5182 111.728,117.597 111.728,201.447 0,34.7956 -9.64268,68.5456 -28.928,100.827 -19.0755,32.2822 -58.4845,71.901 -117.807,118.437 -41.2953,32.9105 -67.4988,59.1128 -78.3982,79.0265 -10.6908,19.7051 -16.1411,45.6987 -16.1411,77.56zm-241.483 62.0485l250.078 0 0 220.521 -250.078 0 0 -220.521z"/>
+   <g>
+    <rect id="_93178296" class="fil2" x="1240.25" y="1398.69" width="188.221" height="778.318"/>
+    <polygon id="_93178080" class="fil2" points="1339.83,2381.35 1451.26,2263.62 1562.69,2145.89 1339.83,2145.89 1116.96,2145.89 1228.39,2263.62 "/>
+   </g>
+   <g>
+    <rect id="_93179328" class="fil2" transform="matrix(0.707107 -0.707107 0.578542 0.578542 1481.94 1382.48)" width="188.221" height="951.277"/>
+    <polygon id="_93179088" class="fil2" points="2247.2,2006.91 2242.75,1844.87 2238.3,1682.83 2080.7,1840.42 1923.11,1998.01 2085.15,2002.46 "/>
+   </g>
+   <g>
+    <rect id="_93179640" class="fil2" transform="matrix(0.707107 0.707107 -0.578542 0.578542 1061.61 1252.32)" width="188.221" height="951.277"/>
+    <polygon id="_93179592" class="fil2" points="437.169,2017.58 599.212,2013.12 761.255,2008.67 603.664,1851.08 446.072,1693.49 441.621,1855.53 "/>
+   </g>
+  </g>
+ </g>
+</svg>
