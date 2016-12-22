@@ -75,6 +75,8 @@ CREATE TABLE configuration (
     PRIMARY KEY (name)
 );
 
-CREATE USER 'astergazer'@'%' IDENTIFIED BY 'Ga45Sfg36%9Bc';
-GRANT ALL PRIVILEGES ON astergazer . * TO 'astergazer'@'%';
+CREATE USER astergazer@'%' IDENTIFIED BY 'Ga45Sfg36%9Bc';
+GRANT ALL PRIVILEGES ON astergazer . * TO astergazer@'%';
+CREATE USER astergazer@localhost IDENTIFIED BY 'Ga45Sfg36%9Bc';
+GRANT ALL PRIVILEGES ON astergazer . * TO astergazer@localhost;
 FLUSH PRIVILEGES;
