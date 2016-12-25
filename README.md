@@ -28,6 +28,7 @@ Implemented using [Asterisk-Java](https://asterisk-java.org/) framework. You hav
 
 ## Integration
 The integration of Asterisk with Astergazer dialplan needs you to perform following steps:
+
 1. Enable the parameter `execincludes=yes` in the `asterisk.conf`.
 2. Add the exec directive to your `extensions.conf` at the end of file. Be sure that you have described context `[globals]` somewhere above that directive.	If you haven't or you in doubt about how to do it in a proper way, you can use the following example (just replace the content of your `extensions.conf` with it):
   ``` sh
@@ -35,7 +36,7 @@ The integration of Asterisk with Astergazer dialplan needs you to perform follow
 	
 	#exec wget -q -O - --proxy=off --dns-timeout=5 --connect-timeout=5 --read-timeout=5 127.0.0.1:8080/astergazer/translator
   ```
-    where `127.0.0.1` is the IP address of the server where Astergazer is deployed. Use `127.0.0.1` if Asterisk and Astergazer are deployed at the same server.
+  where `127.0.0.1` is the IP address of the server where Astergazer is deployed. Use `127.0.0.1` if Asterisk and Astergazer   are deployed at the same server.
 3. Restart your Asterisk service. 
 
 Now all contexts and extensions created in Astergazer will be automatically included to the dialplan. Notice, that any changes you made using Astergazer don't mean simultaneous changes in the Asterisk dialplan - you have to reload it manually by using CLI command 
