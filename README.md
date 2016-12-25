@@ -15,15 +15,22 @@ Implemented as a regular http service, so you need to enable support of external
 Implemented using [Asterisk-Java](https://asterisk-java.org/) framework. You have to be sure that Asterisk has access to it's port (4573 by default).
 ## Installation
 1. Install the [MySQL](https://www.mysql.com/) server.
+
 2. Execute the `astergazer_mysql.sql` script
     ```sh
     cat astergazer_mysql.sql | mysql
     ```
+
 3. Get the complete war package from this repository or build it manually using [Maven](https://maven.apache.org/).
+
 4. Install the [Tomcat](http://tomcat.apache.org/) server.
+
 5. Put the `mysql-connector-java-5.1.38.jar` from the repository to your Tomcat lib folder.
+
 6. Put the `astergazer.war` to the /webapps Tomcat folder.
+
 7. Start Tomcat.
+
 8. If you deployed MySQL and Tomcat at different servers you have to accordingly change DB server path in the `<your Tomcat folder>/webapps/astergazer/META-INF/context.xml` and restart Tomcat service.
 
 ## Integration
