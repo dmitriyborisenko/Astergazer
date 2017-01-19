@@ -60,10 +60,15 @@ dialplan reload
 Now you can start to use Astergazer - just open the link `http://<server IP>:8080/astergazer` in the your browser, where `<server IP>` is the address where Tomcat is running at.
 #### Dialplan mapping
 
+![N|Solid](https://github.com/dmitriyborisenko/Astergazer/blob/master/screen_mapping.png?raw=true)
+
 Using that interface window you can create the dialplan contexts and extensions just by filling the graphical dialplan tree. Also you can create the logic scripts contained call routing logic which can be assigned to any extensions.
 Any logic script can be assigned to any number of different extensions. You can edit script logic by using the **Constructor** function. At this point of release you can't create `[globals]` context from that interface, so you need to have it in the native dialplan conf file (See the **Integration** chapter). To having that context is nessesary because of FastAGI logic which is used to some complex blocks like *CheckList* and *VoiceMenu*.
 
 #### Script constructor
+
+![N|Solid](https://github.com/dmitriyborisenko/Astergazer/blob/master/screen_constructor.png?raw=true)
+
 Here you can build some piece of call-routing logic by placing some command blocks and making connections between them. It's pretty easy - just intuitive. The script logic is always started from *Start* block. 
 Each block you placed after it means some Asterisk dialplan application, except some special blocks which provide more complex logic. Each block parameter corresponds to Asterisk dialplan application parameter with a same name. You can learn more by reading official [Asterisk documentation](https://wiki.asterisk.org/wiki/display/AST/Home).
 The complex blocks are working in a little bit different way. There are:
@@ -87,6 +92,9 @@ Maybe that behaviuor will be changed in feature. At least I have few tickets abo
 - Before you see how your script is looked in a translated mode, be sure that you saved it. Function **Translate** operates only with actual version of the current script contained in the DB.
 
 #### Checklist management
+
+![N|Solid](https://github.com/dmitriyborisenko/Astergazer/blob/master/screen_checklists.png?raw=true)
+
 That part of logic is used only for backround of the *CheckList* dialplan block.
 You can create any number of lists like black, white, etc and fill it with any values which will be used for comparison with some expression value due to *CheckList* block using. If that value is found inside of specific list,
 Astergazer means that script logic have to be passed through  the *True* sub-block, otherwise it will be the *False* one. Besides, if the value is matched to the list entry, Astergazer will set the dialplan variable `CHECKLIST_RETURN_VALUE`
