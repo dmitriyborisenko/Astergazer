@@ -36,7 +36,7 @@ function editCurrentTreeNode() {
             var entityId = currentNode.data.id;
             editChecklist(entityId, currentNode.text);
         } else if (currentNode.type == "entry") {
-            var entityId = gcurrentNode.data.id;
+            var entityId = currentNode.data.id;
             editEntry(entityId, currentNode.text, currentNode.data.returnValue);
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
