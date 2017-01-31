@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.CannotCreateTransactionException;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IChecklistDao;
 import ua.dborisenko.astergazer.domain.Checklist;
@@ -17,6 +18,7 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IChecklistService;
 
 @Service
+@Transactional
 public class ChecklistService implements IChecklistService {
 
     @Autowired

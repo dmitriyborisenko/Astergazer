@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.CannotCreateTransactionException;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IExtensionDao;
 import ua.dborisenko.astergazer.dao.IScriptDao;
@@ -25,6 +26,7 @@ import ua.dborisenko.astergazer.service.IBlockService;
 import ua.dborisenko.astergazer.service.IScriptService;
 
 @Service
+@Transactional
 public class ScriptService implements IScriptService {
 
     private static final Logger log = LoggerFactory.getLogger(ScriptService.class);
@@ -108,7 +110,6 @@ public class ScriptService implements IScriptService {
         try {
             Script script = scriptDao.getFull(id);
             ScriptDataDto dto = new ScriptDataDto(script);
-            //dto.setModificationStamp(getModificationStamp(id));
             dto.setModificationStamp(script.getModificationStamp());
             return dto;
         } catch (CannotCreateTransactionException | DaoException e) {

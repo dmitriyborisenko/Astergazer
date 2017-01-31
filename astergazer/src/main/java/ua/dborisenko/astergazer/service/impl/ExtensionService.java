@@ -3,6 +3,7 @@ package ua.dborisenko.astergazer.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.CannotCreateTransactionException;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IContextDao;
 import ua.dborisenko.astergazer.dao.IExtensionDao;
@@ -16,6 +17,7 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IExtensionService;
 
 @Service
+@Transactional
 public class ExtensionService implements IExtensionService {
 
     @Autowired

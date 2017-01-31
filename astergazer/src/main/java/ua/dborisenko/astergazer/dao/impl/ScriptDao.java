@@ -7,7 +7,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IScriptDao;
 import ua.dborisenko.astergazer.domain.Script;
@@ -16,7 +15,6 @@ import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 
 @Repository
-@Transactional(rollbackFor = Exception.class)
 public class ScriptDao implements IScriptDao {
 
     @PersistenceContext

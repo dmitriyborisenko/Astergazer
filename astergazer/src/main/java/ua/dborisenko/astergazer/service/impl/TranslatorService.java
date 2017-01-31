@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.CannotCreateTransactionException;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IContextDao;
 import ua.dborisenko.astergazer.dao.IScriptDao;
@@ -29,6 +30,7 @@ import ua.dborisenko.astergazer.service.IConfigurationService;
 import ua.dborisenko.astergazer.service.ITranslatorService;
 
 @Service
+@Transactional
 public class TranslatorService implements ITranslatorService {
 
     private static final Logger log = LoggerFactory.getLogger(TranslatorService.class);

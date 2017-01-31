@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.CannotCreateTransactionException;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.controller.ConstructorRestController;
 import ua.dborisenko.astergazer.dao.IConfigurationDao;
@@ -20,6 +21,7 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IConfigurationService;
 
 @Service
+@Transactional
 public class ConfigurationService implements IConfigurationService {
 
     private static final Logger log = LoggerFactory.getLogger(ConstructorRestController.class);

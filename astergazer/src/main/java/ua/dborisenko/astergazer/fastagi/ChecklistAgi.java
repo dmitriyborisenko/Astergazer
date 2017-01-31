@@ -11,18 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ua.dborisenko.astergazer.domain.Checklist;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 import ua.dborisenko.astergazer.exception.ServiceException;
-import ua.dborisenko.astergazer.service.impl.ChecklistEntryService;
-import ua.dborisenko.astergazer.service.impl.ChecklistService;
+import ua.dborisenko.astergazer.service.IChecklistEntryService;
+import ua.dborisenko.astergazer.service.IChecklistService;
 
 public class ChecklistAgi extends BaseAgiScript {
 
     private static final Logger log = LoggerFactory.getLogger(ChecklistAgi.class);
     
     @Autowired
-    private ChecklistService checklistService;
+    private IChecklistService checklistService;
     
     @Autowired
-    private ChecklistEntryService entryService;
+    private IChecklistEntryService entryService;
 
     public void service(AgiRequest request, AgiChannel channel) {
         try {
