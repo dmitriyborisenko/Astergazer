@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StopWatch;
 
 import ua.dborisenko.astergazer.dao.IContextDao;
 import ua.dborisenko.astergazer.dao.IScriptDao;
@@ -196,7 +197,8 @@ public class TranslatorService implements ITranslatorService {
 
     @Override
     public String getTranslatedDialplan() {
-        Long startTimeMs = System.currentTimeMillis();
+        StopWatch watch = new StopWatch();
+        watch.start();
         StringBuilder result = new StringBuilder();
         try {
             cacheGlobalVariables();
@@ -207,8 +209,8 @@ public class TranslatorService implements ITranslatorService {
         }
         result.append(cachedGlobalVariables);
         result.append(cachedContexts);
-        Long endTimeMs = System.currentTimeMillis();
-        result.append(buildSummaryInfo(endTimeMs - startTimeMs));
+        watch.stop();
+        result.append(buildSummaryInfo(watch.getTotalTimeMillis()));
         return result.toString();
 
     }
