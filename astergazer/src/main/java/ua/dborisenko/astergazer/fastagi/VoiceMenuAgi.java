@@ -21,12 +21,13 @@ public class VoiceMenuAgi extends BaseAgiScript {
     private static final String INPUT_STATUS_VARIABLE_NAME = "READSTATUS";
     
     private static final Logger log = LoggerFactory.getLogger(VoiceMenuAgi.class);
+    
+    private ObjectMapper mapper = new ObjectMapper();
 
     public void service(AgiRequest request, AgiChannel channel) {
         try {
             String encodedMenu = request.getParameter("encodedMenu");
             String menuJson = URLDecoder.decode(encodedMenu, "UTF-8");
-            ObjectMapper mapper = new ObjectMapper();
             VoiceMenuDto menuDto = mapper.readValue(menuJson, VoiceMenuDto.class);
             StringBuilder readParams = getReadParams(menuDto);
             performReadIteration(readParams.toString(), menuDto.getInvalidAttemptsCount(), menuDto.getTimeoutAttemptsCount(), menuDto);
