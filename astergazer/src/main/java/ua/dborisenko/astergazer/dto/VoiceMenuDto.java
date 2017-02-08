@@ -1,13 +1,7 @@
 package ua.dborisenko.astergazer.dto;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.lang3.math.NumberUtils;
-
-import ua.dborisenko.astergazer.domain.block.Block;
-import ua.dborisenko.astergazer.domain.block.VoiceMenuBlock;
 
 
 public class VoiceMenuDto {
@@ -27,27 +21,6 @@ public class VoiceMenuDto {
     private Map<String, String> caseLabels = new HashMap<>();
 
     public VoiceMenuDto() {}
-    
-    public VoiceMenuDto(VoiceMenuBlock block, List<Block> caseBlocks) {
-        setMenuPrompt(block.getParameters().get(0).getValue());
-        setInvalidPrompt(block.getParameters().get(1).getValue());
-        setTimeoutPrompt(block.getParameters().get(2).getValue());
-        String stringValue = block.getParameters().get(3).getValue();
-        if (NumberUtils.isCreatable(stringValue)) {
-            setTimeout(Integer.valueOf(stringValue));
-        }
-        stringValue = block.getParameters().get(4).getValue();
-        if (NumberUtils.isCreatable(stringValue)) {
-            setTimeoutAttemptsCount(Integer.valueOf(stringValue));
-        }
-        stringValue = block.getParameters().get(5).getValue();
-        if (NumberUtils.isCreatable(stringValue)) {
-            setInvalidAttemptsCount(Integer.valueOf(stringValue));
-        }
-        for (Block caseBlock : caseBlocks) {
-            caseLabels.put(caseBlock.getCaption(), caseBlock.getLabel());
-        }
-    }
     
     public String getMenuPrompt() {
         return menuPrompt;
@@ -103,6 +76,10 @@ public class VoiceMenuDto {
 
     public void setCaseLabels(Map<String, String> labels) {
         this.caseLabels = labels;
+    }
+    
+    public void addCaseLabel(String caption, String label) {
+        this.caseLabels.put(caption, label);
     }
     
 }

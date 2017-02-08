@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ua.dborisenko.astergazer.dto.VoiceMenuDto;
+import ua.dborisenko.astergazer.dto.VoiceMenuDtoFactory;
 
 @Entity
 @DiscriminatorValue("VoiceMenu")
@@ -24,9 +25,10 @@ public class VoiceMenuBlock extends Block {
     public String translate(List<Block> trueCaseBlocks) {
         String encodedMenu;
         try {
-            VoiceMenuDto menuDto = new VoiceMenuDto(this, trueCaseBlocks);
+            VoiceMenuDtoFactory dtoFactory = new VoiceMenuDtoFactory();
+            VoiceMenuDto dto = dtoFactory.getDto(this, trueCaseBlocks);
             ObjectMapper mapper = new ObjectMapper();
-            String menuJson = mapper.writeValueAsString(menuDto);
+            String menuJson = mapper.writeValueAsString(dto);
             encodedMenu = URLEncoder.encode(menuJson, "UTF-8");
         } catch (JsonProcessingException | UnsupportedEncodingException e) {
             throw new IllegalArgumentException("Could not build the voice menu", e);
