@@ -27,21 +27,21 @@ public class ConfigurationRestController {
     @Autowired
     private IConfigurationService configurationService;
 
-    
+
     @RequestMapping(value = "/getall")
     public RestResult getAll() throws ServiceException {
         RestResult result = new RestResult();
         result.addToData("parameters", configurationService.getAll());
         return result;
     }
-    
+
     @RequestMapping(value = "/getstamp")
     public RestResult getModificationStamp() throws ServiceException {
         RestResult result = new RestResult();
         result.addToData("modificationStamp", configurationService.getModificationStamp().getValue());
         return result;
     }
-        
+
     @RequestMapping(value = "/saveall", method = RequestMethod.POST)
     public RestResult saveAll(@RequestBody Set<ConfigurationParameter> parameters) throws ServiceException {
         RestResult result = new RestResult();

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class ConnectionTest {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -31,7 +32,7 @@ public class ConnectionTest {
         em.clear();
         long id = connection.getId();
         Connection resultConnection = em.find(Connection.class, id);
-        
+
         assertThat(resultConnection.getIsLocked(), is(true));
         assertThat(resultConnection.getSourceBlockLocalId(), is(expectedSourceId));
         assertThat(resultConnection.getTargetBlockLocalId(), is(expectedTargetId));

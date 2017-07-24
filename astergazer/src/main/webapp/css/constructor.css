@@ -18,12 +18,11 @@
 }
 
 .div-canvas-subwrapper {
-    background: #ffffff none repeat scroll 0 0;
-    border-bottom: 1px solid #005775;
+	border-bottom: 1px solid #005775;
     padding: 0px;
     overflow: scroll !important;
-    background-color: white;
-    position: absolute;
+	background: white none repeat scroll 0 0;
+	position: absolute;
     left :0px;
     right :0px;
     top: 0px;
@@ -31,12 +30,11 @@
 }
 
 .div-canvas {
-    background: #ffffff none repeat scroll 0 0;
     border-bottom: 1px solid #005775;
     padding: 0px;
     cursor: default;
     overflow: visible;
-    background-color: white;
+    background: white none repeat scroll 0 0;
     position: absolute;
     left :0px;
     top: 0px;

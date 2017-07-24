@@ -6,9 +6,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class SetGlobalBlockTest {
-    
+
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";
@@ -16,7 +16,7 @@ public class SetGlobalBlockTest {
         String expectedResult = Block.COMMAND_PREFIX + caption + "),Set(GLOBAL(variable)=value)\n";
         SetGlobalBlock block = new SetGlobalBlock();
         blockTestUtil.setBlockParameters(block, caption, parameters);
-        
+
         assertThat(block.translate(), is(expectedResult));
     }
 }

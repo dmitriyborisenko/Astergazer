@@ -14,22 +14,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "dlp_connection")
 public class Connection {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @ManyToOne
     @JoinColumn(name = "script_id")
     @JsonIgnore
     private Script script;
-    
+
     @Column(name = "source_block_local_id")
     private int sourceBlockLocalId;
-    
+
     @Column(name = "target_block_local_id")
     private int targetBlockLocalId;
-    
+
     @Column(name = "is_locked")
     private boolean isLocked;
 

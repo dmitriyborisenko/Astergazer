@@ -32,8 +32,10 @@ public class ExtensionDaoTest {
 
     @Mock
     private EntityManager mockEm;
+
     @InjectMocks
     private ExtensionDao extensionDao;
+
     @InjectMocks
     @Spy
     private ExtensionDao spyExtensionDao;
@@ -53,7 +55,7 @@ public class ExtensionDaoTest {
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Extension.class, id)).thenThrow(Exception.class);
         extensionDao.get(id);
     }
@@ -61,7 +63,7 @@ public class ExtensionDaoTest {
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Context.class, id)).thenReturn(null);
         extensionDao.get(id);
     }
@@ -99,7 +101,7 @@ public class ExtensionDaoTest {
         int id = 1;
         int contextId = 2;
         String name = "test";
-        
+
         doThrow(Exception.class).when(mockEm).createNamedQuery("Extension.getCount");
         extensionDao.getCount(id, contextId, name);
     }
@@ -144,15 +146,15 @@ public class ExtensionDaoTest {
         doThrow(Exception.class).when(mockEm).remove(any());
         spyExtensionDao.delete(id);
     }
-    
+
     @Test
     public void unlinkAllFromScriptTest() throws DaoException {
         int scriptId = 1;
         Query mockQuery = mock(Query.class);
-        
+
         when(mockEm.createNamedQuery("Extension.unlinkAllFromScript")).thenReturn(mockQuery);
         extensionDao.unlinkAllFromScript(scriptId);
-        
+
         verify(mockQuery).executeUpdate();
     }
 }

@@ -31,8 +31,10 @@ public class ContextDaoTest {
 
     @Mock
     private EntityManager mockEm;
+
     @InjectMocks
     private ContextDao contextDao;
+
     @InjectMocks
     @Spy
     private ContextDao spyContextDao;
@@ -52,7 +54,7 @@ public class ContextDaoTest {
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Context.class, id)).thenThrow(Exception.class);
         contextDao.get(id);
     }
@@ -60,7 +62,7 @@ public class ContextDaoTest {
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Context.class, id)).thenReturn(null);
         contextDao.get(id);
     }
@@ -115,7 +117,7 @@ public class ContextDaoTest {
     public void getCountExceptionTest() throws DaoException {
         int id = 1;
         String name = "test";
-        
+
         doThrow(Exception.class).when(mockEm).createNamedQuery("Context.getCount");
         contextDao.getCount(id, name);
     }

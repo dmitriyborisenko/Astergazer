@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("DbSet")
 public class DbSetBlock extends Block {
-    
+
     @Override
     public String translate() {
         StringBuilder result = new StringBuilder("DB(");

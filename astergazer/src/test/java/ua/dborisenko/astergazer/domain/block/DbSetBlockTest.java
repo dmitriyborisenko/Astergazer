@@ -8,7 +8,7 @@ import org.junit.Test;
 public class DbSetBlockTest {
 
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";

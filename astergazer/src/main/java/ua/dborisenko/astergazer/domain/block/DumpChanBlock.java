@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("DumpChan")
 public class DumpChanBlock extends Block {
-    
+
     public DumpChanBlock() {
         application = "DumpChan";
         parametersCount = 1;

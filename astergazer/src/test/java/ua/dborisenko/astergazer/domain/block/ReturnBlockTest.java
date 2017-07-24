@@ -6,9 +6,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class ReturnBlockTest {
-    
+
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";
@@ -16,7 +16,7 @@ public class ReturnBlockTest {
         String expectedResult = Block.COMMAND_PREFIX + caption + "),Return(value)\n";
         ReturnBlock block = new ReturnBlock();
         blockTestUtil.setBlockParameters(block, caption, parameters);
-        
+
         assertThat(block.translate(), is(expectedResult));
     }
 }

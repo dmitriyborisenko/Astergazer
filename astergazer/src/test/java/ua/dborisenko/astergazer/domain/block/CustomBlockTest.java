@@ -15,8 +15,9 @@ public class CustomBlockTest {
         String[] parameters = { "command0", "command1", "command2", "command3", "command4", "command5", "command6",
                 "command7", "command8", "command9", "command10", "command11", "command12", "command13", "command14" };
         StringBuilder expectedResult = new StringBuilder(Block.COMMAND_PREFIX + caption + "),command0\n");
-        for (int i = 1; i <15; i++) {        
-            expectedResult.append(Block.COMMAND_PREFIX + caption + "_" + i + "),command" + i + "\n"); 
+        for (int i = 1; i < 15; i++) {
+            expectedResult.append(Block.COMMAND_PREFIX).append(caption).append("_").append(i).append("),command")
+                    .append(i).append("\n");
         }
         CustomBlock block = new CustomBlock();
         blockTestUtil.setBlockParameters(block, caption, parameters);

@@ -9,21 +9,20 @@ import ua.dborisenko.astergazer.domain.ChecklistEntry;
 public class JsTreeNodeDynamicDto {
 
     private static final String CHECKLIST_NODE_TYPE = "checklist";
-    
     private static final String CHECKLIST_ENTRY_NODE_TYPE = "entry";
-    
+
     private String id;
-    
+
     private Boolean children;
-    
+
     private String parent;
-    
+
     private String text;
-    
+
     private Map<String, String> data = new HashMap<>();
-    
+
     private String type;
-  
+
     public JsTreeNodeDynamicDto(Checklist checkList) {
         this.id = CHECKLIST_NODE_TYPE + checkList.getId();
         this.children = true;
@@ -91,5 +90,5 @@ public class JsTreeNodeDynamicDto {
     public void setParent(String parent) {
         this.parent = parent;
     }
-    
+
 }

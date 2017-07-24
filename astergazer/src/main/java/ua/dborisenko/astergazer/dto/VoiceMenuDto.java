@@ -20,8 +20,9 @@ public class VoiceMenuDto {
 
     private Map<String, String> caseLabels = new HashMap<>();
 
-    public VoiceMenuDto() {}
-    
+    public VoiceMenuDto() {
+    }
+
     public String getMenuPrompt() {
         return menuPrompt;
     }
@@ -77,9 +78,9 @@ public class VoiceMenuDto {
     public void setCaseLabels(Map<String, String> labels) {
         this.caseLabels = labels;
     }
-    
+
     public void addCaseLabel(String caption, String label) {
         this.caseLabels.put(caption, label);
     }
-    
+
 }

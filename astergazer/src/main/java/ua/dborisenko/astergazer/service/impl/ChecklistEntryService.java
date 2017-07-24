@@ -32,11 +32,10 @@ public class ChecklistEntryService implements IChecklistEntryService {
             throw new ServiceException("Could not perform the unique check for the checklist entry control value", e);
         }
         if (entryCount > 0) {
-            throw new DuplicatedValueException("Entry with control value " + controlValue
-                    + " already exists in the checklist with id " + checklistId);
+            throw new DuplicatedValueException("Entry with control value " + controlValue + " already exists in the checklist with id " + checklistId);
         }
     }
-    
+
     @Override
     public void create(String controlValue, String returnValue, int checklistId) throws ServiceException {
         checkIsControlValueExists(0, checklistId, controlValue);
@@ -48,11 +47,11 @@ public class ChecklistEntryService implements IChecklistEntryService {
             entry.setChecklist(checklist);
             entryDao.add(entry);
         } catch (CannotCreateTransactionException | DaoException e) {
-            throw new ServiceException("Could not create the checklist entry vith control value " + controlValue
-                    + " inside of the checklist with id " + checklistId, e);
+            throw new ServiceException("Could not create the checklist entry vith control value " + controlValue +
+                    " inside of the checklist with id " + checklistId, e);
         }
     }
-    
+
     @Override
     public void update(long id, String controlValue, String returnValue) throws ServiceException {
         try {
@@ -75,14 +74,14 @@ public class ChecklistEntryService implements IChecklistEntryService {
             throw new ServiceException("Could not delete the checklist entry with id " + id, e);
         }
     }
-    
+
     @Override
     public String getReturnValue(int checklistId, String controlValue) throws ServiceException {
         try {
             return entryDao.getReturnValue(checklistId, controlValue);
         } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not get the checklist entry return value for control value" + controlValue, e);
-        }    
+        }
     }
 
 }

@@ -25,15 +25,15 @@ public class ChecklistRestControllerTest {
     private static final String CONTROLLER_PATH = "/checklists/rest";
 
     @InjectMocks
-    ChecklistRestController controller;
+    private ChecklistRestController controller;
 
     @Mock
-    IChecklistService mockChecklistService;
+    private IChecklistService mockChecklistService;
 
     @Mock
-    IChecklistEntryService mockEntryService;
+    private IChecklistEntryService mockEntryService;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {
@@ -44,7 +44,7 @@ public class ChecklistRestControllerTest {
     @Test
     public void testAddCheckList() throws Exception {
         String name = "test";
-        
+
         mockMvc.perform(post(CONTROLLER_PATH + "/addchecklist").param("name", name)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
@@ -55,7 +55,7 @@ public class ChecklistRestControllerTest {
     public void testUpdateCheckList() throws Exception {
         int id = 1;
         String name = "test";
-        
+
         mockMvc.perform(post(CONTROLLER_PATH + "/updatechecklist/" + id).param("name", name))
                 .andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
@@ -65,7 +65,7 @@ public class ChecklistRestControllerTest {
     @Test
     public void testDeleteCheckList() throws Exception {
         int id = 1;
-        
+
         mockMvc.perform(post(CONTROLLER_PATH + "/deletechecklist/" + id)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
@@ -77,9 +77,10 @@ public class ChecklistRestControllerTest {
         int checklistId = 1;
         String controlValue = "test1";
         String returnValue = "test2";
-        
+
         mockMvc.perform(post(CONTROLLER_PATH + "/addentry").param("controlValue", controlValue)
-                .param("returnValue", returnValue).param("checklistId", String.valueOf(checklistId))).andExpect(status().isOk())
+                .param("returnValue", returnValue).param("checklistId", String.valueOf(checklistId)))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
         verify(mockEntryService).create(controlValue, returnValue, checklistId);
@@ -90,7 +91,7 @@ public class ChecklistRestControllerTest {
         long id = 1;
         String controlValue = "test1";
         String returnValue = "test2";
-        
+
         mockMvc.perform(post(CONTROLLER_PATH + "/updateentry/" + id).param("controlValue", controlValue)
                 .param("returnValue", returnValue)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -101,7 +102,7 @@ public class ChecklistRestControllerTest {
     @Test
     public void testDeleteEntry() throws Exception {
         long id = 1;
-        
+
         mockMvc.perform(post(CONTROLLER_PATH + "/deleteentry/" + id)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));

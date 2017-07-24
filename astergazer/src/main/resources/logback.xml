@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE xml>
 <configuration>
-     <if condition='isDefined("catalina.home")'>
-        <then>
-            <property name="log.folder" value="${catalina.home}/logs"/>
-        </then>
-        <else>
-            <property name="log.folder" value="./target/logs"/>
-        </else>
-    </if>
-    
-    <appender name="FILE"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.folder}/astergazer.log</file>
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.folder}/astergazer.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>3GB</totalSizeCap>
-        </rollingPolicy>
-        <encoder>
-            <Pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%logger] %msg%n
-            </Pattern>
-        </encoder>
-    </appender>
-    
-    <logger name="ua.dborisenko.astergazer" level="TRACE"
-        additivity="false">
-        <appender-ref ref="FILE" />
-    </logger>
-    
-    <logger name="org.hibernate" level="ERROR">
-        <appender-ref ref="FILE" />
-    </logger>
-    
-    <root level="INFO">
-        <appender-ref ref="FILE" />
-    </root>
+	<if condition='isDefined("catalina.home")'>
+		<then>
+			<property name="log.folder" value="${catalina.home}/logs"/>
+		</then>
+		<else>
+			<property name="log.folder" value="./target/logs"/>
+		</else>
+	</if>
+
+	<appender name="FILE"
+						class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.folder}/astergazer.log</file>
+		<rollingPolicy
+				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.folder}/astergazer.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>3GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%logger] %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<logger name="ua.dborisenko.astergazer" level="TRACE"
+					additivity="false">
+		<appender-ref ref="FILE"/>
+	</logger>
+
+	<logger name="org.hibernate" level="ERROR">
+		<appender-ref ref="FILE"/>
+	</logger>
+
+	<root level="INFO">
+		<appender-ref ref="FILE"/>
+	</root>
 </configuration>

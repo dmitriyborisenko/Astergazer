@@ -7,6 +7,7 @@ public class RecordNotFoundException extends NullPointerException {
     public RecordNotFoundException() {
         super();
     }
+
     public RecordNotFoundException(String message) {
         super(message);
     }

@@ -8,11 +8,11 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("GotoIf")
 public class GotoIfBlock extends Block {
-    
+
     public GotoIfBlock() {
         this.isSwitcher = true;
     }
-    
+
     @Override
     public String translate(List<Block> trueCaseBlocks) {
         StringBuilder result = new StringBuilder("$[");

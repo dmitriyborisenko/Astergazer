@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("SipAddHeader")
 public class SipAddHeaderBlock extends Block {
-    
+
     @Override
     public String translate() {
         StringBuilder result = new StringBuilder(getParameters().get(0).getValue());

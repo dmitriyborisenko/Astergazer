@@ -8,11 +8,11 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Checklist")
 public class ChecklistBlock extends Block {
-    
+
     public ChecklistBlock() {
         this.isSwitcher = true;
     }
-    
+
     @Override
     public String translate(List<Block> trueCaseBlocks) {
         StringBuilder result = new StringBuilder("agi://${ASTERGAZER_HOST}:4573/checklist.agi?listName=");

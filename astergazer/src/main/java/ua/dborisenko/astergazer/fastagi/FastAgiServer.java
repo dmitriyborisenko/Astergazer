@@ -11,17 +11,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FastAgiServer extends AgiServerThread {
-    
+
     @Autowired
     private MappingStrategy agiMapping;
-    
+
     @PostConstruct
     public void init() {
         setAgiServer(new DefaultAgiServer(agiMapping));
         setDaemon(false);
         startup();
     }
-    
+
     @PreDestroy
     public void destroy() {
         shutdown();

@@ -52,7 +52,8 @@ public class ChecklistDao implements IChecklistDao {
     public Checklist getFull(int id) throws DaoException {
         Checklist checklist = get(id);
         try {
-            checklist.getEntries().size();
+            checklist.getEntries()
+                    .size();
         } catch (Exception e) {
             throw new DaoException("Could not get entries for the checklist with id " + id, e);
         }

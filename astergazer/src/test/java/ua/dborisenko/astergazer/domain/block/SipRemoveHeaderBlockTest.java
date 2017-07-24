@@ -6,9 +6,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class SipRemoveHeaderBlockTest {
-    
+
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";
@@ -16,7 +16,7 @@ public class SipRemoveHeaderBlockTest {
         String expectedResult = Block.COMMAND_PREFIX + caption + "),SIPRemoveHeader(header)\n";
         SipRemoveHeaderBlock block = new SipRemoveHeaderBlock();
         blockTestUtil.setBlockParameters(block, caption, parameters);
-        
+
         assertThat(block.translate(), is(expectedResult));
     }
 }

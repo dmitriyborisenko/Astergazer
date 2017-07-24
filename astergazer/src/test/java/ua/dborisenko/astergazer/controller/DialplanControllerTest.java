@@ -24,15 +24,15 @@ import ua.dborisenko.astergazer.service.IScriptService;
 public class DialplanControllerTest {
 
     @InjectMocks
-    DialplanController controller;
+    private DialplanController controller;
 
     @Mock
-    IScriptService mockScriptService;
+    private IScriptService mockScriptService;
 
     @Mock
-    View mockView;
+    private View mockView;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {

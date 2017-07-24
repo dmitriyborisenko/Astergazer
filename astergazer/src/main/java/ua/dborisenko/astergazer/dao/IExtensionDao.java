@@ -5,16 +5,16 @@ import ua.dborisenko.astergazer.exception.DaoException;
 
 public interface IExtensionDao {
 
-    public Extension get(int id) throws DaoException;
+    Extension get(int id) throws DaoException;
 
-    public void add(Extension extension) throws DaoException;
+    void add(Extension extension) throws DaoException;
 
-    public long getCount(int id, int contextId, String name) throws DaoException;
+    long getCount(int id, int contextId, String name) throws DaoException;
 
-    public void update(Extension extension) throws DaoException;
+    void update(Extension extension) throws DaoException;
 
-    public void delete(int id) throws DaoException;
-    
-    public void unlinkAllFromScript(int scriptId) throws DaoException;
+    void delete(int id) throws DaoException;
+
+    void unlinkAllFromScript(int scriptId) throws DaoException;
 
 }

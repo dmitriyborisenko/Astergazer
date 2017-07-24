@@ -31,12 +31,12 @@ public class ChecklistTreeControllerTest {
     private static final String CONTROLLER_PATH = "/checklists/tree";
 
     @InjectMocks
-    ChecklistTreeController controller;
+    private ChecklistTreeController controller;
 
     @Mock
-    IChecklistService mockChecklistService;
+    private IChecklistService mockChecklistService;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {

@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.dborisenko.astergazer.controller.ConstructorRestController;
 import ua.dborisenko.astergazer.dao.IConfigurationDao;
 import ua.dborisenko.astergazer.domain.ConfigurationParameter;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter.DefaultValue;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter.Name;
+import ua.dborisenko.astergazer.domain.ConfigurationParameter.PARAM_NAME;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IConfigurationService;
@@ -31,24 +30,24 @@ public class ConfigurationService implements IConfigurationService {
 
     @Override
     public ConfigurationParameter getFastAgiHost() throws ServiceException {
-        return getParameter(Name.FASTAGI_HOST, DefaultValue.localhost);
+        return getParameter(PARAM_NAME.FASTAGI_HOST);
     }
-    
+
     @Override
     public ConfigurationParameter getModificationStamp() {
         try {
-            ConfigurationParameter parameter = configurationDao.get(Name.MODIFICATION_STAMP);
+            ConfigurationParameter parameter = configurationDao.get(PARAM_NAME.MODIFICATION_STAMP);
             if (parameter == null) {
-                return new ConfigurationParameter(Name.MODIFICATION_STAMP, null);
+                return new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, null);
             } else {
                 return parameter;
             }
         } catch (DaoException e) {
             log.error("Could not get the modification stamp", e);
-            return new ConfigurationParameter(Name.MODIFICATION_STAMP, null);
+            return new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, null);
         }
     }
-    
+
     @Override
     public Set<ConfigurationParameter> getAll() throws ServiceException {
         Set<ConfigurationParameter> result = new HashSet<>();
@@ -73,24 +72,23 @@ public class ConfigurationService implements IConfigurationService {
         Random random = new Random();
         String stamp = System.currentTimeMillis() + "/" + random.nextLong();
         try {
-            configurationDao.set(new ConfigurationParameter(Name.MODIFICATION_STAMP, stamp));
+            configurationDao.set(new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, stamp));
         } catch (DaoException e) {
-            throw new ServiceException("Could not set modification stamp" ,e);
+            throw new ServiceException("Could not set modification stamp", e);
         }
     }
-    
-    private ConfigurationParameter getParameter(Name name, DefaultValue defaultValue) throws ServiceException {
+
+    private ConfigurationParameter getParameter(PARAM_NAME name) throws ServiceException {
         try {
             ConfigurationParameter parameter = configurationDao.get(name);
             if (parameter == null) {
-                return new ConfigurationParameter(name, defaultValue.toString());
+                return new ConfigurationParameter(name, name.getDefaultValue());
             } else {
-            return parameter;
+                return parameter;
             }
         } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not get configuration parameter " + name, e);
         }
     }
-
 
 }

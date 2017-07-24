@@ -87,7 +87,7 @@ function constructCurrentScript() {
 function initScriptDialog() {
     var dialogButtons = {};
     dialogButtons["OK"] = function() {
-        var name = $("#input-script-name").val()
+        var name = $("#input-script-name").val();
         var restUrl = $(this).dialog("option", "restUrl");
         $.ajax({
             type: "POST",
@@ -110,10 +110,10 @@ function initScriptDialog() {
             }
         });
         $(this).dialog("close");
-    }
+    };
     dialogButtons[cancelText] = function() {
         $(this).dialog("close"); 
-    }
+    };
     $("#dialog-script").dialog({
 	  	autoOpen: false,
 	    modal: true,

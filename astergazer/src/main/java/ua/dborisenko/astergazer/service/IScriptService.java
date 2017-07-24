@@ -10,21 +10,21 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 
 public interface IScriptService {
 
-    public void create(String name) throws ServiceException;
+    void create(String name) throws ServiceException;
 
-    public List<JsTreeNodeDto> getScriptsTreeDto() throws ServiceException;
-    
-    public List<ScriptDto> getScriptsDto() throws ServiceException;
+    List<JsTreeNodeDto> getScriptsTreeDto() throws ServiceException;
 
-    public Script get(int id) throws ServiceException;
+    List<ScriptDto> getScriptsDto() throws ServiceException;
 
-    public ScriptDataDto getScriptDataDto(int id) throws ServiceException;
+    Script get(int id) throws ServiceException;
 
-    public void update(int id, String name) throws ServiceException;
+    ScriptDataDto getScriptDataDto(int id) throws ServiceException;
 
-    public void updateData(int id, ScriptDataDto dto) throws ServiceException;
+    void update(int id, String name) throws ServiceException;
 
-    public void delete(int id) throws ServiceException;
+    void updateData(int id, ScriptDataDto dto) throws ServiceException;
 
-    public String getModificationStamp(int id);
+    void delete(int id) throws ServiceException;
+
+    String getModificationStamp(int id);
 }

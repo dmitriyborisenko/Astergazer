@@ -7,12 +7,12 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 
 public interface IConfigurationService {
 
-    public ConfigurationParameter getFastAgiHost() throws ServiceException;
+    ConfigurationParameter getFastAgiHost() throws ServiceException;
 
-    public ConfigurationParameter getModificationStamp();
-    
-    public Set<ConfigurationParameter> getAll() throws ServiceException;
+    ConfigurationParameter getModificationStamp();
 
-    public void setAll(Set<ConfigurationParameter> parameters) throws ServiceException;
+    Set<ConfigurationParameter> getAll() throws ServiceException;
+
+    void setAll(Set<ConfigurationParameter> parameters) throws ServiceException;
 
 }

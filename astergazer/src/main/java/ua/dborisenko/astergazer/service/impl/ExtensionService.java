@@ -41,7 +41,7 @@ public class ExtensionService implements IExtensionService {
                     "Extension with name " + name + " already exists in the context with id " + contextId);
         }
     }
-    
+
     @Override
     public void create(String name, int contextId, int scriptId) throws ServiceException {
         checkIsNameExists(0, contextId, name);

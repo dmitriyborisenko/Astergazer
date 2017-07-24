@@ -22,7 +22,7 @@ public class BlockService implements IBlockService {
 
     @Autowired
     private IBlockDao blockDao;
-    
+
     @Override
     public void addStartBlockToScript(Script script) throws ServiceException {
         Block startBlock = new StartBlock();

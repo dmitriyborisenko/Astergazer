@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("StopMusicOnHold")
 public class StopMusicOnHoldBlock extends Block {
-    
+
     public StopMusicOnHoldBlock() {
         application = "StopMusicOnHold";
     }

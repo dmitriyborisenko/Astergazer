@@ -6,12 +6,12 @@ public class ScriptDto {
 
     private int id;
     private String name;
- 
+
     public ScriptDto(Script script) {
         this.id = script.getId();
         this.name = script.getName();
     }
-    
+
     public int getId() {
         return id;
     }

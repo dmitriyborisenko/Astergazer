@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class ExtensionTest {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -32,7 +33,7 @@ public class ExtensionTest {
         em.clear();
         int id = extension.getId();
         Extension resultExtension = em.find(Extension.class, id);
-        
+
         assertThat(resultExtension.getName(), is(expectedName));
         assertThat(resultExtension.getScript(), is(notNullValue()));
     }

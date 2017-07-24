@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class ContextTest {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -26,13 +27,13 @@ public class ContextTest {
         context.setName(expectedName);
         Extension extension = new Extension();
         extension.setContext(context);
-        
+
         em.persist(context);
         em.persist(extension);
         em.clear();
         int id = context.getId();
         Context resultContext = em.find(Context.class, id);
-        
+
         assertThat(resultContext.getName(), is(expectedName));
         assertThat(resultContext.getExtensions().size(), is(1));
     }

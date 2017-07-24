@@ -10,7 +10,7 @@ import ua.dborisenko.astergazer.domain.block.VoiceMenuBlock;
 
 @Component
 public class VoiceMenuDtoFactory {
-    
+
     public VoiceMenuDto getDto(VoiceMenuBlock block, List<Block> caseBlocks) {
         VoiceMenuDto dto = new VoiceMenuDto();
         dto.setMenuPrompt(block.getParameters().get(0).getValue());

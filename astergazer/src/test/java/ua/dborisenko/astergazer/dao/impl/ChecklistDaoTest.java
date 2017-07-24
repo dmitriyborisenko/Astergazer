@@ -33,8 +33,10 @@ public class ChecklistDaoTest {
 
     @Mock
     private EntityManager mockEm;
+
     @InjectMocks
     private ChecklistDao checklistDao;
+
     @InjectMocks
     @Spy
     private ChecklistDao spyChecklistDao;
@@ -54,7 +56,7 @@ public class ChecklistDaoTest {
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Checklist.class, id)).thenThrow(Exception.class);
         checklistDao.get(id);
     }
@@ -62,7 +64,7 @@ public class ChecklistDaoTest {
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Checklist.class, id)).thenReturn(null);
         checklistDao.get(id);
     }
@@ -85,7 +87,7 @@ public class ChecklistDaoTest {
     @Test(expected = DaoException.class)
     public void getByNameExceptionTest() throws DaoException {
         String name = "test";
-        
+
         when(mockEm.createNamedQuery("Checklist.getByName")).thenThrow(Exception.class);
         checklistDao.getByName(name);
     }
@@ -179,7 +181,7 @@ public class ChecklistDaoTest {
     public void getCountExceptionTest() throws DaoException {
         int id = 1;
         String name = "test";
-        
+
         doThrow(Exception.class).when(mockEm).createNamedQuery("Checklist.getCount");
         checklistDao.getCount(id, name);
     }

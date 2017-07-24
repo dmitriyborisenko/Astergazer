@@ -7,11 +7,11 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 
 public interface IContextService {
 
-    public void create(String name) throws ServiceException;
+    void create(String name) throws ServiceException;
 
-    public List<JsTreeNodeDto> getContextsTreeDto() throws ServiceException;
+    List<JsTreeNodeDto> getContextsTreeDto() throws ServiceException;
 
-    public void update(int id, String name) throws ServiceException;
+    void update(int id, String name) throws ServiceException;
 
-    public void delete(int id) throws ServiceException;
+    void delete(int id) throws ServiceException;
 }

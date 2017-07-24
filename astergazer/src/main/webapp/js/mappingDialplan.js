@@ -110,7 +110,6 @@ function editCurrentDialplanTreeNode() {
             editExtension(entityId, currentNode.text, scriptId);
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
-            return;
         }
     }
 }
@@ -126,7 +125,6 @@ function deleteCurrentDialplanTreeNode() {
             deleteExtension(entityId, currentNode.text);
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
-            return;
         }
     }
 }
@@ -134,7 +132,7 @@ function deleteCurrentDialplanTreeNode() {
 function initContextDialog() {
     var dialogButtons = {};
     dialogButtons["OK"] = function() {
-        var name = $("#input-context-name").val()
+        var name = $("#input-context-name").val();
         var restUrl = $(this).dialog("option", "restUrl");
         $.ajax({
             type : "POST",
@@ -157,10 +155,10 @@ function initContextDialog() {
             }
         });
         $(this).dialog("close");
-    }
+    };
     dialogButtons[cancelText] = function() {
         $(this).dialog("close"); 
-    }
+    };
     $("#dialog-context").dialog({
         autoOpen : false,
         modal : true,
@@ -210,10 +208,10 @@ function initExtensionDialog() {
             }
         });
         $(this).dialog("close");
-    }
+    };
     dialogButtons[cancelText] = function() {
         $(this).dialog("close"); 
-    }
+    };
     $("#dialog-extension").dialog({
         autoOpen : false,
         modal : true,

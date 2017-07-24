@@ -17,10 +17,10 @@ import ua.dborisenko.astergazer.service.IChecklistService;
 public class ChecklistAgi extends BaseAgiScript {
 
     private static final Logger log = LoggerFactory.getLogger(ChecklistAgi.class);
-    
+
     @Autowired
     private IChecklistService checklistService;
-    
+
     @Autowired
     private IChecklistEntryService entryService;
 
@@ -33,7 +33,7 @@ public class ChecklistAgi extends BaseAgiScript {
                 checklist = checklistService.getByName(checklistName);
             } catch (RecordNotFoundException e) {
                 log.warn("Trying to check control value for non-existent checklist with name {}", checklistName);
-                verbose("Checklist with name " + request.getParameter("listName") + " doesn`t exist", 0);
+                verbose("Checklist with name " + request.getParameter("listName") + " does not exist", 0);
                 return;
             }
             String controlValue = getFullVariable(request.getParameter("expression"));

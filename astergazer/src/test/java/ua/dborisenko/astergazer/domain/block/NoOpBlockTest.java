@@ -6,9 +6,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class NoOpBlockTest {
-    
+
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";
@@ -16,7 +16,7 @@ public class NoOpBlockTest {
         String expectedResult = Block.COMMAND_PREFIX + caption + "),NoOp(text)\n";
         NoOpBlock block = new NoOpBlock();
         blockTestUtil.setBlockParameters(block, caption, parameters);
-        
+
         assertThat(block.translate(), is(expectedResult));
     }
 }

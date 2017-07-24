@@ -23,14 +23,14 @@ public class DialplanController {
 
     @Autowired
     private IScriptService scriptService;
-    
-    @RequestMapping(value = {"/settings"})
+
+    @RequestMapping(value = "/settings")
     public ModelAndView showConfiguration() throws ServiceException {
         ModelAndView modelAndView = new ModelAndView("configuration");
         return modelAndView;
     }
-    
-    @RequestMapping(value = {"/mapping", "/"})
+
+    @RequestMapping(value = { "/mapping", "/" })
     public ModelAndView showDialplanMap() throws ServiceException {
         ModelAndView modelAndView = new ModelAndView("mapping");
         return modelAndView;
@@ -42,13 +42,13 @@ public class DialplanController {
         modelAndView.addObject("script", scriptService.get(scriptId));
         return modelAndView;
     }
-    
+
     @RequestMapping(value = "/checklists")
     public ModelAndView showCheckLists() throws ServiceException {
         ModelAndView modelAndView = new ModelAndView("checklists");
         return modelAndView;
     }
-    
+
     @ExceptionHandler(RecordNotFoundException.class)
     public ModelAndView handleRecordNotFoundException(HttpServletRequest request, Exception e) {
         log.warn("Record not found for request {}", request.getRequestURL(), e);

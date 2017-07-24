@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class AnswerBlockTest {
-    
+
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
 
     @Test

@@ -73,7 +73,7 @@ public class ExtensionDao implements IExtensionDao {
             throw new DaoException("Could not delete the dialplan extension with id " + id, e);
         }
     }
-  
+
     @Override
     public void unlinkAllFromScript(int scriptId) throws DaoException {
         try {

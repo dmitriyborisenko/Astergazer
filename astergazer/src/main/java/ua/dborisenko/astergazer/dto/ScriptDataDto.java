@@ -9,19 +9,19 @@ import ua.dborisenko.astergazer.domain.block.Block;
 public class ScriptDataDto {
 
     private List<Block> blocks;
-    
+
     private List<Connection> connections;
-    
+
     private String modificationStamp;
 
     public ScriptDataDto() {
     }
-    
+
     public ScriptDataDto(Script script) {
         this.blocks = script.getBlocks();
         this.connections = script.getConnections();
     }
-    
+
     public List<Block> getBlocks() {
         return blocks;
     }

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("SayNumber")
 public class SayNumberBlock extends Block {
-    
+
     public SayNumberBlock() {
         application = "SayNumber";
         parametersCount = 2;

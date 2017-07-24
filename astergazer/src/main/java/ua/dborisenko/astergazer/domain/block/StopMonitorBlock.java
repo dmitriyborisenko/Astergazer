@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("StopMonitor")
 public class StopMonitorBlock extends Block {
-    
+
     public StopMonitorBlock() {
         application = "StopMonitor";
     }

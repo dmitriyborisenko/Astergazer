@@ -7,6 +7,7 @@ public class BlockNotFoundException extends NullPointerException {
     public BlockNotFoundException() {
         super();
     }
+
     public BlockNotFoundException(String message) {
         super(message);
     }

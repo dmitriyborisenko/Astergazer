@@ -4,7 +4,7 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 
 public interface ITranslatorService {
 
-    public String getTranslatedScript(int id) throws ServiceException;
+    String getTranslatedScript(int id) throws ServiceException;
 
-    public String getTranslatedDialplan();
+    String getTranslatedDialplan();
 }

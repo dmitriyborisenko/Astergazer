@@ -1,6 +1,7 @@
 package ua.dborisenko.astergazer.controller;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class MappingTreeController {
 
     @Autowired
     private IScriptService scriptService;
-    
+
     @Autowired
     private IContextService contextService;
 
@@ -34,12 +35,12 @@ public class MappingTreeController {
     public List<JsTreeNodeDto> getScripts() throws ServiceException {
         return scriptService.getScriptsTreeDto();
     }
-    
+
     @RequestMapping(value = "/getcontexts")
     public List<JsTreeNodeDto> getDialplanTree() throws ServiceException {
         return contextService.getContextsTreeDto();
     }
-    
+
     @ExceptionHandler(ServiceException.class)
     public void handleServiceException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
         log.error("Service error during request execution {}", request.getRequestURL(), e);

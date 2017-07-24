@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("WaitExten")
 public class WaitExtenBlock extends Block {
-    
+
     public WaitExtenBlock() {
         application = "WaitExten";
         parametersCount = 2;

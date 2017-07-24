@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Gosub")
 public class GosubBlock extends Block {
-    
+
     @Override
     public String translate() {
         StringBuilder parameterString = new StringBuilder(getParameters().get(0).getValue());

@@ -20,9 +20,10 @@ public class BlockDaoTest {
 
     @Mock
     private EntityManager mockEm;
+
     @InjectMocks
     private BlockDao blockDao;
-    
+
     @Test
     public void addBlockTest() throws DaoException {
         Block block = new Block();

@@ -33,8 +33,10 @@ public class ChecklistEntryDaoTest {
 
     @Mock
     private EntityManager mockEm;
+
     @InjectMocks
     private ChecklistEntryDao entryDao;
+
     @InjectMocks
     @Spy
     private ChecklistEntryDao spyEntryDao;
@@ -54,7 +56,7 @@ public class ChecklistEntryDaoTest {
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
         long id = 1;
-        
+
         when(mockEm.find(ChecklistEntry.class, id)).thenThrow(Exception.class);
         entryDao.get(id);
     }
@@ -62,7 +64,7 @@ public class ChecklistEntryDaoTest {
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
         long id = 1;
-        
+
         when(mockEm.find(Checklist.class, id)).thenReturn(null);
         entryDao.get(id);
     }
@@ -100,7 +102,7 @@ public class ChecklistEntryDaoTest {
         long id = 1;
         int checkListId = 2;
         String controlValue = "";
-                
+
         doThrow(Exception.class).when(mockEm).createNamedQuery("ChecklistEntry.getCount");
         entryDao.getCount(id, checkListId, controlValue);
     }
@@ -140,7 +142,7 @@ public class ChecklistEntryDaoTest {
         spyEntryDao.delete(id);
     }
 
-    
+
     @Test
     public void getReturnValueTest() throws DaoException {
         String controlValue = "";
@@ -155,7 +157,7 @@ public class ChecklistEntryDaoTest {
 
         assertThat(entryDao.getReturnValue(checklistId, controlValue), is(expectedValue));
     }
-    
+
     @Test
     public void getReturnValueEmptyTest() throws DaoException {
         List<String> resultList = new ArrayList<>();
@@ -168,7 +170,7 @@ public class ChecklistEntryDaoTest {
 
         assertThat(entryDao.getReturnValue(checklistId, controlValue), nullValue());
     }
-    
+
     @Test(expected = DaoException.class)
     public void getReturnValueExceptionTest() throws DaoException {
         int checklistId = 1;
@@ -177,5 +179,5 @@ public class ChecklistEntryDaoTest {
         doThrow(Exception.class).when(mockEm).createNamedQuery("ChecklistEntry.getReturnValue");
         entryDao.getReturnValue(checklistId, controlValue);
     }
-    
+
 }

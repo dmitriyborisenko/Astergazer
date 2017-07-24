@@ -33,8 +33,10 @@ public class ScriptDaoTest {
 
     @Mock
     private EntityManager mockEm;
+
     @InjectMocks
     private ScriptDao scriptDao;
+
     @InjectMocks
     @Spy
     private ScriptDao spyScriptDao;
@@ -54,7 +56,7 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Script.class, id)).thenThrow(Exception.class);
         scriptDao.get(id);
     }
@@ -62,7 +64,7 @@ public class ScriptDaoTest {
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Script.class, id)).thenReturn(null);
         scriptDao.get(id);
     }
@@ -89,7 +91,7 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void getFullExceptionTest() throws DaoException {
         int id = 1;
-        
+
         when(mockEm.find(Script.class, id)).thenThrow(Exception.class);
         scriptDao.getFull(id);
     }
@@ -107,7 +109,7 @@ public class ScriptDaoTest {
         doThrow(Exception.class).when(mockEm).persist(any());
         scriptDao.add(new Script());
     }
-    
+
     @Test
     public void getAllTest() throws DaoException {
         List<Script> expectedList = new ArrayList<>();
@@ -144,7 +146,7 @@ public class ScriptDaoTest {
     public void getCountExceptionTest() throws DaoException {
         int id = 1;
         String name = "test";
-        
+
         doThrow(Exception.class).when(mockEm).createNamedQuery("Script.getCount");
         scriptDao.getCount(id, name);
     }

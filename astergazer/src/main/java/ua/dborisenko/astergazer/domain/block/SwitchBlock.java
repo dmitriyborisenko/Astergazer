@@ -12,7 +12,7 @@ public class SwitchBlock extends Block {
     public SwitchBlock() {
         this.isSwitcher = true;
     }
-    
+
     @Override
     public String translate(List<Block> trueCaseBlocks) {
         String expression = getParameters().get(0).getValue();

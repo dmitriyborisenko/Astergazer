@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("SetGlobal")
 public class SetGlobalBlock extends Block {
-    
+
     @Override
     public String translate() {
         StringBuilder result = new StringBuilder("GLOBAL(");

@@ -72,11 +72,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @Type(value = RemoveQueueMemberBlock.class, name = "RemoveQueueMember"),
         @Type(value = DumpChanBlock.class, name = "DumpChan"), @Type(value = DbSetBlock.class, name = "DbSet"),
         @Type(value = DbDelBlock.class, name = "DbDel"), @Type(value = DbDelTreeBlock.class, name = "DbDelTree"),
-        @Type(value = AmdBlock.class, name = "Amd")})
+        @Type(value = AmdBlock.class, name = "Amd") })
 public class Block {
 
     protected static final String COMMAND_PREFIX = "\tsame = n(";
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
@@ -220,7 +220,7 @@ public class Block {
         result.append("\n");
         return result.toString();
     }
-    
+
     protected String buildCommandString(String label, String command, String parameters) {
         StringBuilder result = new StringBuilder(COMMAND_PREFIX);
         result.append(label);
@@ -253,7 +253,7 @@ public class Block {
     public String translate(List<Block> trueCaseBlocks) {
         return translate();
     }
-    
+
     @JsonIgnore
     public String getLabel() {
         return getCaption();

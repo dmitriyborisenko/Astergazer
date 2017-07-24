@@ -1,6 +1,7 @@
 package ua.dborisenko.astergazer.controller;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,12 +32,12 @@ public class ChecklistTreeController {
     public List<JsTreeNodeDynamicDto> getCheckLists() throws ServiceException {
         return checklistService.getChecklistsTreeDto();
     }
-    
+
     @RequestMapping(value = "/getentries/{checklistId}")
     public List<JsTreeNodeDynamicDto> getEntries(@PathVariable int checklistId) throws ServiceException {
         return checklistService.getEntriesTreeDto(checklistId);
     }
-    
+
     @ExceptionHandler(ServiceException.class)
     public void handleServiceException(HttpServletRequest request, HttpServletResponse response, Exception e) throws IOException {
         log.error("Service error during request execution {}", request.getRequestURL(), e);

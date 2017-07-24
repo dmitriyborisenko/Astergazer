@@ -63,7 +63,7 @@ public class ChecklistEntryDao implements IChecklistEntryDao {
             throw new DaoException("Could not update the checklist entry", e);
         }
     }
-    
+
     @Override
     public void delete(long id) throws DaoException {
         ChecklistEntry entry = get(id);

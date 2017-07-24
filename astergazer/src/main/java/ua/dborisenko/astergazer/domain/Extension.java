@@ -14,23 +14,23 @@ import javax.persistence.Table;
 @Table(name = "dlp_extension")
 @NamedQueries(value = {
         @NamedQuery(name = "Extension.getCount", query = "SELECT count(e) FROM Extension e WHERE e.name = :name and e.context.id = :contextId and e.id <> :id"),
-        @NamedQuery(name = "Extension.unlinkAllFromScript", query = "UPDATE Extension e SET e.script = null WHERE e.script.id = :id")})
+        @NamedQuery(name = "Extension.unlinkAllFromScript", query = "UPDATE Extension e SET e.script = null WHERE e.script.id = :id") })
 public class Extension {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
+
     private String name;
-    
+
     @ManyToOne
     @JoinColumn(name = "context_id")
     private Context context;
-   
+
     @ManyToOne
     @JoinColumn(name = "script_id")
     private Script script;
-    
+
     public int getId() {
         return id;
     }
@@ -62,9 +62,9 @@ public class Extension {
     public void setScript(Script script) {
         this.script = script;
     }
-    
+
     public int getScriptId() {
         return script.getId();
     }
-    
+
 }

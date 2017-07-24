@@ -10,19 +10,17 @@ import ua.dborisenko.astergazer.domain.Script;
 public class JsTreeNodeDto {
 
     private static final String SCRIPT_NODE_TYPE = "script";
-    
     private static final String EXTENSION_NODE_TYPE = "extension";
-    
     private static final String CONTEXT_NODE_TYPE = "context";
-    
+
     private String id;
-    
+
     private String parent;
-    
+
     private String text;
-    
+
     private String type;
-    
+
     private Map<String, String> data = new HashMap<>();
 
     public JsTreeNodeDto(Context context) {
@@ -70,7 +68,7 @@ public class JsTreeNodeDto {
     public void setType(String type) {
         this.type = type;
     }
-    
+
     public String getParent() {
         return parent;
     }
@@ -94,5 +92,5 @@ public class JsTreeNodeDto {
     public void setData(Map<String, String> data) {
         this.data = data;
     }
-    
+
 }

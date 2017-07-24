@@ -23,12 +23,12 @@ public class TranslatorRestControllerTest {
     private static final String CONTROLLER_PATH = "/translator";
 
     @InjectMocks
-    TranslatorRestController controller;
+    private TranslatorRestController controller;
 
     @Mock
-    ITranslatorService mockTranslatorService;
+    private ITranslatorService mockTranslatorService;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {

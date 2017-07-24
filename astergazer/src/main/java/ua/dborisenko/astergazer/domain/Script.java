@@ -21,7 +21,7 @@ import ua.dborisenko.astergazer.domain.block.Block;
 @Table(name = "dlp_script")
 @NamedQueries(value = {
         @NamedQuery(name = "Script.getAll", query = "SELECT s FROM Script s order by s.name"),
-        @NamedQuery(name = "Script.getCount", query = "SELECT count(s) FROM Script s WHERE s.name = :name and s.id <> :id")})
+        @NamedQuery(name = "Script.getCount", query = "SELECT count(s) FROM Script s WHERE s.name = :name and s.id <> :id") })
 public class Script {
 
     @Id
@@ -39,7 +39,7 @@ public class Script {
 
     @Column(name = "modification_stamp")
     private String modificationStamp;
-    
+
     public List<Connection> getConnections() {
         return connections;
     }

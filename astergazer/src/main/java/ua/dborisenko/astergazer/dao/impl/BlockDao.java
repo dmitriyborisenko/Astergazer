@@ -14,7 +14,7 @@ public class BlockDao implements IBlockDao {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     @Override
     public void addBlock(Block block) throws DaoException {
         try {

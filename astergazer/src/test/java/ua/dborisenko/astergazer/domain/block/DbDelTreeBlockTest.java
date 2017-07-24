@@ -8,7 +8,7 @@ import org.junit.Test;
 public class DbDelTreeBlockTest {
 
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";
@@ -19,7 +19,7 @@ public class DbDelTreeBlockTest {
 
         assertThat(block.translate(), is(expectedResult));
     }
-    
+
     @Test
     public void translateOnlyFamilyTest() {
         String caption = "caption";

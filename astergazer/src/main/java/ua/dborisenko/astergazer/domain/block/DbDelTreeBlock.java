@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("DbDelTree")
 public class DbDelTreeBlock extends Block {
-    
+
     @Override
     public String translate() {
         StringBuilder parameterString = new StringBuilder(getParameters().get(0).getValue());

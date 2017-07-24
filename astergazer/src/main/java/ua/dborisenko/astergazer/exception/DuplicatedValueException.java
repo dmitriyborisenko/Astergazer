@@ -7,10 +7,11 @@ public class DuplicatedValueException extends IllegalArgumentException {
     public DuplicatedValueException() {
         super();
     }
+
     public DuplicatedValueException(String message) {
         super(message);
     }
-    
+
     public DuplicatedValueException(Throwable cause) {
         super(cause);
     }

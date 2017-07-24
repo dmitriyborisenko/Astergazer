@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("SendDtmf")
 public class SendDtmfBlock extends Block {
-    
+
     public SendDtmfBlock() {
         application = "SendDTMF";
         parametersCount = 4;

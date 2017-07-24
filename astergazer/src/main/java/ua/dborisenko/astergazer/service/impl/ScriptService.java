@@ -30,13 +30,13 @@ import ua.dborisenko.astergazer.service.IScriptService;
 public class ScriptService implements IScriptService {
 
     private static final Logger log = LoggerFactory.getLogger(ScriptService.class);
-    
+
     @Autowired
     private IScriptDao scriptDao;
-    
+
     @Autowired
     private IBlockService blockService;
-    
+
     @Autowired
     private IExtensionDao extensionDao;
 
@@ -51,7 +51,7 @@ public class ScriptService implements IScriptService {
             throw new DuplicatedValueException("Script with name " + name + " already exists.");
         }
     }
-    
+
     @Override
     public void create(String name) throws ServiceException {
         checkIsNameExists(0, name);
@@ -82,7 +82,7 @@ public class ScriptService implements IScriptService {
             throw new ServiceException("Could not get the script list", e);
         }
     }
-    
+
     @Override
     public List<ScriptDto> getScriptsDto() throws ServiceException {
         try {
@@ -165,7 +165,7 @@ public class ScriptService implements IScriptService {
         Random random = new Random();
         return System.currentTimeMillis() + "/" + random.nextLong();
     }
-    
+
     @Override
     public String getModificationStamp(int id) {
         try {

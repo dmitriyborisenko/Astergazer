@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ua.dborisenko.astergazer.domain.ConfigurationParameter;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter.Name;
+import ua.dborisenko.astergazer.domain.ConfigurationParameter.PARAM_NAME;
 import ua.dborisenko.astergazer.service.IConfigurationService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -35,14 +35,14 @@ public class ConfigurationRestControllerTest {
     private static final String CONTROLLER_PATH = "/configuration/rest";
 
     @InjectMocks
-    ConfigurationRestController controller;
+    private ConfigurationRestController controller;
 
     @Mock
-    IConfigurationService mockConfigurationService;
+    private IConfigurationService mockConfigurationService;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-    ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Before
     public void setUp() throws Exception {
@@ -54,7 +54,7 @@ public class ConfigurationRestControllerTest {
     public void testGetAll() throws Exception {
         Set<ConfigurationParameter> parameters = new HashSet<>();
         String expectedValue = "testValue";
-        parameters.add(new ConfigurationParameter(Name.FASTAGI_HOST, expectedValue));
+        parameters.add(new ConfigurationParameter(PARAM_NAME.FASTAGI_HOST, expectedValue));
 
         when(mockConfigurationService.getAll()).thenReturn(parameters);
 
@@ -68,7 +68,7 @@ public class ConfigurationRestControllerTest {
     @Test
     public void testGetStamp() throws Exception {
         String expectedValue = "testValue";
-        ConfigurationParameter parameter = new ConfigurationParameter(Name.MODIFICATION_STAMP, expectedValue);
+        ConfigurationParameter parameter = new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, expectedValue);
 
         when(mockConfigurationService.getModificationStamp()).thenReturn(parameter);
 

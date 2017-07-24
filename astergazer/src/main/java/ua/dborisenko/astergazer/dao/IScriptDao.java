@@ -8,18 +8,18 @@ import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 
 public interface IScriptDao {
 
-    public Script get(int id) throws DaoException;
+    Script get(int id) throws DaoException;
 
-    public Script getFull(int id) throws DaoException;
+    Script getFull(int id) throws DaoException;
 
-    public void add(Script script) throws DuplicatedValueException, DaoException;
+    void add(Script script) throws DuplicatedValueException, DaoException;
 
-    public List<Script> getAll() throws DaoException;
+    List<Script> getAll() throws DaoException;
 
-    public long getCount(int id, String name) throws DaoException;
+    long getCount(int id, String name) throws DaoException;
 
-    public void update(Script script) throws DaoException;
+    void update(Script script) throws DaoException;
 
-    public void delete(int id) throws DaoException;
+    void delete(int id) throws DaoException;
 
 }

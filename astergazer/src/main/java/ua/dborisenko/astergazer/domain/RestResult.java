@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class RestResult {
 
     private String status = "OK";
-    
+
     private int code = 200;
-    
+
     private Map<String, Object> data = new HashMap<>();
 
     public String getStatus() {

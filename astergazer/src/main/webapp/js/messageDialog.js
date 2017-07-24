@@ -42,10 +42,10 @@ function showConfirmation(text, onOkFunction) {
     dialogButtons["OK"] = function() {
         onOkFunction();
         $(this).dialog("close");    
-    }
+    };
     dialogButtons[cancelText] = function() {
         $(this).dialog("close"); 
-    }
+    };
     var dialog = $("#dialog-confirmation").dialog({
 	  	autoOpen: false,
 	    modal: true,

@@ -5,5 +5,5 @@ import ua.dborisenko.astergazer.exception.DaoException;
 
 public interface IBlockDao {
 
-    public void addBlock(Block block) throws DaoException;
+    void addBlock(Block block) throws DaoException;
 }

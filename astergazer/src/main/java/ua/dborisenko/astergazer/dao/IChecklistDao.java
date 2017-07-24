@@ -8,20 +8,20 @@ import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 
 public interface IChecklistDao {
 
-    public Checklist get(int id) throws DaoException;
-    
-    public Checklist getByName(String name) throws DaoException;
-  
-    public Checklist getFull(int id) throws DaoException;
+    Checklist get(int id) throws DaoException;
 
-    public List<Checklist> getAll() throws DaoException;
+    Checklist getByName(String name) throws DaoException;
 
-    public void add(Checklist checklist) throws DuplicatedValueException, DaoException;
+    Checklist getFull(int id) throws DaoException;
 
-    public long getCount(int id, String name) throws DaoException;
+    List<Checklist> getAll() throws DaoException;
 
-    public void update(Checklist checklist) throws DaoException;
+    void add(Checklist checklist) throws DuplicatedValueException, DaoException;
 
-    public void delete(int id) throws DaoException;
+    long getCount(int id, String name) throws DaoException;
+
+    void update(Checklist checklist) throws DaoException;
+
+    void delete(int id) throws DaoException;
 
 }

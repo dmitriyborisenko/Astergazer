@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class ChecklistTest {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -26,13 +27,13 @@ public class ChecklistTest {
         checklist.setName(expectedName);
         ChecklistEntry entry = new ChecklistEntry();
         entry.setChecklist(checklist);
-        
+
         em.persist(checklist);
         em.persist(entry);
         em.clear();
         int id = checklist.getId();
         Checklist resultChecklist = em.find(Checklist.class, id);
-        
+
         assertThat(resultChecklist.getName(), is(expectedName));
         assertThat(resultChecklist.getEntries().size(), is(1));
     }

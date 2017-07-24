@@ -34,14 +34,14 @@ public class ConstructorRestControllerTest {
     private static final String CONTROLLER_PATH = "/constructor/rest";
 
     @InjectMocks
-    ConstructorRestController controller;
+    private ConstructorRestController controller;
 
     @Mock
-    IScriptService mockScriptService;
+    private IScriptService mockScriptService;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-    ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Before
     public void setUp() throws Exception {

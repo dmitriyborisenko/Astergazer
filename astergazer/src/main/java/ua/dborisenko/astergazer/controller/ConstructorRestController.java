@@ -41,7 +41,7 @@ public class ConstructorRestController {
         scriptService.updateData(id, dto);
         return result;
     }
-    
+
     @RequestMapping(value = "/getstamp/{id}")
     public RestResult getModificationStamp(@PathVariable int id) throws ServiceException {
         RestResult result = new RestResult();

@@ -6,7 +6,7 @@ public class BlockTestUtil {
 
     void setBlockParameters(Block block, String caption, String[] parameters) {
         block.setCaption(caption);
-        block.setParameters(new ArrayList<BlockParameter>());
+        block.setParameters(new ArrayList<>());
         for (int i = 0; i < parameters.length; i++) {
             BlockParameter parameter = new BlockParameter();
             parameter.setOrderIndex(i);

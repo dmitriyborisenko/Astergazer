@@ -33,18 +33,18 @@ public class MappingRestControllerTest {
     private static final String CONTROLLER_PATH = "/mapping/rest";
 
     @InjectMocks
-    MappingRestController controller;
+    private MappingRestController controller;
 
     @Mock
-    IContextService mockContextService;
+    private IContextService mockContextService;
 
     @Mock
-    IExtensionService mockExtensionService;
+    private IExtensionService mockExtensionService;
 
     @Mock
-    IScriptService mockScriptService;
+    private IScriptService mockScriptService;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {

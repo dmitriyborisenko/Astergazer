@@ -2,6 +2,7 @@ package ua.dborisenko.astergazer.domain.block;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
 import java.util.List;
 
 import javax.persistence.DiscriminatorValue;

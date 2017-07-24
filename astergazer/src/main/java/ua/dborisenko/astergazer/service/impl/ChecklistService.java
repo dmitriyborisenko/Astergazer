@@ -24,10 +24,10 @@ public class ChecklistService implements IChecklistService {
     @Autowired
     private IChecklistDao checklistDao;
 
-    private void checkIsNameExists(int id, String name) throws ServiceException {
+    private void checkIsNameUnique(String name) throws ServiceException {
         long checklistCount;
         try {
-            checklistCount = checklistDao.getCount(id, name);
+            checklistCount = checklistDao.getCount(0, name);
         } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not perform the unique check for the checklist name", e);
         }
@@ -35,19 +35,19 @@ public class ChecklistService implements IChecklistService {
             throw new DuplicatedValueException("Checklist with name " + name + " already exists");
         }
     }
-    
+
     @Override
     public Checklist getByName(String name) throws ServiceException {
         try {
             return checklistDao.getByName(name);
         } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not perform the check for the checklist existence with name " + name, e);
-        }    
+        }
     }
 
     @Override
     public void create(String name) throws ServiceException {
-        checkIsNameExists(0, name);
+        checkIsNameUnique(name);
         try {
             Checklist checklist = new Checklist();
             checklist.setName(name);
@@ -89,7 +89,7 @@ public class ChecklistService implements IChecklistService {
             throw new ServiceException("Could not delete the checklist with id " + id, e);
         }
     }
-    
+
     @Override
     public List<JsTreeNodeDynamicDto> getEntriesTreeDto(int checklistId) throws ServiceException {
         try {

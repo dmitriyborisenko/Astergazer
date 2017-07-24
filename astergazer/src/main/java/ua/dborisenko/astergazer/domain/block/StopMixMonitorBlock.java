@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("StopMixMonitor")
 public class StopMixMonitorBlock extends Block {
-    
+
     public StopMixMonitorBlock() {
         application = "StopMixMonitor";
         parametersCount = 1;

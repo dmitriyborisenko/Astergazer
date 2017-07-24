@@ -11,7 +11,7 @@ import org.junit.Test;
 public class SwitchBlockTest {
 
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";
@@ -24,7 +24,8 @@ public class SwitchBlockTest {
             caseBlock.setLocalId(i);
             caseBlock.setCaption("caption" + i);
             trueCaseBlocks.add(caseBlock);
-            expectedResult.append(Block.COMMAND_PREFIX + caption + "_EqualCase_" + i + "),GotoIf($[expression=caption" + i + "]?EqualCase_" + i + ")\n");
+            expectedResult.append(Block.COMMAND_PREFIX).append(caption).append("_EqualCase_").append(i)
+                    .append("),GotoIf($[expression=caption").append(i).append("]?EqualCase_").append(i).append(")\n");
         }
         blockTestUtil.setBlockParameters(block, caption, parameters);
 

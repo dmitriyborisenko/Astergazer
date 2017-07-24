@@ -32,15 +32,15 @@ public class MappingTreeControllerTest {
     private static final String CONTROLLER_PATH = "/mapping/tree";
 
     @InjectMocks
-    MappingTreeController controller;
+    private MappingTreeController controller;
 
     @Mock
-    IScriptService mockScriptService;
+    private IScriptService mockScriptService;
 
     @Mock
-    IContextService mockContextService;
+    private IContextService mockContextService;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {

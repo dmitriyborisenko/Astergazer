@@ -236,10 +236,6 @@ a img {
     line-height: 24px;
 }
 
-.label-build {
-    margin: 0px 10px;
-}
-
 .label-author {
     margin: 0px 10px;
 }
@@ -325,4 +321,9 @@ a img {
     height: 21px;
     text-align: center;
     background: #ddd none repeat scroll 0 0 !important;
+}
+
+.jstree-grid-cell-root-div-checklists-tree {
+    line-height: 24px;
+    height: 24px;
 }

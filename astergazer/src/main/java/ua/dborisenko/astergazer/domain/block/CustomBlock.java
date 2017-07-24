@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Custom")
 public class CustomBlock extends Block {
-    
+
     @Override
     public String translate() {
         StringBuilder result = new StringBuilder();

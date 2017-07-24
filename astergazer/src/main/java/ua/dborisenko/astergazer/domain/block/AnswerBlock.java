@@ -6,10 +6,10 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Answer")
 public class AnswerBlock extends Block {
-    
+
     public AnswerBlock() {
-       application = "Answer";
-       parametersCount = 1;
+        application = "Answer";
+        parametersCount = 1;
     }
-    
+
 }

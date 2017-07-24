@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("AddQueueMember")
 public class AddQueueMemberBlock extends Block {
-    
+
     public AddQueueMemberBlock() {
         application = "AddQueueMember";
         parametersCount = 6;

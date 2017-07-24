@@ -6,9 +6,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class ReadBlockTest {
-    
+
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";
@@ -16,7 +16,7 @@ public class ReadBlockTest {
         String expectedResult = Block.COMMAND_PREFIX + caption + "),Read(variable,filename,maxDigits,options,attempts,timeout)\n";
         ReadBlock block = new ReadBlock();
         blockTestUtil.setBlockParameters(block, caption, parameters);
-        
+
         assertThat(block.translate(), is(expectedResult));
     }
 }

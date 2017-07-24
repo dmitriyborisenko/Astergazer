@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import ua.dborisenko.astergazer.domain.ConfigurationParameter;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter.Name;
+import ua.dborisenko.astergazer.domain.ConfigurationParameter.PARAM_NAME;
 import ua.dborisenko.astergazer.exception.DaoException;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -24,13 +24,14 @@ public class ConfigurationDaoTest {
 
     @Mock
     private EntityManager mockEm;
+
     @InjectMocks
     private ConfigurationDao configurationDao;
-    
+
     @Test
     public void getTest() throws DaoException {
         ConfigurationParameter expectedParameter = new ConfigurationParameter();
-        Name name = Name.FASTAGI_HOST; 
+        PARAM_NAME name = PARAM_NAME.FASTAGI_HOST;
         expectedParameter.setName(name);
 
         when(mockEm.find(ConfigurationParameter.class, name)).thenReturn(expectedParameter);
@@ -41,8 +42,8 @@ public class ConfigurationDaoTest {
     @SuppressWarnings("unchecked")
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
-        Name name = Name.FASTAGI_HOST; 
-        
+        PARAM_NAME name = PARAM_NAME.FASTAGI_HOST;
+
         when(mockEm.find(ConfigurationParameter.class, name)).thenThrow(Exception.class);
         configurationDao.get(name);
     }

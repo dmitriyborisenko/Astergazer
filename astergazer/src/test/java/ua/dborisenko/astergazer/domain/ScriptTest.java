@@ -17,6 +17,7 @@ import ua.dborisenko.astergazer.domain.block.Block;
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class ScriptTest {
+
     @PersistenceContext
     private EntityManager em;
 
@@ -31,11 +32,12 @@ public class ScriptTest {
         connection.setScript(script);
 
         em.persist(script);
-        em.persist(block);em.persist(connection);
+        em.persist(block);
+        em.persist(connection);
         em.clear();
         int id = script.getId();
         Script resultScript = em.find(Script.class, id);
-        
+
         assertThat(resultScript.getName(), is(expectedName));
         assertThat(resultScript.getBlocks().size(), is(1));
         assertThat(resultScript.getConnections().size(), is(1));

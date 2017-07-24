@@ -8,7 +8,7 @@ import org.junit.Test;
 public class AmdBlockTest {
 
     private BlockTestUtil blockTestUtil = new BlockTestUtil();
-    
+
     @Test
     public void translateTest() {
         String caption = "caption";
@@ -19,7 +19,7 @@ public class AmdBlockTest {
                 + "),AMD(initialSilence,greeting,afterGreetingSilence,totalAnalysisTime,minimumWordLength,betweenWordSilence,maximumNumberOfWords,silenceThreshold,maximumWordLength)\n";
         AmdBlock block = new AmdBlock();
         blockTestUtil.setBlockParameters(block, caption, parameters);
-        
+
         assertThat(block.translate(), is(expectedResult));
     }
 }

@@ -93,7 +93,7 @@ public class MappingRestController {
         extensionService.create(name, contextId, scriptId);
         return result;
     }
-    
+
     @RequestMapping(value = "/updateextension/{id}", method = RequestMethod.POST)
     public RestResult updateExtension(@PathVariable int id, @RequestParam String name, @RequestParam int scriptId)
             throws ServiceException {
@@ -101,7 +101,7 @@ public class MappingRestController {
         extensionService.update(id, scriptId, name);
         return result;
     }
-    
+
     @RequestMapping(value = "/deleteextension/{id}", method = RequestMethod.POST)
     public RestResult deleteExtension(@PathVariable int id) throws ServiceException {
         RestResult result = new RestResult();

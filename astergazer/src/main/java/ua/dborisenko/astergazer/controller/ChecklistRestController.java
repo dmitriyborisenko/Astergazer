@@ -59,7 +59,7 @@ public class ChecklistRestController {
         entryService.create(controlValue, returnValue, checklistId);
         return result;
     }
-    
+
     @RequestMapping(value = "/updateentry/{id}", method = RequestMethod.POST)
     public RestResult updateEntry(@PathVariable long id, @RequestParam String controlValue, @RequestParam String returnValue)
             throws ServiceException {
@@ -67,7 +67,7 @@ public class ChecklistRestController {
         entryService.update(id, controlValue, returnValue);
         return result;
     }
-    
+
     @RequestMapping(value = "/deleteentry/{id}", method = RequestMethod.POST)
     public RestResult deleteEntry(@PathVariable long id) throws ServiceException {
         RestResult result = new RestResult();

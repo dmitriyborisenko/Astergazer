@@ -27,7 +27,7 @@ public class ContextDao implements IContextDao {
             context = em.find(Context.class, id);
         } catch (Exception e) {
             throw new DaoException("Could not get the dialplan context with id " + id, e);
-        } 
+        }
         if (context == null) {
             throw new RecordNotFoundException("Could not find the dialplan context with id " + id);
         }
@@ -84,5 +84,5 @@ public class ContextDao implements IContextDao {
             throw new DaoException("Could not delete the dialplan context with id " + id, e);
         }
     }
-   
+
 }

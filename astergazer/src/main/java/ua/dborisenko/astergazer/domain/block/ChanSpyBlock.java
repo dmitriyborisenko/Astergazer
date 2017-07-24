@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("ChanSpy")
 public class ChanSpyBlock extends Block {
-    
+
     public ChanSpyBlock() {
         application = "ChanSpy";
         parametersCount = 2;

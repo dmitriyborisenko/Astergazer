@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("Progress")
 public class ProgressBlock extends Block {
-    
+
     public ProgressBlock() {
         application = "Progress";
     }

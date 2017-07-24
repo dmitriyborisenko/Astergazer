@@ -13,7 +13,7 @@ public class NoCdrBlockTest {
         String expectedResult = Block.COMMAND_PREFIX + caption + "),NoCDR()\n";
         NoCdrBlock block = new NoCdrBlock();
         block.setCaption(caption);
-        
+
         assertThat(block.translate(), is(expectedResult));
     }
 }
