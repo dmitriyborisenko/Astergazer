@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import ua.dborisenko.astergazer.dao.IBlockDao;
-import ua.dborisenko.astergazer.domain.block.Block;
+import ua.dborisenko.astergazer.model.block.Block;
 import ua.dborisenko.astergazer.exception.DaoException;
 
 @Repository
@@ -16,7 +16,7 @@ public class BlockDao implements IBlockDao {
     private EntityManager em;
 
     @Override
-    public void addBlock(Block block) throws DaoException {
+    public void add(Block block) throws DaoException {
         try {
             em.persist(block);
         } catch (Exception e) {

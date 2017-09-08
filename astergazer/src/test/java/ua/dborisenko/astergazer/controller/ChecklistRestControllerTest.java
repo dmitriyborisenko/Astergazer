@@ -23,6 +23,7 @@ import ua.dborisenko.astergazer.service.IChecklistService;
 public class ChecklistRestControllerTest {
 
     private static final String CONTROLLER_PATH = "/checklists/rest";
+    private static final Long TEST_ID = 1L;
 
     @InjectMocks
     private ChecklistRestController controller;
@@ -53,59 +54,52 @@ public class ChecklistRestControllerTest {
 
     @Test
     public void testUpdateCheckList() throws Exception {
-        int id = 1;
         String name = "test";
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/updatechecklist/" + id).param("name", name))
+        mockMvc.perform(post(CONTROLLER_PATH + "/updatechecklist/" + TEST_ID).param("name", name))
                 .andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockChecklistService).update(id, name);
+        verify(mockChecklistService).update(TEST_ID, name);
     }
 
     @Test
     public void testDeleteCheckList() throws Exception {
-        int id = 1;
-
-        mockMvc.perform(post(CONTROLLER_PATH + "/deletechecklist/" + id)).andExpect(status().isOk())
+        mockMvc.perform(post(CONTROLLER_PATH + "/deletechecklist/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockChecklistService).delete(id);
+        verify(mockChecklistService).delete(TEST_ID);
     }
 
     @Test
     public void testAddEntry() throws Exception {
-        int checklistId = 1;
         String controlValue = "test1";
         String returnValue = "test2";
 
         mockMvc.perform(post(CONTROLLER_PATH + "/addentry").param("controlValue", controlValue)
-                .param("returnValue", returnValue).param("checklistId", String.valueOf(checklistId)))
+                .param("returnValue", returnValue).param("checklistId", String.valueOf(TEST_ID)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockEntryService).create(controlValue, returnValue, checklistId);
+        verify(mockEntryService).create(controlValue, returnValue, TEST_ID);
     }
 
     @Test
     public void testUpdateEntry() throws Exception {
-        long id = 1;
         String controlValue = "test1";
         String returnValue = "test2";
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/updateentry/" + id).param("controlValue", controlValue)
+        mockMvc.perform(post(CONTROLLER_PATH + "/updateentry/" + TEST_ID).param("controlValue", controlValue)
                 .param("returnValue", returnValue)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockEntryService).update(id, controlValue, returnValue);
+        verify(mockEntryService).update(TEST_ID, controlValue, returnValue);
     }
 
     @Test
     public void testDeleteEntry() throws Exception {
-        long id = 1;
-
-        mockMvc.perform(post(CONTROLLER_PATH + "/deleteentry/" + id)).andExpect(status().isOk())
+        mockMvc.perform(post(CONTROLLER_PATH + "/deleteentry/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockEntryService).delete(id);
+        verify(mockEntryService).delete(TEST_ID);
     }
 }

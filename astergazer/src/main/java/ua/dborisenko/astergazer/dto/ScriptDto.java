@@ -1,10 +1,10 @@
 package ua.dborisenko.astergazer.dto;
 
-import ua.dborisenko.astergazer.domain.Script;
+import ua.dborisenko.astergazer.model.Script;
 
 public class ScriptDto {
 
-    private int id;
+    private Long id;
     private String name;
 
     public ScriptDto(Script script) {
@@ -12,11 +12,11 @@ public class ScriptDto {
         this.name = script.getName();
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

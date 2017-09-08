@@ -5,8 +5,8 @@ import java.util.List;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
-import ua.dborisenko.astergazer.domain.block.Block;
-import ua.dborisenko.astergazer.domain.block.VoiceMenuBlock;
+import ua.dborisenko.astergazer.model.block.Block;
+import ua.dborisenko.astergazer.model.block.VoiceMenuBlock;
 
 @Component
 public class VoiceMenuDtoFactory {

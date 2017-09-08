@@ -37,7 +37,7 @@
 		</div>
 		<div class="div-dialplan-panel-header">
 			<button id="button-add-context" class="ui-button"
-							onclick="addContext()"><spring:message code="mapping.addCOntext"/></button>
+							onclick="addContext()"><spring:message code="mapping.addContext"/></button>
 			<button id="button-add-exten" class="ui-button" onclick="addExtensionToCurrentContext()"><spring:message code="mapping.addExtension"/></button>
 			<button id="button-edit" class="ui-button" onclick="editCurrentDialplanTreeNode()"><spring:message code="mapping.edit"/></button>
 			<button id="button-delete" class="ui-button" onclick="deleteCurrentDialplanTreeNode()"><spring:message code="mapping.delete"/></button>
@@ -55,6 +55,8 @@
 							onclick="addScript()"><spring:message code="mapping.add"/></button>
 			<button id="button-edit-script" class="ui-button"
 							onclick="editCurrentScript()"><spring:message code="mapping.edit"/></button>
+			<button id="button-clone-script" class="ui-button"
+							onclick="cloneCurrentScript()"><spring:message code="mapping.clone"/></button>
 			<button id="button-construct-script" class="ui-button"
 							onclick="constructCurrentScript()"><spring:message code="mapping.constructor"/></button>
 			<button id="button-delete-script" class="ui-button"

@@ -7,7 +7,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import ua.dborisenko.astergazer.dao.IExtensionDao;
-import ua.dborisenko.astergazer.domain.Extension;
+import ua.dborisenko.astergazer.model.Extension;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 
@@ -18,7 +18,7 @@ public class ExtensionDao implements IExtensionDao {
     private EntityManager em;
 
     @Override
-    public Extension get(int id) throws DaoException {
+    public Extension get(Long id) throws DaoException {
         Extension extension;
         try {
             extension = em.find(Extension.class, id);
@@ -41,7 +41,7 @@ public class ExtensionDao implements IExtensionDao {
     }
 
     @Override
-    public long getCount(int id, int contextId, String name) throws DaoException {
+    public long getCount(Long id, Long contextId, String name) throws DaoException {
         try {
             Query query = em.createNamedQuery("Extension.getCount");
             query.setParameter("name", name);
@@ -63,7 +63,7 @@ public class ExtensionDao implements IExtensionDao {
     }
 
     @Override
-    public void delete(int id) throws DaoException {
+    public void delete(Long id) throws DaoException {
         Extension extension = get(id);
         try {
             extension.getContext().getExtensions().remove(extension);
@@ -75,7 +75,7 @@ public class ExtensionDao implements IExtensionDao {
     }
 
     @Override
-    public void unlinkAllFromScript(int scriptId) throws DaoException {
+    public void unlinkAllExtensionsFromScript(Long scriptId) throws DaoException {
         try {
             Query query = em.createNamedQuery("Extension.unlinkAllFromScript");
             query.setParameter("id", scriptId);

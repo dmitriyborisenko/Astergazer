@@ -15,8 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import ua.dborisenko.astergazer.domain.ConfigurationParameter;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter.PARAM_NAME;
+import ua.dborisenko.astergazer.model.ConfigurationParameter;
+import ua.dborisenko.astergazer.model.ConfigurationParameter.PARAM_NAME;
 import ua.dborisenko.astergazer.exception.DaoException;
 
 @RunWith(MockitoJUnitRunner.class)

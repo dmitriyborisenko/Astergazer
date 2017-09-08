@@ -9,8 +9,8 @@ import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IContextDao;
-import ua.dborisenko.astergazer.domain.Context;
-import ua.dborisenko.astergazer.domain.Extension;
+import ua.dborisenko.astergazer.model.Context;
+import ua.dborisenko.astergazer.model.Extension;
 import ua.dborisenko.astergazer.dto.JsTreeNodeDto;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
@@ -18,13 +18,13 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IContextService;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ContextService implements IContextService {
 
     @Autowired
     private IContextDao contextDao;
 
-    private void checkIsNameExists(int id, String name) throws ServiceException {
+    private void checkIsNameExists(Long id, String name) throws ServiceException {
         long contextCount;
         try {
             contextCount = contextDao.getCount(id, name);
@@ -39,7 +39,7 @@ public class ContextService implements IContextService {
 
     @Override
     public void create(String name) throws ServiceException {
-        checkIsNameExists(0, name);
+        checkIsNameExists(0L, name);
         Context context = new Context();
         context.setName(name);
         try {
@@ -66,7 +66,7 @@ public class ContextService implements IContextService {
     }
 
     @Override
-    public void update(int id, String name) throws ServiceException {
+    public void update(Long id, String name) throws ServiceException {
         checkIsNameExists(id, name);
         try {
             Context context = contextDao.get(id);
@@ -78,7 +78,7 @@ public class ContextService implements IContextService {
     }
 
     @Override
-    public void delete(int id) throws ServiceException {
+    public void delete(Long id) throws ServiceException {
         try {
             contextDao.delete(id);
         } catch (CannotCreateTransactionException | DaoException e) {

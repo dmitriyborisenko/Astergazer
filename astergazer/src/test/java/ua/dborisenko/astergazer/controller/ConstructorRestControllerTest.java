@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ua.dborisenko.astergazer.domain.Script;
+import ua.dborisenko.astergazer.model.Script;
 import ua.dborisenko.astergazer.dto.ScriptDataDto;
 import ua.dborisenko.astergazer.service.IScriptService;
 
@@ -32,6 +32,7 @@ import ua.dborisenko.astergazer.service.IScriptService;
 public class ConstructorRestControllerTest {
 
     private static final String CONTROLLER_PATH = "/constructor/rest";
+    private static final Long TEST_ID = 1L;
 
     @InjectMocks
     private ConstructorRestController controller;
@@ -52,37 +53,37 @@ public class ConstructorRestControllerTest {
     @Test
     public void testGetScript() throws Exception {
         Script script = new Script();
-        script.setId(1);
+        script.setId(TEST_ID);
         ScriptDataDto expectedDto = new ScriptDataDto(script);
 
-        when(mockScriptService.getScriptDataDto(1)).thenReturn(expectedDto);
+        when(mockScriptService.getScriptDataDto(TEST_ID)).thenReturn(expectedDto);
 
-        mockMvc.perform(get(CONTROLLER_PATH + "/getscriptdata/1")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/getscriptdata/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)))
                 .andExpect(jsonPath("$.data.dto", is(notNullValue())));
-        verify(mockScriptService).getScriptDataDto(1);
+        verify(mockScriptService).getScriptDataDto(TEST_ID);
     }
 
     @Test
     public void updateScriptData() throws Exception {
         ScriptDataDto expectedDto = new ScriptDataDto();
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/updatescriptdata/1").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post(CONTROLLER_PATH + "/updatescriptdata/" + TEST_ID).contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(expectedDto).getBytes())).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockScriptService).updateData(eq(1), anyObject());
+        verify(mockScriptService).updateData(eq(TEST_ID), anyObject());
     }
 
     @Test
     public void testGetModificationStamp() throws Exception {
-        when(mockScriptService.getModificationStamp(1)).thenReturn("test");
+        when(mockScriptService.getModificationStamp(TEST_ID)).thenReturn("test");
 
-        mockMvc.perform(get(CONTROLLER_PATH + "/getstamp/1")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/getstamp/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)))
                 .andExpect(jsonPath("$.data.modificationStamp", is("test")));
-        verify(mockScriptService).getModificationStamp(1);
+        verify(mockScriptService).getModificationStamp(TEST_ID);
     }
 }

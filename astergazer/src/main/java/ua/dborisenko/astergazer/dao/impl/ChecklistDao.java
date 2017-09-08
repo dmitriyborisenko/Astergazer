@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import ua.dborisenko.astergazer.dao.IChecklistDao;
-import ua.dborisenko.astergazer.domain.Checklist;
+import ua.dborisenko.astergazer.model.Checklist;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
@@ -22,7 +22,7 @@ public class ChecklistDao implements IChecklistDao {
     private EntityManager em;
 
     @Override
-    public Checklist get(int id) throws DaoException {
+    public Checklist get(Long id) throws DaoException {
         Checklist checklist;
         try {
             checklist = em.find(Checklist.class, id);
@@ -49,7 +49,7 @@ public class ChecklistDao implements IChecklistDao {
     }
 
     @Override
-    public Checklist getFull(int id) throws DaoException {
+    public Checklist getFull(Long id) throws DaoException {
         Checklist checklist = get(id);
         try {
             checklist.getEntries()
@@ -60,8 +60,8 @@ public class ChecklistDao implements IChecklistDao {
         return checklist;
     }
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     public List<Checklist> getAll() throws DaoException {
         try {
             Query query = em.createNamedQuery("Checklist.getAll");
@@ -81,7 +81,7 @@ public class ChecklistDao implements IChecklistDao {
     }
 
     @Override
-    public long getCount(int id, String name) throws DaoException {
+    public long getCount(Long id, String name) throws DaoException {
         try {
             Query query = em.createNamedQuery("Checklist.getCount");
             query.setParameter("name", name);
@@ -102,7 +102,7 @@ public class ChecklistDao implements IChecklistDao {
     }
 
     @Override
-    public void delete(int id) throws DaoException {
+    public void delete(Long id) throws DaoException {
         Checklist checklist = get(id);
         try {
             em.remove(checklist);

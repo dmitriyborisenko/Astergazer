@@ -8,16 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.dborisenko.astergazer.dao.IContextDao;
 import ua.dborisenko.astergazer.dao.IExtensionDao;
 import ua.dborisenko.astergazer.dao.IScriptDao;
-import ua.dborisenko.astergazer.domain.Context;
-import ua.dborisenko.astergazer.domain.Extension;
-import ua.dborisenko.astergazer.domain.Script;
+import ua.dborisenko.astergazer.model.Context;
+import ua.dborisenko.astergazer.model.Extension;
+import ua.dborisenko.astergazer.model.Script;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IExtensionService;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ExtensionService implements IExtensionService {
 
     @Autowired
@@ -29,7 +29,7 @@ public class ExtensionService implements IExtensionService {
     @Autowired
     private IScriptDao scriptDao;
 
-    private void checkIsNameExists(int id, int contextId, String name) throws ServiceException {
+    private void checkIsNameExists(Long id, Long contextId, String name) throws ServiceException {
         long extensionCount;
         try {
             extensionCount = extensionDao.getCount(id, contextId, name);
@@ -43,8 +43,8 @@ public class ExtensionService implements IExtensionService {
     }
 
     @Override
-    public void create(String name, int contextId, int scriptId) throws ServiceException {
-        checkIsNameExists(0, contextId, name);
+    public void create(String name, Long contextId, Long scriptId) throws ServiceException {
+        checkIsNameExists(0L, contextId, name);
         try {
             Context context = contextDao.get(contextId);
             Extension extension = new Extension();
@@ -62,7 +62,7 @@ public class ExtensionService implements IExtensionService {
     }
 
     @Override
-    public void update(int id, int scriptId, String name) throws ServiceException {
+    public void update(Long id, Long scriptId, String name) throws ServiceException {
         try {
             Extension extension = extensionDao.get(id);
             if (scriptId != 0) {
@@ -81,7 +81,7 @@ public class ExtensionService implements IExtensionService {
     }
 
     @Override
-    public void delete(int id) throws ServiceException {
+    public void delete(Long id) throws ServiceException {
         try {
             extensionDao.delete(id);
         } catch (CannotCreateTransactionException | DaoException e) {

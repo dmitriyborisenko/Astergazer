@@ -22,12 +22,14 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import ua.dborisenko.astergazer.domain.Context;
+import ua.dborisenko.astergazer.model.Context;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ContextDaoTest {
+
+    private static final Long TEST_ID = 1L;
 
     @Mock
     private EntityManager mockEm;
@@ -41,30 +43,25 @@ public class ContextDaoTest {
 
     @Test
     public void getTest() throws DaoException {
-        int id = 1;
         Context expectedContext = new Context();
-        expectedContext.setId(id);
+        expectedContext.setId(TEST_ID);
 
-        when(mockEm.find(Context.class, id)).thenReturn(expectedContext);
+        when(mockEm.find(Context.class, TEST_ID)).thenReturn(expectedContext);
 
-        assertThat(contextDao.get(id), is(expectedContext));
+        assertThat(contextDao.get(TEST_ID), is(expectedContext));
     }
 
     @SuppressWarnings("unchecked")
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
-        int id = 1;
-
-        when(mockEm.find(Context.class, id)).thenThrow(Exception.class);
-        contextDao.get(id);
+        when(mockEm.find(Context.class, TEST_ID)).thenThrow(Exception.class);
+        contextDao.get(TEST_ID);
     }
 
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
-        int id = 1;
-
-        when(mockEm.find(Context.class, id)).thenReturn(null);
-        contextDao.get(id);
+        when(mockEm.find(Context.class, TEST_ID)).thenReturn(null);
+        contextDao.get(TEST_ID);
     }
 
     @Test
@@ -102,7 +99,6 @@ public class ContextDaoTest {
 
     @Test
     public void getCountTest() throws DaoException {
-        int id = 1;
         String name = "test";
         long expectedResult = 2;
         Query mockQuery = mock(Query.class);
@@ -110,16 +106,15 @@ public class ContextDaoTest {
         when(mockEm.createNamedQuery("Context.getCount")).thenReturn(mockQuery);
         when(mockQuery.getSingleResult()).thenReturn(expectedResult);
 
-        assertThat(contextDao.getCount(id, name), is(expectedResult));
+        assertThat(contextDao.getCount(TEST_ID, name), is(expectedResult));
     }
 
     @Test(expected = DaoException.class)
     public void getCountExceptionTest() throws DaoException {
-        int id = 1;
         String name = "test";
 
         doThrow(Exception.class).when(mockEm).createNamedQuery("Context.getCount");
-        contextDao.getCount(id, name);
+        contextDao.getCount(TEST_ID, name);
     }
 
     @Test
@@ -138,22 +133,20 @@ public class ContextDaoTest {
 
     @Test
     public void deleteTest() throws DaoException {
-        int id = 1;
         Context context = mock(Context.class);
 
-        doReturn(context).when(spyContextDao).get(id);
-        spyContextDao.delete(id);
+        doReturn(context).when(spyContextDao).get(TEST_ID);
+        spyContextDao.delete(TEST_ID);
 
         verify(mockEm).remove(context);
     }
 
     @Test(expected = DaoException.class)
     public void deleteExceptionTest() throws DaoException {
-        int id = 1;
         Context context = mock(Context.class);
 
-        doReturn(context).when(spyContextDao).get(id);
+        doReturn(context).when(spyContextDao).get(TEST_ID);
         doThrow(Exception.class).when(mockEm).remove(any());
-        spyContextDao.delete(id);
+        spyContextDao.delete(TEST_ID);
     }
 }

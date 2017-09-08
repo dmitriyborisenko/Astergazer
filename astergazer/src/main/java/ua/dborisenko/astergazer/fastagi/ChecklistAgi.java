@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ua.dborisenko.astergazer.domain.Checklist;
+import ua.dborisenko.astergazer.model.Checklist;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IChecklistEntryService;

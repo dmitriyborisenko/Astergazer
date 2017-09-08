@@ -11,7 +11,7 @@ public interface IContextService {
 
     List<JsTreeNodeDto> getContextsTreeDto() throws ServiceException;
 
-    void update(int id, String name) throws ServiceException;
+    void update(Long id, String name) throws ServiceException;
 
-    void delete(int id) throws ServiceException;
+    void delete(Long id) throws ServiceException;
 }

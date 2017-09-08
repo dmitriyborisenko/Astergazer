@@ -37,7 +37,7 @@ public class DialplanController {
     }
 
     @RequestMapping(value = "/constructor/{scriptId}")
-    public ModelAndView showConstructor(@PathVariable int scriptId) throws ServiceException {
+    public ModelAndView showConstructor(@PathVariable Long scriptId) throws ServiceException {
         ModelAndView modelAndView = new ModelAndView("constructor");
         modelAndView.addObject("script", scriptService.get(scriptId));
         return modelAndView;

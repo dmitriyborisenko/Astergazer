@@ -6,15 +6,15 @@ import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IBlockDao;
-import ua.dborisenko.astergazer.domain.Script;
-import ua.dborisenko.astergazer.domain.block.Block;
-import ua.dborisenko.astergazer.domain.block.StartBlock;
+import ua.dborisenko.astergazer.model.Script;
+import ua.dborisenko.astergazer.model.block.Block;
+import ua.dborisenko.astergazer.model.block.StartBlock;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IBlockService;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class BlockService implements IBlockService {
 
     private static final int START_BLOCK_INIT_POSITION_X = 20;
@@ -34,7 +34,7 @@ public class BlockService implements IBlockService {
         startBlock.setLocalId(1);
         startBlock.setScript(script);
         try {
-            blockDao.addBlock(startBlock);
+            blockDao.add(startBlock);
         } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not add the 'Start' block", e);
         }

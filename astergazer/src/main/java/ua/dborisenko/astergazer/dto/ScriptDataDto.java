@@ -2,9 +2,9 @@ package ua.dborisenko.astergazer.dto;
 
 import java.util.List;
 
-import ua.dborisenko.astergazer.domain.Connection;
-import ua.dborisenko.astergazer.domain.Script;
-import ua.dborisenko.astergazer.domain.block.Block;
+import ua.dborisenko.astergazer.model.Connection;
+import ua.dborisenko.astergazer.model.Script;
+import ua.dborisenko.astergazer.model.block.Block;
 
 public class ScriptDataDto {
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ua.dborisenko.astergazer.domain.RestResult;
+import ua.dborisenko.astergazer.util.RestResult;
 import ua.dborisenko.astergazer.dto.ScriptDataDto;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
@@ -29,21 +29,21 @@ public class ConstructorRestController {
     private IScriptService scriptService;
 
     @RequestMapping(value = "/getscriptdata/{id}")
-    public RestResult getScript(@PathVariable int id) throws ServiceException {
+    public RestResult getScript(@PathVariable Long id) throws ServiceException {
         RestResult result = new RestResult();
         result.addToData("dto", scriptService.getScriptDataDto(id));
         return result;
     }
 
     @RequestMapping(value = "/updatescriptdata/{id}", method = RequestMethod.POST)
-    public RestResult updateScriptData(@PathVariable int id, @RequestBody ScriptDataDto dto) throws ServiceException {
+    public RestResult updateScriptData(@PathVariable Long id, @RequestBody ScriptDataDto dto) throws ServiceException {
         RestResult result = new RestResult();
         scriptService.updateData(id, dto);
         return result;
     }
 
     @RequestMapping(value = "/getstamp/{id}")
-    public RestResult getModificationStamp(@PathVariable int id) throws ServiceException {
+    public RestResult getModificationStamp(@PathVariable Long id) throws ServiceException {
         RestResult result = new RestResult();
         result.addToData("modificationStamp", scriptService.getModificationStamp(id));
         return result;

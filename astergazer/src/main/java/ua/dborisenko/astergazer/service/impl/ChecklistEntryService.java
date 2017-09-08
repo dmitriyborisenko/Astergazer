@@ -7,15 +7,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IChecklistDao;
 import ua.dborisenko.astergazer.dao.IChecklistEntryDao;
-import ua.dborisenko.astergazer.domain.Checklist;
-import ua.dborisenko.astergazer.domain.ChecklistEntry;
+import ua.dborisenko.astergazer.model.Checklist;
+import ua.dborisenko.astergazer.model.ChecklistEntry;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IChecklistEntryService;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ChecklistEntryService implements IChecklistEntryService {
 
     @Autowired
@@ -24,7 +24,7 @@ public class ChecklistEntryService implements IChecklistEntryService {
     @Autowired
     private IChecklistDao checklistDao;
 
-    private void checkIsControlValueExists(long id, int checklistId, String controlValue) throws ServiceException {
+    private void checkIsControlValueExists(Long id, Long checklistId, String controlValue) throws ServiceException {
         long entryCount;
         try {
             entryCount = entryDao.getCount(id, checklistId, controlValue);
@@ -37,8 +37,8 @@ public class ChecklistEntryService implements IChecklistEntryService {
     }
 
     @Override
-    public void create(String controlValue, String returnValue, int checklistId) throws ServiceException {
-        checkIsControlValueExists(0, checklistId, controlValue);
+    public void create(String controlValue, String returnValue, Long checklistId) throws ServiceException {
+        checkIsControlValueExists(0L , checklistId, controlValue);
         try {
             Checklist checklist = checklistDao.get(checklistId);
             ChecklistEntry entry = new ChecklistEntry();
@@ -53,7 +53,7 @@ public class ChecklistEntryService implements IChecklistEntryService {
     }
 
     @Override
-    public void update(long id, String controlValue, String returnValue) throws ServiceException {
+    public void update(Long id, String controlValue, String returnValue) throws ServiceException {
         try {
             ChecklistEntry entry = entryDao.get(id);
             Checklist checklist = entry.getChecklist();
@@ -67,7 +67,7 @@ public class ChecklistEntryService implements IChecklistEntryService {
     }
 
     @Override
-    public void delete(long id) throws ServiceException {
+    public void delete(Long id) throws ServiceException {
         try {
             entryDao.delete(id);
         } catch (CannotCreateTransactionException | DaoException e) {
@@ -76,7 +76,7 @@ public class ChecklistEntryService implements IChecklistEntryService {
     }
 
     @Override
-    public String getReturnValue(int checklistId, String controlValue) throws ServiceException {
+    public String getReturnValue(Long checklistId, String controlValue) throws ServiceException {
         try {
             return entryDao.getReturnValue(checklistId, controlValue);
         } catch (CannotCreateTransactionException | DaoException e) {

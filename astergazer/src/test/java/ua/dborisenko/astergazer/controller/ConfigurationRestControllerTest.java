@@ -25,8 +25,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ua.dborisenko.astergazer.domain.ConfigurationParameter;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter.PARAM_NAME;
+import ua.dborisenko.astergazer.model.ConfigurationParameter;
+import ua.dborisenko.astergazer.model.ConfigurationParameter.PARAM_NAME;
 import ua.dborisenko.astergazer.service.IConfigurationService;
 
 @RunWith(MockitoJUnitRunner.class)

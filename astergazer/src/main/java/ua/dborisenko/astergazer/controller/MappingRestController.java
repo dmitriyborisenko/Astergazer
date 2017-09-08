@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ua.dborisenko.astergazer.domain.RestResult;
+import ua.dborisenko.astergazer.util.RestResult;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 import ua.dborisenko.astergazer.exception.ServiceException;
@@ -50,15 +50,23 @@ public class MappingRestController {
     }
 
     @RequestMapping(value = "/updatescript/{id}", method = RequestMethod.POST)
-    public RestResult updateScript(@PathVariable int id, @RequestParam String name)
+    public RestResult updateScript(@PathVariable Long id, @RequestParam String name)
             throws ServiceException {
         RestResult result = new RestResult();
         scriptService.update(id, name);
         return result;
     }
 
+    @RequestMapping(value = "/clonescript/{id}", method = RequestMethod.POST)
+    public RestResult cloneScript(@PathVariable Long id, @RequestParam String name)
+            throws ServiceException {
+        RestResult result = new RestResult();
+        scriptService.clone(id, name);
+        return result;
+    }
+
     @RequestMapping(value = "/deletescript/{id}", method = RequestMethod.POST)
-    public RestResult deleteScript(@PathVariable int id) throws ServiceException {
+    public RestResult deleteScript(@PathVariable Long id) throws ServiceException {
         RestResult result = new RestResult();
         scriptService.delete(id);
         return result;
@@ -72,7 +80,7 @@ public class MappingRestController {
     }
 
     @RequestMapping(value = "/updatecontext/{id}", method = RequestMethod.POST)
-    public RestResult updateContext(@PathVariable int id, @RequestParam String name)
+    public RestResult updateContext(@PathVariable Long id, @RequestParam String name)
             throws ServiceException {
         RestResult result = new RestResult();
         contextService.update(id, name);
@@ -80,14 +88,14 @@ public class MappingRestController {
     }
 
     @RequestMapping(value = "/deletecontext/{id}", method = RequestMethod.POST)
-    public RestResult deleteContext(@PathVariable int id) throws ServiceException {
+    public RestResult deleteContext(@PathVariable Long id) throws ServiceException {
         RestResult result = new RestResult();
         contextService.delete(id);
         return result;
     }
 
     @RequestMapping(value = "/addextension", method = RequestMethod.POST)
-    public RestResult addExtension(@RequestParam String name, @RequestParam int contextId, @RequestParam int scriptId)
+    public RestResult addExtension(@RequestParam String name, @RequestParam Long contextId, @RequestParam Long scriptId)
             throws ServiceException {
         RestResult result = new RestResult();
         extensionService.create(name, contextId, scriptId);
@@ -95,7 +103,7 @@ public class MappingRestController {
     }
 
     @RequestMapping(value = "/updateextension/{id}", method = RequestMethod.POST)
-    public RestResult updateExtension(@PathVariable int id, @RequestParam String name, @RequestParam int scriptId)
+    public RestResult updateExtension(@PathVariable Long id, @RequestParam String name, @RequestParam Long scriptId)
             throws ServiceException {
         RestResult result = new RestResult();
         extensionService.update(id, scriptId, name);
@@ -103,7 +111,7 @@ public class MappingRestController {
     }
 
     @RequestMapping(value = "/deleteextension/{id}", method = RequestMethod.POST)
-    public RestResult deleteExtension(@PathVariable int id) throws ServiceException {
+    public RestResult deleteExtension(@PathVariable Long id) throws ServiceException {
         RestResult result = new RestResult();
         extensionService.delete(id);
         return result;

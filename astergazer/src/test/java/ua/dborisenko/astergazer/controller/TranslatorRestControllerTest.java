@@ -39,12 +39,12 @@ public class TranslatorRestControllerTest {
     public void testTranslateScript() throws Exception {
         String expectedTranslatedScript = "test";
 
-        when(mockTranslatorService.getTranslatedScript(1)).thenReturn(expectedTranslatedScript);
+        when(mockTranslatorService.getTranslatedScript(1L)).thenReturn(expectedTranslatedScript);
 
         mockMvc.perform(get(CONTROLLER_PATH + "/1")).andExpect(status().isOk())
                 .andExpect(content().contentType("text/plain; charset=utf-8"))
                 .andExpect(content().string(expectedTranslatedScript));
-        verify(mockTranslatorService).getTranslatedScript(1);
+        verify(mockTranslatorService).getTranslatedScript(1L);
     }
 
     @Test

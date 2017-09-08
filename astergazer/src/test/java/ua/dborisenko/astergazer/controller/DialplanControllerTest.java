@@ -1,6 +1,6 @@
 package ua.dborisenko.astergazer.controller;
 
-import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.View;
 
-import ua.dborisenko.astergazer.domain.Script;
+import ua.dborisenko.astergazer.model.Script;
 import ua.dborisenko.astergazer.service.IScriptService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -53,7 +53,7 @@ public class DialplanControllerTest {
     public void testShowConstructor() throws Exception {
         Script expectedScript = new Script();
 
-        when(mockScriptService.get(anyInt())).thenReturn(expectedScript);
+        when(mockScriptService.get(anyLong())).thenReturn(expectedScript);
 
         mockMvc.perform(get("/constructor/1")).andExpect(status().isOk())
                 .andExpect(model().attribute("script", expectedScript)).andExpect(view().name("constructor"));

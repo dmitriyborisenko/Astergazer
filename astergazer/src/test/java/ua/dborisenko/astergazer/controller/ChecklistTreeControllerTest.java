@@ -20,8 +20,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import ua.dborisenko.astergazer.domain.Checklist;
-import ua.dborisenko.astergazer.domain.ChecklistEntry;
+import ua.dborisenko.astergazer.model.Checklist;
+import ua.dborisenko.astergazer.model.ChecklistEntry;
 import ua.dborisenko.astergazer.dto.JsTreeNodeDynamicDto;
 import ua.dborisenko.astergazer.service.IChecklistService;
 
@@ -47,7 +47,7 @@ public class ChecklistTreeControllerTest {
     @Test
     public void testGetCheckLists() throws Exception {
         List<JsTreeNodeDynamicDto> dtoList = new ArrayList<>();
-        int expectedId = 1;
+        Long expectedId = 1L;
         Checklist checklist = new Checklist();
         checklist.setId(expectedId);
         dtoList.add(new JsTreeNodeDynamicDto(checklist));
@@ -63,8 +63,8 @@ public class ChecklistTreeControllerTest {
     @Test
     public void testGetEntries() throws Exception {
         List<JsTreeNodeDynamicDto> dtoList = new ArrayList<>();
-        int expectedEntryId = 1;
-        int checklistId = 2;
+        Long expectedEntryId = 1L;
+        Long checklistId = 2L;
         ChecklistEntry entry = new ChecklistEntry();
         entry.setId(expectedEntryId);
         entry.setChecklist(new Checklist());

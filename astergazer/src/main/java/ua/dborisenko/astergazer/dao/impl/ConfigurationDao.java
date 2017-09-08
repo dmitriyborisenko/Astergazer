@@ -6,8 +6,8 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import ua.dborisenko.astergazer.dao.IConfigurationDao;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter.PARAM_NAME;
+import ua.dborisenko.astergazer.model.ConfigurationParameter;
+import ua.dborisenko.astergazer.model.ConfigurationParameter.PARAM_NAME;
 import ua.dborisenko.astergazer.exception.DaoException;
 
 @Repository

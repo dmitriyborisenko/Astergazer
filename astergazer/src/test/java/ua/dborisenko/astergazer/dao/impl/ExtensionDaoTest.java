@@ -22,13 +22,15 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import ua.dborisenko.astergazer.domain.Context;
-import ua.dborisenko.astergazer.domain.Extension;
+import ua.dborisenko.astergazer.model.Context;
+import ua.dborisenko.astergazer.model.Extension;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ExtensionDaoTest {
+
+    private static final Long TEST_ID = 1L;
 
     @Mock
     private EntityManager mockEm;
@@ -42,30 +44,25 @@ public class ExtensionDaoTest {
 
     @Test
     public void getTest() throws DaoException {
-        int id = 1;
         Extension expectedExtension = new Extension();
-        expectedExtension.setId(id);
+        expectedExtension.setId(TEST_ID);
 
-        when(mockEm.find(Extension.class, id)).thenReturn(expectedExtension);
+        when(mockEm.find(Extension.class, TEST_ID)).thenReturn(expectedExtension);
 
-        assertThat(extensionDao.get(id), is(expectedExtension));
+        assertThat(extensionDao.get(TEST_ID), is(expectedExtension));
     }
 
     @SuppressWarnings("unchecked")
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
-        int id = 1;
-
-        when(mockEm.find(Extension.class, id)).thenThrow(Exception.class);
-        extensionDao.get(id);
+        when(mockEm.find(Extension.class, TEST_ID)).thenThrow(Exception.class);
+        extensionDao.get(TEST_ID);
     }
 
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
-        int id = 1;
-
-        when(mockEm.find(Context.class, id)).thenReturn(null);
-        extensionDao.get(id);
+        when(mockEm.find(Context.class, TEST_ID)).thenReturn(null);
+        extensionDao.get(TEST_ID);
     }
 
     @Test
@@ -84,8 +81,7 @@ public class ExtensionDaoTest {
 
     @Test
     public void getCountTest() throws DaoException {
-        int id = 1;
-        int contextId = 2;
+        Long contextId = 2L;
         String name = "test";
         long expectedResult = 42;
         Query mockQuery = mock(Query.class);
@@ -93,17 +89,16 @@ public class ExtensionDaoTest {
         when(mockEm.createNamedQuery("Extension.getCount")).thenReturn(mockQuery);
         when(mockQuery.getSingleResult()).thenReturn(expectedResult);
 
-        assertThat(extensionDao.getCount(id, contextId, name), is(expectedResult));
+        assertThat(extensionDao.getCount(TEST_ID, contextId, name), is(expectedResult));
     }
 
     @Test(expected = DaoException.class)
     public void getCountExceptionTest() throws DaoException {
-        int id = 1;
-        int contextId = 2;
+        Long contextId = 2L;
         String name = "test";
 
         doThrow(Exception.class).when(mockEm).createNamedQuery("Extension.getCount");
-        extensionDao.getCount(id, contextId, name);
+        extensionDao.getCount(TEST_ID, contextId, name);
     }
 
     @Test
@@ -123,15 +118,14 @@ public class ExtensionDaoTest {
     @SuppressWarnings("unchecked")
     @Test
     public void deleteTest() throws DaoException {
-        int id = 1;
         Extension extension = mock(Extension.class);
         Context context = mock(Context.class);
         List<Extension> extensionList = mock(ArrayList.class);
 
         when(extension.getContext()).thenReturn(context);
         when(context.getExtensions()).thenReturn(extensionList);
-        doReturn(extension).when(spyExtensionDao).get(id);
-        spyExtensionDao.delete(id);
+        doReturn(extension).when(spyExtensionDao).get(TEST_ID);
+        spyExtensionDao.delete(TEST_ID);
 
         verify(extensionList).remove(extension);
         verify(mockEm).remove(extension);
@@ -139,21 +133,19 @@ public class ExtensionDaoTest {
 
     @Test(expected = DaoException.class)
     public void deleteExceptionTest() throws DaoException {
-        int id = 1;
         Extension extension = mock(Extension.class);
 
-        doReturn(extension).when(spyExtensionDao).get(id);
+        doReturn(extension).when(spyExtensionDao).get(TEST_ID);
         doThrow(Exception.class).when(mockEm).remove(any());
-        spyExtensionDao.delete(id);
+        spyExtensionDao.delete(TEST_ID);
     }
 
     @Test
     public void unlinkAllFromScriptTest() throws DaoException {
-        int scriptId = 1;
         Query mockQuery = mock(Query.class);
 
         when(mockEm.createNamedQuery("Extension.unlinkAllFromScript")).thenReturn(mockQuery);
-        extensionDao.unlinkAllFromScript(scriptId);
+        extensionDao.unlinkAllExtensionsFromScript(TEST_ID);
 
         verify(mockQuery).executeUpdate();
     }

@@ -3,8 +3,8 @@ package ua.dborisenko.astergazer.dto;
 import java.util.HashMap;
 import java.util.Map;
 
-import ua.dborisenko.astergazer.domain.Checklist;
-import ua.dborisenko.astergazer.domain.ChecklistEntry;
+import ua.dborisenko.astergazer.model.Checklist;
+import ua.dborisenko.astergazer.model.ChecklistEntry;
 
 public class JsTreeNodeDynamicDto {
 

@@ -9,8 +9,8 @@ import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IChecklistDao;
-import ua.dborisenko.astergazer.domain.Checklist;
-import ua.dborisenko.astergazer.domain.ChecklistEntry;
+import ua.dborisenko.astergazer.model.Checklist;
+import ua.dborisenko.astergazer.model.ChecklistEntry;
 import ua.dborisenko.astergazer.dto.JsTreeNodeDynamicDto;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
@@ -18,7 +18,7 @@ import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IChecklistService;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ChecklistService implements IChecklistService {
 
     @Autowired
@@ -27,7 +27,7 @@ public class ChecklistService implements IChecklistService {
     private void checkIsNameUnique(String name) throws ServiceException {
         long checklistCount;
         try {
-            checklistCount = checklistDao.getCount(0, name);
+            checklistCount = checklistDao.getCount(0L, name);
         } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not perform the unique check for the checklist name", e);
         }
@@ -71,7 +71,7 @@ public class ChecklistService implements IChecklistService {
     }
 
     @Override
-    public void update(int id, String name) throws ServiceException {
+    public void update(Long id, String name) throws ServiceException {
         try {
             Checklist checklist = checklistDao.get(id);
             checklist.setName(name);
@@ -82,7 +82,7 @@ public class ChecklistService implements IChecklistService {
     }
 
     @Override
-    public void delete(int id) throws ServiceException {
+    public void delete(Long id) throws ServiceException {
         try {
             checklistDao.delete(id);
         } catch (CannotCreateTransactionException | DaoException e) {
@@ -91,7 +91,7 @@ public class ChecklistService implements IChecklistService {
     }
 
     @Override
-    public List<JsTreeNodeDynamicDto> getEntriesTreeDto(int checklistId) throws ServiceException {
+    public List<JsTreeNodeDynamicDto> getEntriesTreeDto(Long checklistId) throws ServiceException {
         try {
             Checklist checklist = checklistDao.getFull(checklistId);
             List<JsTreeNodeDynamicDto> dtoList = new ArrayList<>();

@@ -20,19 +20,19 @@ import org.springframework.util.StopWatch;
 
 import ua.dborisenko.astergazer.dao.IContextDao;
 import ua.dborisenko.astergazer.dao.IScriptDao;
-import ua.dborisenko.astergazer.domain.Connection;
-import ua.dborisenko.astergazer.domain.Context;
-import ua.dborisenko.astergazer.domain.Extension;
-import ua.dborisenko.astergazer.domain.Script;
-import ua.dborisenko.astergazer.domain.block.Block;
+import ua.dborisenko.astergazer.model.Connection;
+import ua.dborisenko.astergazer.model.Context;
+import ua.dborisenko.astergazer.model.Extension;
+import ua.dborisenko.astergazer.model.Script;
+import ua.dborisenko.astergazer.model.block.Block;
 import ua.dborisenko.astergazer.exception.BlockNotFoundException;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.ServiceException;
-import ua.dborisenko.astergazer.service.IConfigurationService;
 import ua.dborisenko.astergazer.service.ITranslatorService;
+import ua.dborisenko.astergazer.service.IConfigurationService;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class TranslatorService implements ITranslatorService {
 
     private static final Logger log = LoggerFactory.getLogger(TranslatorService.class);
@@ -133,7 +133,7 @@ public class TranslatorService implements ITranslatorService {
         rootBlocks.addLast(falseCaseBlock);
     }
 
-    private Script loadScript(int id) throws ServiceException {
+    private Script loadScript(Long id) throws ServiceException {
         try {
             return scriptDao.getFull(id);
         } catch (CannotCreateTransactionException | DaoException e) {
@@ -153,7 +153,7 @@ public class TranslatorService implements ITranslatorService {
     }
 
     @Override
-    public String getTranslatedScript(int id) throws ServiceException {
+    public String getTranslatedScript(Long id) throws ServiceException {
         return buildScript(loadScript(id));
     }
 

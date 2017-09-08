@@ -28,7 +28,7 @@ public class TranslatorRestController {
     private ITranslatorService translatorService;
 
     @RequestMapping(value = "/translator/{scriptId}", produces = "text/plain; charset=utf-8")
-    public String translateScript(@PathVariable int scriptId) throws ServiceException {
+    public String translateScript(@PathVariable Long scriptId) throws ServiceException {
         return translatorService.getTranslatedScript(scriptId);
     }
 

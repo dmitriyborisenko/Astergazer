@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import ua.dborisenko.astergazer.dao.IChecklistEntryDao;
-import ua.dborisenko.astergazer.domain.ChecklistEntry;
+import ua.dborisenko.astergazer.model.ChecklistEntry;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 
@@ -20,7 +20,7 @@ public class ChecklistEntryDao implements IChecklistEntryDao {
     private EntityManager em;
 
     @Override
-    public ChecklistEntry get(long id) throws DaoException {
+    public ChecklistEntry get(Long id) throws DaoException {
         ChecklistEntry entry;
         try {
             entry = em.find(ChecklistEntry.class, id);
@@ -43,7 +43,7 @@ public class ChecklistEntryDao implements IChecklistEntryDao {
     }
 
     @Override
-    public long getCount(long id, int checklistId, String controlValue) throws DaoException {
+    public long getCount(Long id, Long checklistId, String controlValue) throws DaoException {
         try {
             Query query = em.createNamedQuery("ChecklistEntry.getCount");
             query.setParameter("controlValue", controlValue);
@@ -65,7 +65,7 @@ public class ChecklistEntryDao implements IChecklistEntryDao {
     }
 
     @Override
-    public void delete(long id) throws DaoException {
+    public void delete(Long id) throws DaoException {
         ChecklistEntry entry = get(id);
         try {
             em.remove(entry);
@@ -77,7 +77,7 @@ public class ChecklistEntryDao implements IChecklistEntryDao {
 
     @SuppressWarnings("unchecked")
     @Override
-    public String getReturnValue(int checklistId, String controlValue) throws DaoException {
+    public String getReturnValue(Long checklistId, String controlValue) throws DaoException {
         List<String> resultList;
         try {
             Query query = em.createNamedQuery("ChecklistEntry.getReturnValue");

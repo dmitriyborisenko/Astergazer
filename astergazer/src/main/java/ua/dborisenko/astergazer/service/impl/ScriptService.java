@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.dao.IExtensionDao;
 import ua.dborisenko.astergazer.dao.IScriptDao;
-import ua.dborisenko.astergazer.domain.Connection;
-import ua.dborisenko.astergazer.domain.Script;
-import ua.dborisenko.astergazer.domain.block.Block;
+import ua.dborisenko.astergazer.model.Connection;
+import ua.dborisenko.astergazer.model.Script;
+import ua.dborisenko.astergazer.model.block.Block;
 import ua.dborisenko.astergazer.dto.JsTreeNodeDto;
 import ua.dborisenko.astergazer.dto.ScriptDataDto;
 import ua.dborisenko.astergazer.dto.ScriptDto;
@@ -26,7 +26,7 @@ import ua.dborisenko.astergazer.service.IBlockService;
 import ua.dborisenko.astergazer.service.IScriptService;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ScriptService implements IScriptService {
 
     private static final Logger log = LoggerFactory.getLogger(ScriptService.class);
@@ -40,7 +40,7 @@ public class ScriptService implements IScriptService {
     @Autowired
     private IExtensionDao extensionDao;
 
-    private void checkIsNameExists(int id, String name) throws ServiceException {
+    private void checkIsNameExists(Long id, String name) throws ServiceException {
         long scriptCount;
         try {
             scriptCount = scriptDao.getCount(id, name);
@@ -54,12 +54,12 @@ public class ScriptService implements IScriptService {
 
     @Override
     public void create(String name) throws ServiceException {
-        checkIsNameExists(0, name);
-        Script script = createEmptyOne(name);
+        checkIsNameExists(0L, name);
+        Script script = createEmptyScript(name);
         blockService.addStartBlockToScript(script);
     }
 
-    private Script createEmptyOne(String name) throws ServiceException {
+    private Script createEmptyScript(String name) throws ServiceException {
         Script script = new Script();
         script.setName(name);
         try {
@@ -97,7 +97,7 @@ public class ScriptService implements IScriptService {
     }
 
     @Override
-    public Script get(int id) throws ServiceException {
+    public Script get(Long id) throws ServiceException {
         try {
             return scriptDao.get(id);
         } catch (CannotCreateTransactionException | DaoException e) {
@@ -106,7 +106,7 @@ public class ScriptService implements IScriptService {
     }
 
     @Override
-    public ScriptDataDto getScriptDataDto(int id) throws ServiceException {
+    public ScriptDataDto getScriptDataDto(Long id) throws ServiceException {
         try {
             Script script = scriptDao.getFull(id);
             ScriptDataDto dto = new ScriptDataDto(script);
@@ -118,7 +118,7 @@ public class ScriptService implements IScriptService {
     }
 
     @Override
-    public void update(int id, String name) throws ServiceException {
+    public void update(Long id, String name) throws ServiceException {
         checkIsNameExists(id, name);
         try {
             Script script = scriptDao.get(id);
@@ -130,7 +130,7 @@ public class ScriptService implements IScriptService {
     }
 
     @Override
-    public void updateData(int id, ScriptDataDto dto) throws ServiceException {
+    public void updateData(Long id, ScriptDataDto dto) throws ServiceException {
         try {
             Script script = scriptDao.getFull(id);
             script.getBlocks().clear();
@@ -145,16 +145,28 @@ public class ScriptService implements IScriptService {
             }
             script.setModificationStamp(getNewModificationStamp());
             scriptDao.update(script);
-            //setModificationStamp(id);
         } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not update script with id " + id, e);
         }
     }
 
     @Override
-    public void delete(int id) throws ServiceException {
+    public Script clone(Long id, String name) throws ServiceException {
         try {
-            extensionDao.unlinkAllFromScript(id);
+            Script originalScript = scriptDao.getFull(id);
+            Script newScript = (Script) originalScript.clone();
+            newScript.setName(name);
+            scriptDao.add(newScript);
+            return newScript;
+        } catch (CloneNotSupportedException | CannotCreateTransactionException | DaoException e) {
+            throw new ServiceException("Could not clone script with id " + id, e);
+        }
+    }
+
+    @Override
+    public void delete(Long id) throws ServiceException {
+        try {
+            extensionDao.unlinkAllExtensionsFromScript(id);
             scriptDao.delete(id);
         } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not delete script with id " + id, e);
@@ -167,7 +179,7 @@ public class ScriptService implements IScriptService {
     }
 
     @Override
-    public String getModificationStamp(int id) {
+    public String getModificationStamp(Long id) {
         try {
             return scriptDao.get(id).getModificationStamp();
         } catch (DaoException e) {

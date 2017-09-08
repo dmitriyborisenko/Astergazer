@@ -21,7 +21,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import ua.dborisenko.astergazer.domain.Script;
+import ua.dborisenko.astergazer.model.Script;
 import ua.dborisenko.astergazer.dto.ScriptDto;
 import ua.dborisenko.astergazer.service.IContextService;
 import ua.dborisenko.astergazer.service.IExtensionService;
@@ -31,6 +31,7 @@ import ua.dborisenko.astergazer.service.IScriptService;
 public class MappingRestControllerTest {
 
     private static final String CONTROLLER_PATH = "/mapping/rest";
+    private static final Long TEST_ID = 1L;
 
     @InjectMocks
     private MappingRestController controller;
@@ -56,7 +57,7 @@ public class MappingRestControllerTest {
     public void testGetScripts() throws Exception {
         List<ScriptDto> dtoList = new ArrayList<>();
         Script script = new Script();
-        script.setId(1);
+        script.setId(TEST_ID);
         dtoList.add(new ScriptDto(script));
 
         when(mockScriptService.getScriptsDto()).thenReturn(dtoList);
@@ -78,18 +79,18 @@ public class MappingRestControllerTest {
 
     @Test
     public void testUpdateScript() throws Exception {
-        mockMvc.perform(post(CONTROLLER_PATH + "/updatescript/1").param("name", "testName")).andExpect(status().isOk())
+        mockMvc.perform(post(CONTROLLER_PATH + "/updatescript/" + TEST_ID).param("name", "testName")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockScriptService).update(1, "testName");
+        verify(mockScriptService).update(TEST_ID, "testName");
     }
 
     @Test
     public void testDeleteScript() throws Exception {
-        mockMvc.perform(post(CONTROLLER_PATH + "/deletescript/1")).andExpect(status().isOk())
+        mockMvc.perform(post(CONTROLLER_PATH + "/deletescript/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockScriptService).delete(1);
+        verify(mockScriptService).delete(TEST_ID);
     }
 
     @Test
@@ -102,18 +103,18 @@ public class MappingRestControllerTest {
 
     @Test
     public void testUpdateContext() throws Exception {
-        mockMvc.perform(post(CONTROLLER_PATH + "/updatecontext/1").param("name", "testName")).andExpect(status().isOk())
+        mockMvc.perform(post(CONTROLLER_PATH + "/updatecontext/" + TEST_ID).param("name", "testName")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockContextService).update(1, "testName");
+        verify(mockContextService).update(TEST_ID, "testName");
     }
 
     @Test
     public void testDeleteContext() throws Exception {
-        mockMvc.perform(post(CONTROLLER_PATH + "/deletecontext/1")).andExpect(status().isOk())
+        mockMvc.perform(post(CONTROLLER_PATH + "/deletecontext/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockContextService).delete(1);
+        verify(mockContextService).delete(TEST_ID);
     }
 
     @Test
@@ -122,7 +123,7 @@ public class MappingRestControllerTest {
                 .param("contextId", "3")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockExtensionService).create("testName", 3, 2);
+        verify(mockExtensionService).create("testName", 3L, 2L);
     }
 
     @Test
@@ -130,15 +131,15 @@ public class MappingRestControllerTest {
         mockMvc.perform(post(CONTROLLER_PATH + "/updateextension/1").param("name", "testName").param("scriptId", "2"))
                 .andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockExtensionService).update(1, 2, "testName");
+        verify(mockExtensionService).update(1L, 2L, "testName");
     }
 
     @Test
     public void testDeleteExtension() throws Exception {
-        mockMvc.perform(post(CONTROLLER_PATH + "/deleteextension/1")).andExpect(status().isOk())
+        mockMvc.perform(post(CONTROLLER_PATH + "/deleteextension/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockExtensionService).delete(1);
+        verify(mockExtensionService).delete(TEST_ID);
     }
 
 }

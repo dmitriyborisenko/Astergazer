@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import ua.dborisenko.astergazer.dao.IContextDao;
-import ua.dborisenko.astergazer.domain.Context;
+import ua.dborisenko.astergazer.model.Context;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
@@ -21,7 +21,7 @@ public class ContextDao implements IContextDao {
     private EntityManager em;
 
     @Override
-    public Context get(int id) throws DaoException {
+    public Context get(Long id) throws DaoException {
         Context context;
         try {
             context = em.find(Context.class, id);
@@ -55,7 +55,7 @@ public class ContextDao implements IContextDao {
     }
 
     @Override
-    public long getCount(int id, String name) throws DaoException {
+    public long getCount(Long id, String name) throws DaoException {
         try {
             Query query = em.createNamedQuery("Context.getCount");
             query.setParameter("name", name);
@@ -76,7 +76,7 @@ public class ContextDao implements IContextDao {
     }
 
     @Override
-    public void delete(int id) throws DaoException {
+    public void delete(Long id) throws DaoException {
         Context context = get(id);
         try {
             em.remove(context);

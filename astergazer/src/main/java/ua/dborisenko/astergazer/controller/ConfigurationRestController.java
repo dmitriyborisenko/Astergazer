@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ua.dborisenko.astergazer.domain.ConfigurationParameter;
-import ua.dborisenko.astergazer.domain.RestResult;
+import ua.dborisenko.astergazer.model.ConfigurationParameter;
+import ua.dborisenko.astergazer.util.RestResult;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IConfigurationService;
 

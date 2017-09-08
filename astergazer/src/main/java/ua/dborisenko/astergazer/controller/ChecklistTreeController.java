@@ -34,7 +34,7 @@ public class ChecklistTreeController {
     }
 
     @RequestMapping(value = "/getentries/{checklistId}")
-    public List<JsTreeNodeDynamicDto> getEntries(@PathVariable int checklistId) throws ServiceException {
+    public List<JsTreeNodeDynamicDto> getEntries(@PathVariable Long checklistId) throws ServiceException {
         return checklistService.getEntriesTreeDto(checklistId);
     }
 

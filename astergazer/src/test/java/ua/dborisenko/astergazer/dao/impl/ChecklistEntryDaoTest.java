@@ -23,14 +23,15 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import ua.dborisenko.astergazer.domain.Checklist;
-import ua.dborisenko.astergazer.domain.ChecklistEntry;
+import ua.dborisenko.astergazer.model.Checklist;
+import ua.dborisenko.astergazer.model.ChecklistEntry;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ChecklistEntryDaoTest {
 
+    private static final Long TEST_ID = 1L;
     @Mock
     private EntityManager mockEm;
 
@@ -86,25 +87,23 @@ public class ChecklistEntryDaoTest {
     @Test
     public void getCountTest() throws DaoException {
         long expectedResult = 2;
-        long id = 1;
-        int checkListId = 1;
+        Long checkListId = 1L;
         String controlValue = "";
         Query mockQuery = mock(Query.class);
 
         when(mockEm.createNamedQuery("ChecklistEntry.getCount")).thenReturn(mockQuery);
         when(mockQuery.getSingleResult()).thenReturn(expectedResult);
 
-        assertThat(entryDao.getCount(id, checkListId, controlValue), is(expectedResult));
+        assertThat(entryDao.getCount(TEST_ID, checkListId, controlValue), is(expectedResult));
     }
 
     @Test(expected = DaoException.class)
     public void getCountExceptionTest() throws DaoException {
-        long id = 1;
-        int checkListId = 2;
+        Long checkListId = 2L;
         String controlValue = "";
 
         doThrow(Exception.class).when(mockEm).createNamedQuery("ChecklistEntry.getCount");
-        entryDao.getCount(id, checkListId, controlValue);
+        entryDao.getCount(TEST_ID, checkListId, controlValue);
     }
 
     @Test
@@ -134,12 +133,11 @@ public class ChecklistEntryDaoTest {
 
     @Test(expected = DaoException.class)
     public void deleteExceptionTest() throws DaoException {
-        int id = 1;
         ChecklistEntry entry = mock(ChecklistEntry.class);
 
-        doReturn(entry).when(spyEntryDao).get(id);
+        doReturn(entry).when(spyEntryDao).get(TEST_ID);
         doThrow(Exception.class).when(mockEm).remove(any());
-        spyEntryDao.delete(id);
+        spyEntryDao.delete(TEST_ID);
     }
 
 
@@ -147,7 +145,6 @@ public class ChecklistEntryDaoTest {
     public void getReturnValueTest() throws DaoException {
         String controlValue = "";
         String expectedValue = "test";
-        int checklistId = 1;
         List<String> resultList = new ArrayList<>();
         resultList.add(expectedValue);
         Query mockQuery = mock(Query.class);
@@ -155,29 +152,27 @@ public class ChecklistEntryDaoTest {
         when(mockEm.createNamedQuery("ChecklistEntry.getReturnValue")).thenReturn(mockQuery);
         when(mockQuery.getResultList()).thenReturn(resultList);
 
-        assertThat(entryDao.getReturnValue(checklistId, controlValue), is(expectedValue));
+        assertThat(entryDao.getReturnValue(TEST_ID, controlValue), is(expectedValue));
     }
 
     @Test
     public void getReturnValueEmptyTest() throws DaoException {
         List<String> resultList = new ArrayList<>();
-        int checklistId = 1;
         String controlValue = "";
         Query mockQuery = mock(Query.class);
 
         when(mockEm.createNamedQuery("ChecklistEntry.getReturnValue")).thenReturn(mockQuery);
         when(mockQuery.getResultList()).thenReturn(resultList);
 
-        assertThat(entryDao.getReturnValue(checklistId, controlValue), nullValue());
+        assertThat(entryDao.getReturnValue(TEST_ID, controlValue), nullValue());
     }
 
     @Test(expected = DaoException.class)
     public void getReturnValueExceptionTest() throws DaoException {
-        int checklistId = 1;
         String controlValue = "test";
 
         doThrow(Exception.class).when(mockEm).createNamedQuery("ChecklistEntry.getReturnValue");
-        entryDao.getReturnValue(checklistId, controlValue);
+        entryDao.getReturnValue(TEST_ID, controlValue);
     }
 
 }

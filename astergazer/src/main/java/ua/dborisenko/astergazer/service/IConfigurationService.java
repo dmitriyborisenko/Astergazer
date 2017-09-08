@@ -2,7 +2,7 @@ package ua.dborisenko.astergazer.service;
 
 import java.util.Set;
 
-import ua.dborisenko.astergazer.domain.ConfigurationParameter;
+import ua.dborisenko.astergazer.model.ConfigurationParameter;
 import ua.dborisenko.astergazer.exception.ServiceException;
 
 public interface IConfigurationService {

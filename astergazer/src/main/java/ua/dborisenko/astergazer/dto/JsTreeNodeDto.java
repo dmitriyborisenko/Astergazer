@@ -3,9 +3,9 @@ package ua.dborisenko.astergazer.dto;
 import java.util.HashMap;
 import java.util.Map;
 
-import ua.dborisenko.astergazer.domain.Context;
-import ua.dborisenko.astergazer.domain.Extension;
-import ua.dborisenko.astergazer.domain.Script;
+import ua.dborisenko.astergazer.model.Context;
+import ua.dborisenko.astergazer.model.Extension;
+import ua.dborisenko.astergazer.model.Script;
 
 public class JsTreeNodeDto {
 

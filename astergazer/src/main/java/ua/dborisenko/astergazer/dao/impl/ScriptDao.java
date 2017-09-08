@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import ua.dborisenko.astergazer.dao.IScriptDao;
-import ua.dborisenko.astergazer.domain.Script;
+import ua.dborisenko.astergazer.model.Script;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
@@ -21,7 +21,7 @@ public class ScriptDao implements IScriptDao {
     private EntityManager em;
 
     @Override
-    public Script get(int id) throws DaoException {
+    public Script get(Long id) throws DaoException {
         Script script;
         try {
             script = em.find(Script.class, id);
@@ -35,7 +35,7 @@ public class ScriptDao implements IScriptDao {
     }
 
     @Override
-    public Script getFull(int id) throws DaoException {
+    public Script getFull(Long id) throws DaoException {
         Script script = get(id);
         try {
             script.getBlocks().size();
@@ -67,7 +67,7 @@ public class ScriptDao implements IScriptDao {
     }
 
     @Override
-    public long getCount(int id, String name) throws DaoException {
+    public long getCount(Long id, String name) throws DaoException {
         try {
             Query query = em.createNamedQuery("Script.getCount");
             query.setParameter("name", name);
@@ -88,7 +88,7 @@ public class ScriptDao implements IScriptDao {
     }
 
     @Override
-    public void delete(int id) throws DaoException {
+    public void delete(Long id) throws DaoException {
         Script script = get(id);
         try {
             em.remove(script);

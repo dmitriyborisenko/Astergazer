@@ -1,11 +1,11 @@
 $(document).ready(function() {
-    $(document).ajaxStart(function(){ 
+    var spinner = new Spinner();
+    $(document).ajaxStart(function(){
         spinner.spin($("body")[0]);
     });
     $(document).ajaxStop(function(){ 
         spinner.stop();
     });
-    spinner = new Spinner();
     $(".ui-button").button();
     
     $("#div-script-tree").jstree({
@@ -28,13 +28,17 @@ $(document).ready(function() {
         },
     }).on('select_node.jstree', function (e, data) {
         $("#button-edit-script").button("option", "disabled", false);
+        $("#button-clone-script").button("option", "disabled", false);
         $("#button-construct-script").button("option", "disabled", false);
         $("#button-delete-script").button("option", "disabled", false);
     }).on('deselect_all.jstree', function (e, data) {
         $("#button-edit-script").button("option", "disabled", true);
+        $("#button-clone-script").button("option", "disabled", true);
         $("#button-construct-script").button("option", "disabled", true);
         $("#button-delete-script").button("option", "disabled", true);
-    }).jstree("deselect_all");
+    }).jstree("deselect_all").delegate("a","dblclick", function() {
+        editCurrentScript();
+    });;
     
     $("#div-dialplan-tree").jstree({
         "plugins" : ["types", "grid"],
@@ -70,14 +74,10 @@ $(document).ready(function() {
         $("#button-add-exten").button("option", "disabled", true);
         $("#button-edit").button("option", "disabled", true);
         $("#button-delete").button("option", "disabled", true);
-    }).jstree("deselect_all");
-    
-    $("#div-script-tree").delegate("a","dblclick", function(e) {
-        editCurrentScript();  
-    });
-    $("#div-dialplan-tree").delegate("a","dblclick", function(e) {
+    }).jstree("deselect_all").delegate("a","dblclick", function(e) {
         editCurrentDialplanTreeNode();  
     });
+
     initScriptDialog();
     initContextDialog();
     initExtensionDialog();

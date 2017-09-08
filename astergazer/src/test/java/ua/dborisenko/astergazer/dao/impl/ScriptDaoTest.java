@@ -22,14 +22,16 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import ua.dborisenko.astergazer.domain.Connection;
-import ua.dborisenko.astergazer.domain.Script;
-import ua.dborisenko.astergazer.domain.block.Block;
+import ua.dborisenko.astergazer.model.Connection;
+import ua.dborisenko.astergazer.model.Script;
+import ua.dborisenko.astergazer.model.block.Block;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ScriptDaoTest {
+
+    private static final Long TEST_ID = 1L;
 
     @Mock
     private EntityManager mockEm;
@@ -43,46 +45,40 @@ public class ScriptDaoTest {
 
     @Test
     public void getTest() throws DaoException {
-        int id = 1;
         Script expectedScript = new Script();
-        expectedScript.setId(id);
+        expectedScript.setId(TEST_ID);
 
-        when(mockEm.find(Script.class, id)).thenReturn(expectedScript);
+        when(mockEm.find(Script.class, TEST_ID)).thenReturn(expectedScript);
 
-        assertThat(scriptDao.get(id), is(expectedScript));
+        assertThat(scriptDao.get(TEST_ID), is(expectedScript));
     }
 
     @SuppressWarnings("unchecked")
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
-        int id = 1;
-
-        when(mockEm.find(Script.class, id)).thenThrow(Exception.class);
-        scriptDao.get(id);
+        when(mockEm.find(Script.class, TEST_ID)).thenThrow(Exception.class);
+        scriptDao.get(TEST_ID);
     }
 
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
-        int id = 1;
-
-        when(mockEm.find(Script.class, id)).thenReturn(null);
-        scriptDao.get(id);
+        when(mockEm.find(Script.class, TEST_ID)).thenReturn(null);
+        scriptDao.get(TEST_ID);
     }
 
     @SuppressWarnings("unchecked")
     @Test
     public void getFullTest() throws DaoException {
-        int id = 1;
         Script expectedScript = mock(Script.class);
-        expectedScript.setId(id);
+        expectedScript.setId(TEST_ID);
         List<Block> blocks = mock(ArrayList.class);
         List<Connection> connections = mock(ArrayList.class);
 
-        when(mockEm.find(Script.class, id)).thenReturn(expectedScript);
+        when(mockEm.find(Script.class, TEST_ID)).thenReturn(expectedScript);
         when(expectedScript.getBlocks()).thenReturn(blocks);
         when(expectedScript.getConnections()).thenReturn(connections);
 
-        assertThat(scriptDao.getFull(id), is(expectedScript));
+        assertThat(scriptDao.getFull(TEST_ID), is(expectedScript));
         verify(blocks).size();
         verify(connections).size();
     }
@@ -90,10 +86,8 @@ public class ScriptDaoTest {
     @SuppressWarnings("unchecked")
     @Test(expected = DaoException.class)
     public void getFullExceptionTest() throws DaoException {
-        int id = 1;
-
-        when(mockEm.find(Script.class, id)).thenThrow(Exception.class);
-        scriptDao.getFull(id);
+        when(mockEm.find(Script.class, TEST_ID)).thenThrow(Exception.class);
+        scriptDao.getFull(TEST_ID);
     }
 
     @Test
@@ -131,7 +125,6 @@ public class ScriptDaoTest {
 
     @Test
     public void getCountTest() throws DaoException {
-        int id = 1;
         String name = "test";
         long expectedResult = 2;
         Query mockQuery = mock(Query.class);
@@ -139,16 +132,15 @@ public class ScriptDaoTest {
         when(mockEm.createNamedQuery("Script.getCount")).thenReturn(mockQuery);
         when(mockQuery.getSingleResult()).thenReturn(expectedResult);
 
-        assertThat(scriptDao.getCount(id, name), is(expectedResult));
+        assertThat(scriptDao.getCount(TEST_ID, name), is(expectedResult));
     }
 
     @Test(expected = DaoException.class)
     public void getCountExceptionTest() throws DaoException {
-        int id = 1;
         String name = "test";
 
         doThrow(Exception.class).when(mockEm).createNamedQuery("Script.getCount");
-        scriptDao.getCount(id, name);
+        scriptDao.getCount(TEST_ID, name);
     }
 
     @Test
@@ -167,22 +159,20 @@ public class ScriptDaoTest {
 
     @Test
     public void deleteTest() throws DaoException {
-        int id = 1;
         Script script = mock(Script.class);
 
-        doReturn(script).when(spyScriptDao).get(id);
-        spyScriptDao.delete(id);
+        doReturn(script).when(spyScriptDao).get(TEST_ID);
+        spyScriptDao.delete(TEST_ID);
 
         verify(mockEm).remove(script);
     }
 
     @Test(expected = DaoException.class)
     public void deleteExceptionTest() throws DaoException {
-        int id = 1;
         Script script = mock(Script.class);
 
-        doReturn(script).when(spyScriptDao).get(id);
+        doReturn(script).when(spyScriptDao).get(TEST_ID);
         doThrow(Exception.class).when(mockEm).remove(any());
-        spyScriptDao.delete(id);
+        spyScriptDao.delete(TEST_ID);
     }
 }

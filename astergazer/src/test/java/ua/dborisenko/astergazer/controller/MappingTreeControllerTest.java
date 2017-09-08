@@ -20,8 +20,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import ua.dborisenko.astergazer.domain.Context;
-import ua.dborisenko.astergazer.domain.Script;
+import ua.dborisenko.astergazer.model.Context;
+import ua.dborisenko.astergazer.model.Script;
 import ua.dborisenko.astergazer.dto.JsTreeNodeDto;
 import ua.dborisenko.astergazer.service.IContextService;
 import ua.dborisenko.astergazer.service.IScriptService;
@@ -52,7 +52,7 @@ public class MappingTreeControllerTest {
     public void testGetScripts() throws Exception {
         List<JsTreeNodeDto> dtoList = new ArrayList<>();
         Script script = new Script();
-        script.setId(1);
+        script.setId(1L);
         dtoList.add(new JsTreeNodeDto(script));
 
         when(mockScriptService.getScriptsTreeDto()).thenReturn(dtoList);
@@ -67,7 +67,7 @@ public class MappingTreeControllerTest {
     public void testGetContexts() throws Exception {
         List<JsTreeNodeDto> dtoList = new ArrayList<>();
         Context context = new Context();
-        context.setId(1);
+        context.setId(1L);
         context.setName("testContext");
         dtoList.add(new JsTreeNodeDto(context));
 

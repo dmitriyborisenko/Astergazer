@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ua.dborisenko.astergazer.domain.RestResult;
+import ua.dborisenko.astergazer.util.RestResult;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
 import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 import ua.dborisenko.astergazer.exception.ServiceException;
@@ -39,21 +39,21 @@ public class ChecklistRestController {
     }
 
     @RequestMapping(value = "/updatechecklist/{id}", method = RequestMethod.POST)
-    public RestResult updateChecklist(@PathVariable int id, @RequestParam String name) throws ServiceException {
+    public RestResult updateChecklist(@PathVariable Long id, @RequestParam String name) throws ServiceException {
         RestResult result = new RestResult();
         checklistService.update(id, name);
         return result;
     }
 
     @RequestMapping(value = "/deletechecklist/{id}", method = RequestMethod.POST)
-    public RestResult deleteChecklist(@PathVariable int id) throws ServiceException {
+    public RestResult deleteChecklist(@PathVariable Long id) throws ServiceException {
         RestResult result = new RestResult();
         checklistService.delete(id);
         return result;
     }
 
     @RequestMapping(value = "/addentry", method = RequestMethod.POST)
-    public RestResult addEntry(@RequestParam String controlValue, @RequestParam String returnValue, @RequestParam int checklistId)
+    public RestResult addEntry(@RequestParam String controlValue, @RequestParam String returnValue, @RequestParam Long checklistId)
             throws DuplicatedValueException, ServiceException {
         RestResult result = new RestResult();
         entryService.create(controlValue, returnValue, checklistId);
@@ -61,7 +61,7 @@ public class ChecklistRestController {
     }
 
     @RequestMapping(value = "/updateentry/{id}", method = RequestMethod.POST)
-    public RestResult updateEntry(@PathVariable long id, @RequestParam String controlValue, @RequestParam String returnValue)
+    public RestResult updateEntry(@PathVariable Long id, @RequestParam String controlValue, @RequestParam String returnValue)
             throws ServiceException {
         RestResult result = new RestResult();
         entryService.update(id, controlValue, returnValue);
@@ -69,7 +69,7 @@ public class ChecklistRestController {
     }
 
     @RequestMapping(value = "/deleteentry/{id}", method = RequestMethod.POST)
-    public RestResult deleteEntry(@PathVariable long id) throws ServiceException {
+    public RestResult deleteEntry(@PathVariable Long id) throws ServiceException {
         RestResult result = new RestResult();
         entryService.delete(id);
         return result;

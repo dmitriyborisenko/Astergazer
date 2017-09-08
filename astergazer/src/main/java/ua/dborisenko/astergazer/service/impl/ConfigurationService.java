@@ -13,14 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ua.dborisenko.astergazer.controller.ConstructorRestController;
 import ua.dborisenko.astergazer.dao.IConfigurationDao;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter;
-import ua.dborisenko.astergazer.domain.ConfigurationParameter.PARAM_NAME;
+import ua.dborisenko.astergazer.model.ConfigurationParameter;
+import ua.dborisenko.astergazer.model.ConfigurationParameter.PARAM_NAME;
 import ua.dborisenko.astergazer.exception.DaoException;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IConfigurationService;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 public class ConfigurationService implements IConfigurationService {
 
     private static final Logger log = LoggerFactory.getLogger(ConstructorRestController.class);
