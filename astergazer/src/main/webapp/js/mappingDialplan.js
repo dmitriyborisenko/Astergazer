@@ -129,6 +129,29 @@ function deleteCurrentDialplanTreeNode() {
     }
 }
 
+function cloneContext(contextId) {
+    if (typeof contextId != "undefined") {
+        $("#dialog-context")
+        .dialog("option", "restUrl", restControllerUrl + "/clonecontext/" + contextId)
+        .dialog("open");
+    }
+}
+
+function cloneCurrentContext() {
+    var currentNode = $("#div-dialplan-tree").jstree("get_selected", true)[0];
+    if (typeof currentNode != "undefined") {
+        if (currentNode.type == "context") {
+            var contextId = currentNode.data.id;
+        } else if (currentNode.type == "extension") {
+            var contextId = currentNode.data.contextId;
+        } else {
+            showErrorMessage(unknownNodeTypeErrorText);
+            return;
+        }
+        cloneContext(contextId);
+    }
+}
+
 function initContextDialog() {
     var dialogButtons = {};
     dialogButtons["OK"] = function() {

@@ -118,6 +118,7 @@ function initScriptDialog() {
             success: function (data) {
                 if (data.status == "OK") {
                     $("#div-script-tree").jstree("refresh");
+                    $("#div-dialplan-tree").jstree("refresh");
                 } else {
                     showErrorMessage(data.data.description);
                 }

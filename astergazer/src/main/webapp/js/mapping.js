@@ -38,7 +38,7 @@ $(document).ready(function() {
         $("#button-delete-script").button("option", "disabled", true);
     }).jstree("deselect_all").delegate("a","dblclick", function() {
         editCurrentScript();
-    });;
+    });
     
     $("#div-dialplan-tree").jstree({
         "plugins" : ["types", "grid"],
@@ -46,7 +46,7 @@ $(document).ready(function() {
             "columns": [
                       {width: 320, header: nameColumnCaptionText, headerClass: "jstreegrid-column-header", columnClass: "jstreegrid-striped"},
                       {width: 300, header: scriptColumnCaptionText, value: "scriptName", headerClass: "jstreegrid-column-header", columnClass : "jstreegrid-striped"}
-            ],
+            ]
         },
         "core" : {
             "multiple": false,
@@ -65,16 +65,18 @@ $(document).ready(function() {
             "context" : {"icon" : imageUrl + "/context.svg",    "valid_children" : ["extension"]},
             "extension" : {"icon" : imageUrl + "/extension.svg",    "valid_children" : ["script"]},
             "script" : {"icon" : imageUrl + "/script.svg",  "valid_children" : []}
-        },
+        }
     }).on('select_node.jstree', function (e, data) {
-        $("#button-add-exten").button("option", "disabled", false);
+        $("#button-add-extension").button("option", "disabled", false);
         $("#button-edit").button("option", "disabled", false);
+        $("#button-clone-context").button("option", "disabled", false);
         $("#button-delete").button("option", "disabled", false);
     }).on('deselect_all.jstree', function (e, data) {
-        $("#button-add-exten").button("option", "disabled", true);
+        $("#button-add-extension").button("option", "disabled", true);
         $("#button-edit").button("option", "disabled", true);
+        $("#button-clone-context").button("option", "disabled", true);
         $("#button-delete").button("option", "disabled", true);
-    }).jstree("deselect_all").delegate("a","dblclick", function(e) {
+    }).jstree("deselect_all").delegate("a","dblclick", function() {
         editCurrentDialplanTreeNode();  
     });
 

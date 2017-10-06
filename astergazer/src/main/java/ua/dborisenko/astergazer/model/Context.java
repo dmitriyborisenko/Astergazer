@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @NamedQueries(value = {
         @NamedQuery(name = "Context.getAll", query = "SELECT c FROM Context c order by c.name"),
         @NamedQuery(name = "Context.getCount", query = "SELECT count(c) FROM Context c WHERE c.name = :name and c.id <> :id") })
-public class Context {
+public class Context implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +52,20 @@ public class Context {
 
     public void setExtensions(List<Extension> extensions) {
         this.extensions = extensions;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Context resultContext = (Context) super.clone();
+        resultContext.setId(null);
+        List<Extension> resultExtensions = new ArrayList<>();
+        for (Extension extension : extensions) {
+            Extension resultExtension = (Extension) extension.clone();
+            resultExtension.setContext(resultContext);
+            resultExtensions.add(resultExtension);
+        }
+        resultContext.setExtensions(resultExtensions);
+        return resultContext;
     }
 
 }

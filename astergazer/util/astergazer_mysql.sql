@@ -2,7 +2,7 @@ CREATE DATABASE astergazer;
 USE astergazer;
 
 CREATE TABLE dlp_script (
-    id int NOT NULL AUTO_INCREMENT,
+    id bigint NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     modification_stamp varchar(1024),
     PRIMARY KEY (id),
@@ -11,14 +11,14 @@ CREATE TABLE dlp_script (
 );
 
 CREATE TABLE dlp_context (
-    id int NOT NULL AUTO_INCREMENT,
+    id bigint NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE idx_name (name)
 );
 
 CREATE TABLE dlp_extension (
-    id int NOT NULL AUTO_INCREMENT,
+    id bigint NOT NULL AUTO_INCREMENT,
     context_id int NOT NULL REFERENCES dlp_context(id),
     script_id int,
     name varchar(255) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE dlp_connection (
 );
 
 CREATE TABLE dlp_checklist (
-    id int NOT NULL AUTO_INCREMENT,
+    id bigint NOT NULL AUTO_INCREMENT,
     name varchar(50) NOT NULL,
     PRIMARY KEY (id),
     UNIQUE idx_name (name)    

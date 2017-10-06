@@ -36,11 +36,16 @@
 			<label><spring:message code="mapping.dialplanTree"/></label>
 		</div>
 		<div class="div-dialplan-panel-header">
-			<button id="button-add-context" class="ui-button"
-							onclick="addContext()"><spring:message code="mapping.addContext"/></button>
-			<button id="button-add-exten" class="ui-button" onclick="addExtensionToCurrentContext()"><spring:message code="mapping.addExtension"/></button>
-			<button id="button-edit" class="ui-button" onclick="editCurrentDialplanTreeNode()"><spring:message code="mapping.edit"/></button>
-			<button id="button-delete" class="ui-button" onclick="deleteCurrentDialplanTreeNode()"><spring:message code="mapping.delete"/></button>
+			<button id="button-add-context" class="ui-button button-pic button-add-context"
+							onclick="addContext()" title="<spring:message code="mapping.addContext"/>"></button>
+			<button id="button-clone-context" class="ui-button button-pic button-clone-context"
+					onclick="cloneCurrentContext()" title="<spring:message code="mapping.cloneContext"/>"></button>
+			<button id="button-add-extension" class="ui-button button-pic button-add-extension"
+					onclick="addExtensionToCurrentContext()" title="<spring:message code="mapping.addExtension"/>"></button>
+			<button id="button-edit" class="ui-button button-pic button-edit"
+							onclick="editCurrentDialplanTreeNode()" title="<spring:message code="mapping.edit"/>"></button>
+			<button id="button-delete" class="ui-button button-pic button-delete"
+							onclick="deleteCurrentDialplanTreeNode()" title="<spring:message code="mapping.delete"/>"></button>
 		</div>
 		<div class="div-dialplan-tree-subwrapper">
 			<div id="div-dialplan-tree"></div>
@@ -51,39 +56,39 @@
 			<label><spring:message code="mapping.scriptList"/></label>
 		</div>
 		<div class="div-script-panel-header">
-			<button id="button-add-script" class="ui-button"
-							onclick="addScript()"><spring:message code="mapping.add"/></button>
-			<button id="button-edit-script" class="ui-button"
-							onclick="editCurrentScript()"><spring:message code="mapping.edit"/></button>
-			<button id="button-clone-script" class="ui-button"
-							onclick="cloneCurrentScript()"><spring:message code="mapping.clone"/></button>
-			<button id="button-construct-script" class="ui-button"
-							onclick="constructCurrentScript()"><spring:message code="mapping.constructor"/></button>
-			<button id="button-delete-script" class="ui-button"
-							onclick="deleteCurrentScript()"><spring:message code="mapping.delete"/></button>
+			<button id="button-add-script" class="ui-button button-pic button-add"
+							onclick="addScript()" title="<spring:message code="mapping.add"/>"></button>
+			<button id="button-edit-script" class="ui-button button-pic button-edit"
+							onclick="editCurrentScript()" title="<spring:message code="mapping.edit"/>"></button>
+			<button id="button-clone-script" class="ui-button button-pic button-clone-script"
+							onclick="cloneCurrentScript()" title="<spring:message code="mapping.clone"/>"></button>
+			<button id="button-construct-script" class="ui-button button-pic button-construct"
+							onclick="constructCurrentScript()" title="<spring:message code="mapping.constructor"/>"></button>
+			<button id="button-delete-script" class="ui-button button-pic button-delete"
+							onclick="deleteCurrentScript()" title="<spring:message code="mapping.delete"/>"></button>
 		</div>
 		<div id="div-script-tree" class="div-script-tree"></div>
 	</div>
 </div>
 <div id="dialog-script">
-	<label><spring:message code="mapping.scriptName"/>:</label>
+	<label for="input-script-name"><spring:message code="mapping.scriptName"/>:</label>
 	<input id="input-script-name" type="text"/>
 </div>
 <div id="dialog-context">
-	<label><spring:message code="mapping.contextName"/>:</label>
+	<label for="input-context-name"><spring:message code="mapping.contextName"/>:</label>
 	<input id="input-context-name" type="text"/>
 </div>
 <div id="dialog-extension">
-	<label class="label-dialog"><spring:message code="mapping.extensionName"/>:</label>
+	<label for="input-extension-name" class="label-dialog"><spring:message code="mapping.extensionName"/>:</label>
 	<br/>
 	<input id="input-extension-name" type="text" class="input-dialog"/>
 	<br/>
-	<label class="label-dialog"><spring:message code="mapping.script"/>:</label>
+	<label for="select-script" class="label-dialog"><spring:message code="mapping.script"/>:</label>
 	<br/>
 	<select id="select-script"></select>
 	<br/>
 	<button class="ui-button button-clear" onclick="clearSelectScript()"><img src="<c:url value="/images/clear.svg" />"
-																																						alt="<spring:message code="mapping.clear" />"></button>
+			alt="<spring:message code="mapping.clear" />"></button>
 </div>
 <div id="dialog-message"></div>
 <div id="dialog-confirmation"></div>

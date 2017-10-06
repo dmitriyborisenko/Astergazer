@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @NamedQueries(value = {
         @NamedQuery(name = "Extension.getCount", query = "SELECT count(e) FROM Extension e WHERE e.name = :name and e.context.id = :contextId and e.id <> :id"),
         @NamedQuery(name = "Extension.unlinkAllFromScript", query = "UPDATE Extension e SET e.script = null WHERE e.script.id = :id") })
-public class Extension {
+public class Extension implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +65,14 @@ public class Extension {
 
     public Long getScriptId() {
         return script.getId();
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        Extension result = (Extension) super.clone();
+        result.setId(null);
+        result.setContext(null);
+        return result;
     }
 
 }

@@ -87,6 +87,14 @@ public class MappingRestController {
         return result;
     }
 
+    @RequestMapping(value = "/clonecontext/{id}", method = RequestMethod.POST)
+    public RestResult cloneContext(@PathVariable Long id, @RequestParam String name)
+            throws ServiceException {
+        RestResult result = new RestResult();
+        contextService.clone(id, name);
+        return result;
+    }
+
     @RequestMapping(value = "/deletecontext/{id}", method = RequestMethod.POST)
     public RestResult deleteContext(@PathVariable Long id) throws ServiceException {
         RestResult result = new RestResult();

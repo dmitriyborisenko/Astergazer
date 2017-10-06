@@ -1,5 +1,7 @@
 package ua.dborisenko.astergazer.service.impl;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -47,6 +49,7 @@ public class ScriptServiceTest {
         verify(mockScriptDao).add(newScript);
         assertTrue(entityListsAreSimilar(originalScript.getConnections(), newScript.getConnections(), connectionsAreSimilar()));
         assertTrue(entityListsAreSimilar(originalScript.getBlocks(), newScript.getBlocks(), blocksAreSimilar()));
+        assertThat(newScript.getName(), is(newScriptName));
     }
 
     private void addCustomBlockToScript(Script script, int localId, String caption, String paramValue1, String paramValue2) {

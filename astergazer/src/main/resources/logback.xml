@@ -9,11 +9,9 @@
 		</else>
 	</if>
 
-	<appender name="FILE"
-						class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${log.folder}/astergazer.log</file>
-		<rollingPolicy
-				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>${log.folder}/astergazer.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 			<totalSizeCap>3GB</totalSizeCap>
@@ -25,8 +23,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="ua.dborisenko.astergazer" level="TRACE"
-					additivity="false">
+	<logger name="ua.dborisenko.astergazer" level="TRACE" additivity="false">
 		<appender-ref ref="FILE"/>
 	</logger>
 

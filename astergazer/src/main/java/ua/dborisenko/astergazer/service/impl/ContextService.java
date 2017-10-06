@@ -78,6 +78,19 @@ public class ContextService implements IContextService {
     }
 
     @Override
+    public Context clone(Long id, String name) throws ServiceException {
+        try {
+            Context originalContext = contextDao.get(id);
+            Context newContext = (Context) originalContext.clone();
+            newContext.setName(name);
+            contextDao.add(newContext);
+            return newContext;
+        } catch (CloneNotSupportedException | CannotCreateTransactionException | DaoException e) {
+            throw new ServiceException("Could not clone context with id " + id, e);
+        }
+    }
+
+    @Override
     public void delete(Long id) throws ServiceException {
         try {
             contextDao.delete(id);
