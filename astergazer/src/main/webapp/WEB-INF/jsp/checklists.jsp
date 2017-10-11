@@ -28,14 +28,14 @@
 			<label><spring:message code="checklists.lists"/></label>
 		</div>
 		<div class="div-checklists-panel-header">
-			<button id="button-add-checklist" class="ui-button"
-							onclick="addChecklist()"><spring:message code="checklists.addList"/></button>
-			<button id="button-add-entry" class="ui-button"
-							onclick="addEntryToCurrentChecklist()"><spring:message code="checklists.addEntry"/></button>
-			<button id="button-edit" class="ui-button" onclick="editCurrentTreeNode()"><spring:message
-							code="checklists.edit"/></button>
-			<button id="button-delete" class="ui-button" onclick="deleteCurrentTreeNode()"><spring:message
-							code="checklists.delete"/></button>
+			<button id="button-add-checklist" class="ui-button button-pic button-add-checklist"
+							onclick="addChecklist()" title="<spring:message code="checklists.addList"/>"></button>
+			<button id="button-add-entry" class="ui-button button-pic button-add-checklist-entry"
+							onclick="addEntryToCurrentChecklist()" title="<spring:message code="checklists.addEntry"/>"></button>
+			<button id="button-edit" class="ui-button button-pic button-edit"
+							onclick="editCurrentTreeNode()" title="<spring:message code="checklists.edit"/>"></button>
+			<button id="button-delete" class="ui-button button-pic button-delete"
+							onclick="deleteCurrentTreeNode()" title="<spring:message code="checklists.delete"/>"></button>
 		</div>
 		<div class="div-checklists-tree-subwrapper">
 			<div id="div-checklists-tree"></div>

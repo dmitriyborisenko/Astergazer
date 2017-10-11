@@ -6,10 +6,12 @@ viewBox="0 0 35 47"
  <defs>
   <style type="text/css">
    <![CDATA[
-    .str2 {stroke:#00558E;stroke-width:1.01023}
-    .str0 {stroke:#00558E;stroke-width:2.02045}
-    .str1 {stroke:#00558E;stroke-width:1.01023;stroke-linejoin:round}
+    .str1 {stroke:#393185;stroke-width:1.01023}
+    .str0 {stroke:#006CB5;stroke-width:2.02045}
+    .str2 {stroke:white;stroke-width:1.34562}
     .fil1 {fill:none}
+    .fil3 {fill:#00558E}
+    .fil2 {fill:#393185}
     .fil0 {fill:url(#id0)}
    ]]>
   </style>
@@ -21,10 +23,15 @@ viewBox="0 0 35 47"
  <g id="Layer_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
   <path class="fil0 str0" d="M4 1l27 0c2,0 2,1 2,3l0 27c0,1 0,2 -2,2l-27 0c-1,0 -2,-1 -2,-2l0 -27c0,-2 1,-3 2,-3z"/>
-  <g id="_1677150700192">
-   <rect class="fil1 str1" transform="matrix(0.708188 0.708188 -0.707107 0.707107 23.1529 6.37614)" width="7.14816" height="20.217"/>
-   <polygon class="fil1 str2" points="7,28 8,24 9,21 11,24 13,26 10,27 "/>
-   <line class="fil1 str2" x1="26" y1="9" x2="11" y2= "23" />
+  <g id="_1677150695648">
+   <rect class="fil1 str1" x="8" y="4" width="18.9187" height="25.199" rx="2" ry="2"/>
+   <g>
+    <rect class="fil2" x="11" y="7" width="13.6463" height="3.56663"/>
+    <rect class="fil2" x="11" y="13" width="13.6463" height="3.56663"/>
+    <rect class="fil2" x="11" y="18" width="13.6463" height="3.56663"/>
+    <rect class="fil2" x="11" y="23" width="13.6463" height="3.56663"/>
+   </g>
   </g>
+  <polygon class="fil3 str2" points="10,14 15,14 15,19 21,19 21,25 15,25 15,30 10,30 10,25 4,25 4,19 10,19 "/>
  </g>
 </svg>
