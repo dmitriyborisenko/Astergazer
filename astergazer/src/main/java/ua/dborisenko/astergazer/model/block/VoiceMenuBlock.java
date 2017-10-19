@@ -20,10 +20,11 @@ public class VoiceMenuBlock extends Block {
 
     public VoiceMenuBlock() {
         this.isSwitcher = true;
+        this.isAgiComplexBlock = true;
     }
 
     @Override
-    public String translate(List<Block> trueCaseBlocks) {
+    public String translate(List<Block> trueCaseBlocks, String fastAgiHost) {
         String encodedMenu;
         try {
             VoiceMenuDtoFactory dtoFactory = new VoiceMenuDtoFactory();
@@ -34,8 +35,10 @@ public class VoiceMenuBlock extends Block {
         } catch (JsonProcessingException | UnsupportedEncodingException e) {
             throw new IllegalArgumentException("Could not build the voice menu", e);
         }
-        StringBuilder result = new StringBuilder("agi://${ASTERGAZER_HOST}:4573/voicemenu.agi?encodedMenu=");
-        result.append(encodedMenu);
-        return buildCommandString(getLabel(), "AGI", result.toString());
+        String implodedParameters = "agi://" +
+                fastAgiHost +
+                ":4573/voicemenu.agi?encodedMenu=" +
+                encodedMenu;
+        return buildCommandString(getLabel(), "AGI", implodedParameters);
     }
 }

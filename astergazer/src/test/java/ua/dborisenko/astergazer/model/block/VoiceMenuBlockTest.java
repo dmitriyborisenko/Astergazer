@@ -23,6 +23,7 @@ public class VoiceMenuBlockTest {
 
     @Test
     public void translateTest() throws JsonProcessingException, UnsupportedEncodingException {
+        String fastAgiHost = "testHost";
         VoiceMenuBlock block = new VoiceMenuBlock();
         String caption = "caption";
         String[] parameters = { "menuVoicePrompt", "invalidInputVoicePrompt", "timeoutVoicePrompt", "timeout", "timeoutAttempts", "invalidAttempts" };
@@ -40,8 +41,8 @@ public class VoiceMenuBlockTest {
         String menuJson = mapper.writeValueAsString(dto);
         encodedMenu = URLEncoder.encode(menuJson, "UTF-8");
 
-        StringBuilder expectedResult = new StringBuilder(Block.COMMAND_PREFIX + caption + "),AGI(agi://${ASTERGAZER_HOST}:4573/voicemenu.agi?encodedMenu=" + encodedMenu + ")\n");
+        String expectedResult = Block.COMMAND_PREFIX + caption + "),AGI(agi://" + fastAgiHost + ":4573/voicemenu.agi?encodedMenu=" + encodedMenu + ")\n";
 
-        assertThat(block.translate(trueCaseBlocks), is(expectedResult.toString()));
+        assertThat(block.translate(trueCaseBlocks, fastAgiHost), is(expectedResult));
     }
 }

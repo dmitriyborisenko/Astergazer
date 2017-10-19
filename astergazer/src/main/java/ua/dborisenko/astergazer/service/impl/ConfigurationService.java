@@ -1,8 +1,13 @@
 package ua.dborisenko.astergazer.service.impl;
 
-import java.util.HashSet;
-import java.util.Random;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 
-import ua.dborisenko.astergazer.controller.ConstructorRestController;
 import ua.dborisenko.astergazer.dao.IConfigurationDao;
 import ua.dborisenko.astergazer.model.ConfigurationParameter;
 import ua.dborisenko.astergazer.model.ConfigurationParameter.PARAM_NAME;
@@ -23,37 +27,36 @@ import ua.dborisenko.astergazer.service.IConfigurationService;
 @Transactional(rollbackFor = Exception.class)
 public class ConfigurationService implements IConfigurationService {
 
-    private static final Logger log = LoggerFactory.getLogger(ConstructorRestController.class);
+    private static final Logger log = LoggerFactory.getLogger(ConfigurationService.class);
+    private Map<PARAM_NAME, ConfigurationParameter> cachedParameters = new ConcurrentHashMap<>();
 
     @Autowired
     private IConfigurationDao configurationDao;
 
+    @PostConstruct
+    public void setUp() {
+        try {
+            cachedParameters = configurationDao.getAll()
+                    .stream()
+                    .collect(Collectors.toMap(ConfigurationParameter::getName, Function.identity()));
+        } catch (CannotCreateTransactionException | DaoException e) {
+            log.error("Could not upload configuration parameters to the cache.", e);
+        }
+    }
+
     @Override
-    public ConfigurationParameter getFastAgiHost() throws ServiceException {
+    public ConfigurationParameter getFastAgiHost() {
         return getParameter(PARAM_NAME.FASTAGI_HOST);
     }
 
     @Override
     public ConfigurationParameter getModificationStamp() {
-        try {
-            ConfigurationParameter parameter = configurationDao.get(PARAM_NAME.MODIFICATION_STAMP);
-            if (parameter == null) {
-                return new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, null);
-            } else {
-                return parameter;
-            }
-        } catch (DaoException e) {
-            log.error("Could not get the modification stamp", e);
-            return new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, null);
-        }
+        return getParameter(PARAM_NAME.MODIFICATION_STAMP);
     }
 
     @Override
-    public Set<ConfigurationParameter> getAll() throws ServiceException {
-        Set<ConfigurationParameter> result = new HashSet<>();
-        result.add(getFastAgiHost());
-        result.add(getModificationStamp());
-        return result;
+    public Collection<ConfigurationParameter> getAll() {
+       return cachedParameters.values();
     }
 
     @Override
@@ -62,32 +65,20 @@ public class ConfigurationService implements IConfigurationService {
             for (ConfigurationParameter parameter : parameters) {
                 configurationDao.set(parameter);
             }
-        } catch (DaoException e) {
+            cachedParameters = parameters
+                    .stream()
+                    .collect(Collectors.toMap(ConfigurationParameter::getName, Function.identity()));
+        } catch (CannotCreateTransactionException | DaoException e) {
             throw new ServiceException("Could not save the configuration parameters set", e);
         }
-        setModificationStamp();
     }
 
-    private void setModificationStamp() throws ServiceException {
-        Random random = new Random();
-        String stamp = System.currentTimeMillis() + "/" + random.nextLong();
-        try {
-            configurationDao.set(new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, stamp));
-        } catch (DaoException e) {
-            throw new ServiceException("Could not set modification stamp", e);
-        }
-    }
-
-    private ConfigurationParameter getParameter(PARAM_NAME name) throws ServiceException {
-        try {
-            ConfigurationParameter parameter = configurationDao.get(name);
-            if (parameter == null) {
-                return new ConfigurationParameter(name, name.getDefaultValue());
-            } else {
-                return parameter;
-            }
-        } catch (CannotCreateTransactionException | DaoException e) {
-            throw new ServiceException("Could not get configuration parameter " + name, e);
+    private ConfigurationParameter getParameter(PARAM_NAME name) {
+        ConfigurationParameter parameter = cachedParameters.get(name);
+        if (parameter == null) {
+            return new ConfigurationParameter(name, name.getDefaultValue());
+        } else {
+            return parameter;
         }
     }
 

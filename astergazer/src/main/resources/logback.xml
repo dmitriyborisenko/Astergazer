@@ -9,6 +9,14 @@
 		</else>
 	</if>
 
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%logger] %msg%n
+			</Pattern>
+		</encoder>
+	</appender>
+
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${log.folder}/astergazer.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -24,14 +32,17 @@
 	</appender>
 
 	<logger name="ua.dborisenko.astergazer" level="TRACE" additivity="false">
+		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="FILE"/>
 	</logger>
 
 	<logger name="org.hibernate" level="ERROR">
+		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="FILE"/>
 	</logger>
 
 	<root level="INFO">
+		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="FILE"/>
 	</root>
 </configuration>

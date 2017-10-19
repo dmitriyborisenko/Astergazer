@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			 xmlns:context="http://www.springframework.org/schema/context"
-			 xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
-			 xmlns:util="http://www.springframework.org/schema/util"
-			 xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 				http://www.springframework.org/schema/beans/spring-beans.xsd
 				http://www.springframework.org/schema/context
 				http://www.springframework.org/schema/context/spring-context.xsd
@@ -23,8 +23,7 @@
 		<property name="jndiName" value="java:comp/env/jdbc/dataSource"/>
 	</bean>
 
-	<bean id="entityManagerFactory"
-				class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
@@ -32,33 +31,32 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory"/>
 	</bean>
 
-	<bean
-					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
-							value="org.springframework.web.servlet.view.JstlView"/>
+				  value="org.springframework.web.servlet.view.JstlView"/>
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 
 	<bean name="messageSource"
-				class="org.springframework.context.support.ResourceBundleMessageSource">
+		  class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename" value="messages"/>
 	</bean>
 
 	<bean id="localeChangeInterceptor"
-				class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		  class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
 		<property name="paramName" value="language"/>
 	</bean>
 
 	<bean id="handlerMapping"
-				class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+		  class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
 		<property name="interceptors">
 			<ref bean="localeChangeInterceptor"/>
 		</property>
 	</bean>
 
 	<bean id="localeResolver"
-				class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		  class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="en"/>
 	</bean>
 

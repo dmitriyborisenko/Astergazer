@@ -32,10 +32,13 @@ import ua.dborisenko.astergazer.service.ITranslatorService;
 import ua.dborisenko.astergazer.service.IConfigurationService;
 
 @Service
-@Transactional(rollbackFor = Exception.class)
+@Transactional(rollbackFor = Exception.class, readOnly = true)
 public class TranslatorService implements ITranslatorService {
 
     private static final Logger log = LoggerFactory.getLogger(TranslatorService.class);
+    private static final ThreadLocal<String> fastAgiHostScope = new ThreadLocal<>();
+    private String cachedContexts = "";
+
 
     @Autowired
     IConfigurationService configurationService;
@@ -45,10 +48,6 @@ public class TranslatorService implements ITranslatorService {
 
     @Autowired
     IContextDao contextDao;
-
-    private String cachedContexts = "";
-
-    private String cachedGlobalVariables = "";
 
     private Block findStartBlock(Script script) {
         for (Block block : script.getBlocks()) {
@@ -77,12 +76,12 @@ public class TranslatorService implements ITranslatorService {
         return null;
     }
 
-    private List<Block> findTrueCaseBlocks(Block switchBlock, Script script, Set<Integer> handledBlocksId) {
+    private List<Block> findTrueCaseBlocks(Block switchBlock, Script script) {
         List<Block> result = new ArrayList<>();
         for (Connection connection : script.getConnections()) {
             if (connection.getSourceBlockLocalId() == switchBlock.getLocalId()) {
                 Block block = findBlockByLocalId(connection.getTargetBlockLocalId(), script);
-                if (block.getIsCaseBlock()) {
+                if (block.isCaseBlock()) {
                     result.add(block);
                 }
             }
@@ -90,7 +89,7 @@ public class TranslatorService implements ITranslatorService {
         return result;
     }
 
-    private Block findFalseCaseBlock(Block switchBlock, Script script, Set<Integer> handledBlocksId) {
+    private Block findFalseCaseBlock(Block switchBlock, Script script) {
         for (Connection connection : script.getConnections()) {
             if (connection.getSourceBlockLocalId() == switchBlock.getLocalId()) {
                 Block block = findBlockByLocalId(connection.getTargetBlockLocalId(), script);
@@ -111,7 +110,7 @@ public class TranslatorService implements ITranslatorService {
                 result.append("\tsame = n,Goto(").append(block.getLabel()).append(")\n");
                 return;
             }
-            if (block.getIsSwitcher()) {
+            if (block.isSwitcher()) {
                 handleSwitcher(result, script, handledBlocksId, rootBlocks, block);
                 return;
             }
@@ -120,14 +119,17 @@ public class TranslatorService implements ITranslatorService {
             block = findNextBlock(block, script);
         }
         result.append("\tsame = n,Hangup()\n");
-
     }
 
     private void handleSwitcher(StringBuilder result, Script script, Set<Integer> handledBlocksId,
             Deque<Block> rootBlocks, Block block) {
-        List<Block> trueCaseBlocks = findTrueCaseBlocks(block, script, handledBlocksId);
-        Block falseCaseBlock = findFalseCaseBlock(block, script, handledBlocksId);
-        result.append(block.translate(trueCaseBlocks));
+        List<Block> trueCaseBlocks = findTrueCaseBlocks(block, script);
+        Block falseCaseBlock = findFalseCaseBlock(block, script);
+        if (block.isAgiComplexBlock()) {
+            result.append(block.translate(trueCaseBlocks, fastAgiHostScope.get()));
+        } else {
+            result.append(block.translate(trueCaseBlocks));
+        }
         handledBlocksId.add(block.getLocalId());
         rootBlocks.addAll(trueCaseBlocks);
         rootBlocks.addLast(falseCaseBlock);
@@ -154,6 +156,7 @@ public class TranslatorService implements ITranslatorService {
 
     @Override
     public String getTranslatedScript(Long id) throws ServiceException {
+        fastAgiHostScope.set(configurationService.getFastAgiHost().getValue());
         return buildScript(loadScript(id));
     }
 
@@ -188,27 +191,18 @@ public class TranslatorService implements ITranslatorService {
         return result.toString();
     }
 
-    private void cacheGlobalVariables() throws ServiceException {
-        StringBuilder stringBuilder = new StringBuilder("[globals](+)\n");
-        stringBuilder.append("ASTERGAZER_HOST=");
-        stringBuilder.append(configurationService.getFastAgiHost().getValue());
-        stringBuilder.append("\n\n");
-        cachedGlobalVariables = stringBuilder.toString();
-    }
-
     @Override
     public String getTranslatedDialplan() {
         StopWatch watch = new StopWatch();
         watch.start();
+        fastAgiHostScope.set(configurationService.getFastAgiHost().getValue());
         StringBuilder result = new StringBuilder();
         try {
-            cacheGlobalVariables();
             cacheContexts();
         } catch (ServiceException e) {
             log.error("Could not load dialplan", e);
             result.append("; WARNING! Could not load dialplan. The cache is used.\n\n");
         }
-        result.append(cachedGlobalVariables);
         result.append(cachedContexts);
         watch.stop();
         result.append(buildSummaryInfo(watch.getTotalTimeMillis()));

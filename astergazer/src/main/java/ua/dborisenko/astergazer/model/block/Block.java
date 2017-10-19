@@ -104,6 +104,9 @@ public class Block implements Cloneable {
     protected boolean isCaseBlock;
 
     @Transient
+    protected boolean isAgiComplexBlock;
+
+    @Transient
     protected int parametersCount = 0;
 
     @Transient
@@ -197,44 +200,50 @@ public class Block implements Cloneable {
         this.parameters = parameters;
     }
 
-    public boolean getIsSwitcher() {
+    public boolean isSwitcher() {
         return isSwitcher;
     }
 
-    public void setIsSwitcher(boolean isSwitcher) {
+    public void setSwitcher(boolean isSwitcher) {
         this.isSwitcher = isSwitcher;
     }
 
-    public boolean getIsCaseBlock() {
+    public boolean isCaseBlock() {
         return isCaseBlock;
     }
 
-    public void setIsCaseBlock(boolean isCaseBlock) {
+    public void setCaseBlock(boolean isCaseBlock) {
         this.isCaseBlock = isCaseBlock;
     }
 
+    public boolean isAgiComplexBlock() {
+        return isAgiComplexBlock;
+    }
+
+    public void setAgiComplexBlock(boolean agiComplexBlock) {
+        isAgiComplexBlock = agiComplexBlock;
+    }
+
     protected String buildCommandString(String label, String command) {
-        StringBuilder result = new StringBuilder(COMMAND_PREFIX);
-        result.append(label);
-        result.append("),");
-        result.append(command);
-        result.append("\n");
-        return result.toString();
+        return COMMAND_PREFIX +
+                label +
+                ")," +
+                command +
+                "\n";
     }
 
     protected String buildCommandString(String label, String command, String parameters) {
-        StringBuilder result = new StringBuilder(COMMAND_PREFIX);
-        result.append(label);
-        result.append("),");
-        result.append(command);
-        result.append("(");
-        result.append(parameters);
-        result.append(")");
-        result.append("\n");
-        return result.toString();
+        return COMMAND_PREFIX +
+                label +
+                ")," +
+                command +
+                "(" +
+                parameters +
+                ")" +
+                "\n";
     }
 
-    protected String buildParametersList(int paramCount) {
+    private String buildParametersList(int paramCount) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < paramCount; i++) {
             if (i < getParameters().size()) {
@@ -253,6 +262,10 @@ public class Block implements Cloneable {
 
     public String translate(List<Block> trueCaseBlocks) {
         return translate();
+    }
+
+    public String translate(List<Block> trueCaseBlocks, String fastAgiHost) {
+        return translate(trueCaseBlocks);
     }
 
     @JsonIgnore

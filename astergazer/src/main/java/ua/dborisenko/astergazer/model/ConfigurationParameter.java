@@ -1,6 +1,8 @@
 package ua.dborisenko.astergazer.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,7 +12,7 @@ public class ConfigurationParameter {
 
     public enum PARAM_NAME {
         FASTAGI_HOST("localhost"),
-        MODIFICATION_STAMP("");
+        MODIFICATION_STAMP(null);
 
         final private String defaultValue;
 
@@ -32,6 +34,7 @@ public class ConfigurationParameter {
     }
 
     @Id
+    @Enumerated(EnumType.STRING)
     private PARAM_NAME name;
 
     private String value;

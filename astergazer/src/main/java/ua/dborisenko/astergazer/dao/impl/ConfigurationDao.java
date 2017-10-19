@@ -1,5 +1,7 @@
 package ua.dborisenko.astergazer.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -17,11 +19,21 @@ public class ConfigurationDao implements IConfigurationDao {
     private EntityManager em;
 
     @Override
+    @SuppressWarnings("unchecked")
+    public List<ConfigurationParameter> getAll() throws DaoException {
+        try {
+            return (List<ConfigurationParameter>) em.createQuery("FROM ConfigurationParameter").getResultList();
+        } catch (Exception e) {
+            throw new DaoException("Could not get all parameters", e);
+        }
+    }
+
+    @Override
     public ConfigurationParameter get(PARAM_NAME name) throws DaoException {
         try {
             return em.find(ConfigurationParameter.class, name);
         } catch (Exception e) {
-            throw new DaoException("Could not execute the query", e);
+            throw new DaoException("Could not get parameter with name " + name, e);
         }
     }
 
@@ -30,7 +42,7 @@ public class ConfigurationDao implements IConfigurationDao {
         try {
             em.merge(parameter);
         } catch (Exception e) {
-            throw new DaoException("Could not execute the query", e);
+            throw new DaoException("Could not set parameter", e);
         }
     }
 }

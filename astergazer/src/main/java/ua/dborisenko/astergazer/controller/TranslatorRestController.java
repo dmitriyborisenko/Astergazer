@@ -18,11 +18,10 @@ import ua.dborisenko.astergazer.service.ITranslatorService;
 @RestController
 public class TranslatorRestController {
 
+    private static final Logger log = LoggerFactory.getLogger(TranslatorRestController.class);
     private static final String RECORD_NOT_FOUND_ERROR = "; ERROR 404: record not found\n";
     private static final String BLOCK_NOT_FOUND_ERROR = "; ERROR 500: block not found\n";
     private static final String INTERNAL_ERROR = "; ERROR 500: Internal service error\n";
-
-    private static final Logger log = LoggerFactory.getLogger(TranslatorRestController.class);
 
     @Autowired
     private ITranslatorService translatorService;
