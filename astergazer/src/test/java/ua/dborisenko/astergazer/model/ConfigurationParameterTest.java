@@ -31,7 +31,6 @@ public class ConfigurationParameterTest {
         parameter.setValue(expectedValue);
 
         em.merge(parameter);
-
         ConfigurationParameter resultParameter = em.find(ConfigurationParameter.class, name);
 
         assertThat(resultParameter.getValue(), is(expectedValue));

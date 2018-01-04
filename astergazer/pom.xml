@@ -15,7 +15,7 @@
         <tomcat.deploy.url>http://localhost:8080/manager/text</tomcat.deploy.url>
         <tomcat.deploy.servername>TomcatServer</tomcat.deploy.servername>
 
-        <version.spring>4.2.5.RELEASE</version.spring>
+        <version.spring>4.3.13.RELEASE</version.spring>
         <version.mysql-connector>5.1.38</version.mysql-connector>
         <version.junit>4.12</version.junit>
         <version.mockito>1.10.19</version.mockito>

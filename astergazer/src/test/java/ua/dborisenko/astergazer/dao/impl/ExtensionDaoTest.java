@@ -46,7 +46,6 @@ public class ExtensionDaoTest {
     public void getTest() throws DaoException {
         Extension expectedExtension = new Extension();
         expectedExtension.setId(TEST_ID);
-
         when(mockEm.find(Extension.class, TEST_ID)).thenReturn(expectedExtension);
 
         assertThat(extensionDao.get(TEST_ID), is(expectedExtension));
@@ -56,18 +55,21 @@ public class ExtensionDaoTest {
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
         when(mockEm.find(Extension.class, TEST_ID)).thenThrow(Exception.class);
+
         extensionDao.get(TEST_ID);
     }
 
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
         when(mockEm.find(Context.class, TEST_ID)).thenReturn(null);
+
         extensionDao.get(TEST_ID);
     }
 
     @Test
     public void addTest() throws DaoException {
         Extension extension = new Extension();
+
         extensionDao.add(extension);
 
         verify(mockEm).persist(extension);
@@ -76,6 +78,7 @@ public class ExtensionDaoTest {
     @Test(expected = DaoException.class)
     public void addExceptionTest() throws DaoException {
         doThrow(Exception.class).when(mockEm).persist(any());
+
         extensionDao.add(new Extension());
     }
 
@@ -85,7 +88,6 @@ public class ExtensionDaoTest {
         String name = "test";
         long expectedResult = 42;
         Query mockQuery = mock(Query.class);
-
         when(mockEm.createNamedQuery("Extension.getCount")).thenReturn(mockQuery);
         when(mockQuery.getSingleResult()).thenReturn(expectedResult);
 
@@ -96,14 +98,15 @@ public class ExtensionDaoTest {
     public void getCountExceptionTest() throws DaoException {
         Long contextId = 2L;
         String name = "test";
-
         doThrow(Exception.class).when(mockEm).createNamedQuery("Extension.getCount");
+
         extensionDao.getCount(TEST_ID, contextId, name);
     }
 
     @Test
     public void updateTest() throws DaoException {
         Extension extension = new Extension();
+
         extensionDao.update(extension);
 
         verify(mockEm).merge(extension);
@@ -112,6 +115,7 @@ public class ExtensionDaoTest {
     @Test(expected = DaoException.class)
     public void updateExceptionTest() throws DaoException {
         doThrow(Exception.class).when(mockEm).merge(any());
+
         extensionDao.update(new Extension());
     }
 
@@ -121,10 +125,10 @@ public class ExtensionDaoTest {
         Extension extension = mock(Extension.class);
         Context context = mock(Context.class);
         List<Extension> extensionList = mock(ArrayList.class);
-
         when(extension.getContext()).thenReturn(context);
         when(context.getExtensions()).thenReturn(extensionList);
         doReturn(extension).when(spyExtensionDao).get(TEST_ID);
+
         spyExtensionDao.delete(TEST_ID);
 
         verify(extensionList).remove(extension);
@@ -134,17 +138,17 @@ public class ExtensionDaoTest {
     @Test(expected = DaoException.class)
     public void deleteExceptionTest() throws DaoException {
         Extension extension = mock(Extension.class);
-
         doReturn(extension).when(spyExtensionDao).get(TEST_ID);
         doThrow(Exception.class).when(mockEm).remove(any());
+
         spyExtensionDao.delete(TEST_ID);
     }
 
     @Test
     public void unlinkAllFromScriptTest() throws DaoException {
         Query mockQuery = mock(Query.class);
-
         when(mockEm.createNamedQuery("Extension.unlinkAllFromScript")).thenReturn(mockQuery);
+
         extensionDao.unlinkAllExtensionsFromScript(TEST_ID);
 
         verify(mockQuery).executeUpdate();

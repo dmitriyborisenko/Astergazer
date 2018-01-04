@@ -18,17 +18,16 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ua.dborisenko.astergazer.service.ITranslatorService;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TranslatorRestControllerTest {
+public class TranslatorControllerTest {
 
     private static final String CONTROLLER_PATH = "/translator";
+    private MockMvc mockMvc;
 
     @InjectMocks
-    private TranslatorRestController controller;
+    private TranslatorController controller;
 
     @Mock
     private ITranslatorService mockTranslatorService;
-
-    private MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {
@@ -38,24 +37,26 @@ public class TranslatorRestControllerTest {
     @Test
     public void testTranslateScript() throws Exception {
         String expectedTranslatedScript = "test";
-
         when(mockTranslatorService.getTranslatedScript(1L)).thenReturn(expectedTranslatedScript);
 
-        mockMvc.perform(get(CONTROLLER_PATH + "/1")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/1"))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("text/plain; charset=utf-8"))
                 .andExpect(content().string(expectedTranslatedScript));
+
         verify(mockTranslatorService).getTranslatedScript(1L);
     }
 
     @Test
     public void testTranslateDialplan() throws Exception {
         String expectedTranslatedDialplan = "test";
-
         when(mockTranslatorService.getTranslatedDialplan()).thenReturn(expectedTranslatedDialplan);
 
-        mockMvc.perform(get(CONTROLLER_PATH + "/")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/"))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("text/plain; charset=utf-8"))
                 .andExpect(content().string(expectedTranslatedDialplan));
+
         verify(mockTranslatorService).getTranslatedDialplan();
     }
 

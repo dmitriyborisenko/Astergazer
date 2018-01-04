@@ -28,19 +28,16 @@ public class VoiceMenuBlockTest {
         String caption = "caption";
         String[] parameters = { "menuVoicePrompt", "invalidInputVoicePrompt", "timeoutVoicePrompt", "timeout", "timeoutAttempts", "invalidAttempts" };
         blockTestUtil.setBlockParameters(block, caption, parameters);
-
         TrueCaseBlock trueCaseBlock = new TrueCaseBlock();
         trueCaseBlock.setCaption("test1");
         List<Block> trueCaseBlocks = new ArrayList<>();
         trueCaseBlocks.add(trueCaseBlock);
-
         String encodedMenu;
         VoiceMenuDtoFactory dtoFactory = new VoiceMenuDtoFactory();
         VoiceMenuDto dto = dtoFactory.getDto(block, trueCaseBlocks);
         ObjectMapper mapper = new ObjectMapper();
         String menuJson = mapper.writeValueAsString(dto);
         encodedMenu = URLEncoder.encode(menuJson, "UTF-8");
-
         String expectedResult = Block.COMMAND_PREFIX + caption + "),AGI(agi://" + fastAgiHost + ":4573/voicemenu.agi?encodedMenu=" + encodedMenu + ")\n";
 
         assertThat(block.translate(trueCaseBlocks, fastAgiHost), is(expectedResult));

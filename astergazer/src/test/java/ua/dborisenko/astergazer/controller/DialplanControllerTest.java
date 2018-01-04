@@ -23,6 +23,8 @@ import ua.dborisenko.astergazer.service.IScriptService;
 @RunWith(MockitoJUnitRunner.class)
 public class DialplanControllerTest {
 
+    private MockMvc mockMvc;
+
     @InjectMocks
     private DialplanController controller;
 
@@ -32,8 +34,6 @@ public class DialplanControllerTest {
     @Mock
     private View mockView;
 
-    private MockMvc mockMvc;
-
     @Before
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).setSingleView(mockView).build();
@@ -41,12 +41,16 @@ public class DialplanControllerTest {
 
     @Test
     public void testShowConfiguration() throws Exception {
-        mockMvc.perform(get("/settings")).andExpect(status().isOk()).andExpect(view().name("configuration"));
+        mockMvc.perform(get("/settings"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("configuration"));
     }
 
     @Test
     public void testShowDialplanMap() throws Exception {
-        mockMvc.perform(get("/mapping")).andExpect(status().isOk()).andExpect(view().name("mapping"));
+        mockMvc.perform(get("/mapping"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("mapping"));
     }
 
     @Test
@@ -55,12 +59,16 @@ public class DialplanControllerTest {
 
         when(mockScriptService.get(anyLong())).thenReturn(expectedScript);
 
-        mockMvc.perform(get("/constructor/1")).andExpect(status().isOk())
-                .andExpect(model().attribute("script", expectedScript)).andExpect(view().name("constructor"));
+        mockMvc.perform(get("/constructor/1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("script", expectedScript))
+                .andExpect(view().name("constructor"));
     }
 
     @Test
     public void testCheckLists() throws Exception {
-        mockMvc.perform(get("/checklists")).andExpect(status().isOk()).andExpect(view().name("checklists"));
+        mockMvc.perform(get("/checklists"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("checklists"));
     }
 }

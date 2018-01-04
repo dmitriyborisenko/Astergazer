@@ -33,7 +33,7 @@ public class ContextService implements IContextService {
         }
         if (contextCount > 0) {
             throw new DuplicatedValueException(
-                    "The context with name " + name + " already exists in the dialplan " + id);
+                    "The context with name " + name + " is already exists in the dialplan");
         }
     }
 

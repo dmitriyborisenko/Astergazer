@@ -19,19 +19,22 @@ $(document).ready(function() {
                 "url" : treeControllerUrl + "/getscripts",
                 "data" : function (node) {
                     return { "id" : node.id };
+                },
+                "error": function (data) {
+                    showErrorMessage(data.responseText);
                 }
             }  
         },
         "types" : {
             "#" : {"max_children" : 1, "max_depth" : 1, "valid_children" : ["root"]},
-            "script" : {"icon" : imageUrl + "/script.svg",  "valid_children" : []},
-        },
-    }).on('select_node.jstree', function (e, data) {
+            "script" : {"icon" : imageUrl + "/script.svg",  "valid_children" : []}
+        }
+    }).on('select_node.jstree', function () {
         $("#button-edit-script").button("option", "disabled", false);
         $("#button-clone-script").button("option", "disabled", false);
         $("#button-construct-script").button("option", "disabled", false);
         $("#button-delete-script").button("option", "disabled", false);
-    }).on('deselect_all.jstree', function (e, data) {
+    }).on('deselect_all.jstree', function () {
         $("#button-edit-script").button("option", "disabled", true);
         $("#button-clone-script").button("option", "disabled", true);
         $("#button-construct-script").button("option", "disabled", true);
@@ -57,6 +60,9 @@ $(document).ready(function() {
                 "url" : treeControllerUrl + "/getcontexts",
                 "data" : function (node) {
                     return { "id" : node.id };
+                },
+                "error": function (data) {
+                    showErrorMessage(data.responseText);
                 }
             }  
         },
@@ -66,12 +72,12 @@ $(document).ready(function() {
             "extension" : {"icon" : imageUrl + "/extension.svg",    "valid_children" : ["script"]},
             "script" : {"icon" : imageUrl + "/script.svg",  "valid_children" : []}
         }
-    }).on('select_node.jstree', function (e, data) {
+    }).on('select_node.jstree', function () {
         $("#button-add-extension").button("option", "disabled", false);
         $("#button-edit").button("option", "disabled", false);
         $("#button-clone-context").button("option", "disabled", false);
         $("#button-delete").button("option", "disabled", false);
-    }).on('deselect_all.jstree', function (e, data) {
+    }).on('deselect_all.jstree', function () {
         $("#button-add-extension").button("option", "disabled", true);
         $("#button-edit").button("option", "disabled", true);
         $("#button-clone-context").button("option", "disabled", true);

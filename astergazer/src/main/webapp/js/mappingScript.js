@@ -1,14 +1,19 @@
 function loadScriptsForDialogList() {
-    $.get(restControllerUrl + "/getscripts", function (data) {
-        if (data.status == "OK") {
+    $.ajax({
+        type : "GET",
+        url : restControllerUrl + "/getscripts",
+        async : true,
+        cache : false,
+        success : function (data) {
             var combobox = $("#select-script");
             combobox.empty();
-            data.data.scriptList.forEach(function (item, i, arr) {
+            data.scriptList.forEach(function (item) {
                 combobox.append("<option value=" + item.id + ">" + item.name + "</option>");
             });
             combobox.val("0");
-        } else {
-            showErrorMessage(data.data.description);
+        },
+        error : function (data) {
+            showErrorMessage(data.responseText);
         }
     });
 }
@@ -21,7 +26,7 @@ function addScript() {
 }
 
 function editScript(scriptId, scriptName) {
-    if (typeof scriptId != "undefined") {
+    if (typeof scriptId !== "undefined") {
         $("#dialog-script")
         .dialog("option", "restUrl", restControllerUrl + "/updatescript/" + scriptId)
         .dialog("option", "name", scriptName)
@@ -31,14 +36,14 @@ function editScript(scriptId, scriptName) {
 
 function editCurrentScript() {
     var currentNode = $("#div-script-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
+    if (typeof currentNode !== "undefined") {
         var entityId = currentNode.data.id;
         editScript(entityId, currentNode.text);
     }
 }
 
 function cloneScript(scriptId) {
-    if (typeof scriptId != "undefined") {
+    if (typeof scriptId !== "undefined") {
         $("#dialog-script")
         .dialog("option", "restUrl", restControllerUrl + "/clonescript/" + scriptId)
         .dialog("open");
@@ -48,31 +53,26 @@ function cloneScript(scriptId) {
 
 function cloneCurrentScript() {
     var currentNode = $("#div-script-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
+    if (typeof currentNode !== "undefined") {
         var entityId = currentNode.data.id;
         cloneScript(entityId, currentNode.text);
     }
 }
 
 function deleteScript(scriptId, name) {
-    if (typeof scriptId != "undefined") {
+    if (typeof scriptId !== "undefined") {
         showConfirmation(deleteScriptConfirmText + " " + name + "?", function () {
             $.ajax({
                 type: "POST",
                 url: restControllerUrl + "/deletescript/" + scriptId,
-                dataType: "json",
-                async: false,
+                async: true,
                 cache: false,
-                success: function (data) {
-                    if (data.status == "OK") {
-                        $("#div-script-tree").jstree("refresh");
-                        $("#div-dialplan-tree").jstree("refresh");
-                    } else {
-                        showErrorMessage(data.data.description);
-                    }
+                success: function () {
+                    $("#div-script-tree").jstree("refresh");
+                    $("#div-dialplan-tree").jstree("refresh");
                 },
-                failure: function (errMsg) {
-                    showErrorMessage(errMsg);
+                error : function (data) {
+                    showErrorMessage(data.responseText);
                 }
             });
         });
@@ -81,21 +81,21 @@ function deleteScript(scriptId, name) {
 
 function deleteCurrentScript() {
     var currentNode = $("#div-script-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
+    if (typeof currentNode !== "undefined") {
         var entityId = currentNode.data.id;
         deleteScript(entityId, currentNode.text);
     }
 }
 
 function constructScript(id) {
-    if (typeof id != "undefined") {
+    if (typeof id !== "undefined") {
         $(location).attr("href", constructorControllerUrl + "/" + id);
     }
 }
 
 function constructCurrentScript() {
     var currentNode = $("#div-script-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
+    if (typeof currentNode !== "undefined") {
         var entityId = currentNode.data.id;
         constructScript(entityId);
     }
@@ -112,19 +112,14 @@ function initScriptDialog() {
             data: {
                 name: name
             },
-            dataType: "json",
-            async: false,
+            async: true,
             cache: false,
-            success: function (data) {
-                if (data.status == "OK") {
-                    $("#div-script-tree").jstree("refresh");
-                    $("#div-dialplan-tree").jstree("refresh");
-                } else {
-                    showErrorMessage(data.data.description);
-                }
+            success: function () {
+                $("#div-script-tree").jstree("refresh");
+                $("#div-dialplan-tree").jstree("refresh");
             },
-            failure: function (errMsg) {
-                showErrorMessage(errMsg);
+            error : function (data) {
+                showErrorMessage(data.responseText);
             }
         });
         $(this).dialog("close");
@@ -136,7 +131,7 @@ function initScriptDialog() {
         autoOpen: false,
         modal: true,
         title: scriptNameText,
-        open: function (event, ui) {
+        open: function () {
             $("#input-script-name").val($(this).dialog("option", "name"));
         },
         buttons: dialogButtons

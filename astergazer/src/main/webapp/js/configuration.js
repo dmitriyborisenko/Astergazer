@@ -1,24 +1,24 @@
+var initStamp;
+var currentStamp;
+var inputFastAgiHost;
+
 function saveAll() {
     $.ajax({
         type: "GET",
         url: restControllerUrl + "/getstamp",
-        dataType: "json",
         async: true,
         cache: false,
         success: function (data) {
-            if (data.status == "OK") {
-                currentStamp = data.data.modificationStamp;
-                if (currentStamp != initStamp) {
-                    showConfirmation(concurrentModificationConfirmText, function () {
-                        postData();
-                    });
-                } else postData();
-            } else {
-                showErrorMessage(data.data.description);
-            }
+            /** @namespace data.modificationStamp **/
+            currentStamp = data.modificationStamp;
+            if (currentStamp !== initStamp) {
+                showConfirmation(concurrentModificationConfirmText, function () {
+                    postData();
+                });
+            } else postData();
         },
-        failure: function (errMsg) {
-            showErrorMessage(errMsg);
+        error: function (data) {
+            showErrorMessage(data.responseText);
         }
     });
 }
@@ -27,21 +27,15 @@ function getAll() {
     $.ajax({
         type: "GET",
         url: restControllerUrl + "/getall",
-        dataType: "json",
         async: true,
         cache: false,
         success: function (data) {
-            if (data.status == "OK") {
-                currentParameters = data.data.parameters;
-                initStamp = getParameterValue(currentParameters, "MODIFICATION_STAMP");
-                currentStamp = initStamp;
-                fillValues(currentParameters);
-            } else {
-                showErrorMessage(data.data.description);
-            }
+            initStamp = getParameterValue(data.parameters, "MODIFICATION_STAMP");
+            currentStamp = initStamp;
+            fillValues(data.parameters);
         },
-        failure: function (errMsg) {
-            showErrorMessage(errMsg);
+        error: function (data) {
+            showErrorMessage(data.responseText);
         }
     });
 }
@@ -51,28 +45,23 @@ function postData() {
         type: "POST",
         url: restControllerUrl + "/saveall",
         contentType: "application/json",
-        dataType: "json",
         async: true,
         cache: false,
         data: collectParametersData(),
-        success: function (data) {
-            if (data.status == "OK") {
-                showInformationMessage(successText);
-            } else {
-                showErrorMessage(data.data.description);
-            }
+        success: function () {
+           showInformationMessage(successText);
         },
-        failure: function (errMsg) {
-            showErrorMessage(errMsg);
+        error: function (data) {
+            showErrorMessage(data.responseText);
         }
     });
     initStamp = currentStamp;
 }
 
 function getParameterValue(parameters, name) {
-    var result;
+    var result = {};
     $.each(parameters, function (index, parameter) {
-        if (parameter.name == name) {
+        if (parameter.name === name) {
             result = parameter.value;
         }
     });
@@ -80,16 +69,16 @@ function getParameterValue(parameters, name) {
 }
 
 function fillValues(parameters) {
-    $("#input-fastagihost").val(getParameterValue(parameters, "FASTAGI_HOST"));
+    inputFastAgiHost.val(getParameterValue(parameters, "FASTAGI_HOST"));
 }
 
 function collectParametersData() {
     var parameters = [];
-    var parameter = new Object();
+    var parameter = {};
     parameter.name = "FASTAGI_HOST";
-    parameter.value = $("#input-fastagihost").val();
+    parameter.value = inputFastAgiHost.val();
     parameters.push(parameter);
-    parameter = new Object();
+    parameter = {};
     parameter.name = "MODIFICATION_STAMP";
     currentStamp = Date.now() + "/" + Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15);
@@ -99,14 +88,14 @@ function collectParametersData() {
 }
 
 $(document).ready(function () {
+    inputFastAgiHost = $("#input-fastagihost");
+    var spinner = new Spinner();
     $(document).ajaxStart(function () {
         spinner.spin($("body")[0]);
     });
     $(document).ajaxStop(function () {
         spinner.stop();
     });
-    spinner = new Spinner();
     getAll();
-
 });
 

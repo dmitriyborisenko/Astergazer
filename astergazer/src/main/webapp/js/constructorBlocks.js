@@ -1,3 +1,6 @@
+var currentBlock;
+var bufferedBlock;
+
 function setBlockHTML(block) {
     block.innerHTML = "<div class=\"ep\"></div><div align=\"center\" class=\"caption\">" + block.caption + "</div>";
 }
@@ -11,7 +14,7 @@ function initSingleBlock(block, posX, posY) {
     block.style.top = posY + "px";
     block.onclick = function (event) {
         if (event.ctrlKey) {
-            domBlock = $("#" + block.id);
+            var domBlock = $("#" + block.id);
             domBlock.addClass("selected-block");
             jsPlumbInstance.addToDragSelection(domBlock);
         }
@@ -28,12 +31,11 @@ var blockParameter = function (orderIndex, name, value) {
 };
 
 function addBlockParam(block, orderIndex, name, value) {
-    param = new blockParameter(orderIndex, name, value);
-    block.commandParams.push(param);
+    block.commandParams.push(new blockParameter(orderIndex, name, value));
 }
 
 function deleteBlock(block) {
-    if (block != null) {
+    if (block !== null) {
         if (block.isSwitcher) {
             jsPlumbInstance.select({source: block}).each(function (element) {
                 jsPlumbInstance.remove(element.target.id);
@@ -46,14 +48,14 @@ function deleteBlock(block) {
                 showErrorMessage(cannotRemoveErrorText);
             }
         }
-        if (block == window.currentBlock) {
+        if (block === currentBlock) {
             changeCurrentBlock();
         }
     }
 }
 
 function cloneBlock(block, newPosX, newPosY) {
-    if (block == null) {
+    if (typeof block === "undefined") {
         showErrorMessage(noSelectedBlockErrorText);
         return null;
     }
@@ -61,28 +63,29 @@ function cloneBlock(block, newPosX, newPosY) {
         showErrorMessage(cannotCloneErrorText);
         return null;
     }
-    if (newPosX == null) {
+    if (newPosX === null) {
         newPosX = getRandomPosition(parseFloat(block.style.left) + 5, parseFloat(block.style.left) + 35);
     }
-    if (newPosY == null) {
+    if (newPosY === null) {
         newPosY = getRandomPosition(parseFloat(block.style.top) + 5, parseFloat(block.style.top) + 35);
     }
+    var newBlock;
     if (block.isSwitcher) {
         newBlock = createBlockComplex(block.type, newPosX, newPosY);
     } else {
         newBlock = createBlock(block.type, null, newPosX, newPosY);
     }
     newBlock.commandParams = [];
-    for (i in block.commandParams) {
+    for (var i in block.commandParams) {
         newBlock.commandParams.push(new blockParameter(block.commandParams[i].orderIndex, block.commandParams[i].name, block.commandParams[i].value));
     }
     return newBlock;
 }
 
 function addCase(block) {
-    if (block.type == "Switch") {
+    if (block.type === "Switch") {
         addValueCase(block);
-    } else if (block.type == "VoiceMenu") {
+    } else if (block.type === "VoiceMenu") {
         addDigitCase(block);
     } else showErrorMessage("Wrong block type: " + block.type);
 }
@@ -100,7 +103,7 @@ function addDigitCase(block) {
 function addDigitCaseBlock(mainBlock, digit) {
     var posX = getRandomPosition(parseFloat(mainBlock.style.left) - 50, parseFloat(mainBlock.style.left) + 60);
     var posY = getRandomPosition(parseFloat(mainBlock.style.top) + 80, parseFloat(mainBlock.style.top) + 120);
-    equalCaseBlock = createBlock("EqualCase", null, posX, posY);
+    var equalCaseBlock = createBlock("EqualCase", null, posX, posY);
     updateBlockName(equalCaseBlock, digit);
     jsPlumbInstance.connect({
         source: mainBlock.id,
@@ -113,7 +116,7 @@ function addDigitCaseBlock(mainBlock, digit) {
 
 function applyBlockChanges(block) {
     updateBlockName(block, $("#current-block-name").val());
-    for (keyNum in block.commandParams) {
+    for (var keyNum in block.commandParams) {
         block.commandParams[keyNum].value = $("#block-param-value-" + keyNum).val().trim();
     }
 }
@@ -124,7 +127,7 @@ function getRandomPosition(minPos, maxPos) {
 
 function getNewId() {
     var maxId = 1;
-    $("#canvas").find(".block").each(function () {
+    canvas.find(".block").each(function () {
         maxId = Math.max(maxId, parseInt($(this).attr("id").replace(/[^\d]/g, "")) + 1);
     });
     return maxId;
@@ -132,8 +135,8 @@ function getNewId() {
 
 function updateBlockName(block, newName) {
     var checkResult = true;
-    $("#canvas .block").each(function (index, element) {
-        if (block.type != "FalseCase" && element.caption == newName && element.id != block.id) {
+    canvas.find(".block").each(function (index, element) {
+        if (block.type !== "FalseCase" && element.caption === newName && element.id !== block.id) {
             showWarningMessage(duplicateNameWarningText);
             checkResult = false;
             return false;
@@ -146,44 +149,47 @@ function updateBlockName(block, newName) {
     }
 }
 
-function updateCurrentBlockParam(keyNum, value) {
-    window.currentBlock.commandParams[keyNum].value = value.trim();
-}
-
 function changeCurrentBlock(block) {
     bufferedBlock = null;
     currentBlock = block;
     var keyNum = 0;
-    if (block == null) {
-        $(".input-current-block-name").val("");
-        $(".input-current-block-name").attr("disabled", true);
+    var inputCurrentBlockName = $(".input-current-block-name");
+    var blockParamKey;
+    var blockParamValue;
+    if (typeof block === "undefined") {
+        inputCurrentBlockName.val("");
+        inputCurrentBlockName.attr("disabled", true);
         $("#button-apply").button("option", "disabled", true);
         $("#button-clone").button("option", "disabled", true);
         $("#button-delete").button("option", "disabled", true);
         $("#button-addcase").button("option", "disabled", true);
     } else {
-        $(".input-current-block-name").val(block.caption);
-        $(".input-current-block-name").attr("disabled", block.isLocked);
+        inputCurrentBlockName.val(block.caption);
+        inputCurrentBlockName.attr("disabled", block.isLocked);
         $("#button-apply").button("option", "disabled", block.isLocked);
         $("#button-clone").button("option", "disabled", block.isLocked || block.isCaseBlock);
         $("#button-delete").button("option", "disabled", block.isLocked);
-        $("#button-addcase").button("option", "disabled", block.type != "Switch" && block.type != "VoiceMenu");
+        $("#button-addcase").button("option", "disabled", block.type !== "Switch" && block.type !== "VoiceMenu");
         while (keyNum < block.commandParams.length) {
-            $("#block-param-key-" + keyNum).text(block.commandParams[keyNum].name);
-            $("#block-param-value-" + keyNum).val(block.commandParams[keyNum].value);
-            $("#block-param-key-" + keyNum).attr("hidden", false);
-            $("#block-param-value-" + keyNum).attr("hidden", false);
-            $("#block-param-value-" + keyNum).attr("disabled", false);
+            blockParamKey = $("#block-param-key-" + keyNum);
+            blockParamValue = $("#block-param-value-" + keyNum);
+            blockParamKey.text(block.commandParams[keyNum].name);
+            blockParamValue.val(block.commandParams[keyNum].value);
+            blockParamKey.attr("hidden", false);
+            blockParamValue.attr("hidden", false);
+            blockParamValue.attr("disabled", false);
             keyNum++;
         }
     }
     // Cleaning and hiding all unused fields
     for (keyNum; keyNum <= window.MAX_PARAMS_PER_BLOCK; keyNum++) {
-        $("#block-param-key-" + keyNum).text("");
-        $("#block-param-value-" + keyNum).val("");
-        $("#block-param-key-" + keyNum).attr("hidden", true);
-        $("#block-param-value-" + keyNum).attr("hidden", true);
-        $("#block-param-value-" + keyNum).attr("disabled", true);
+        blockParamKey = $("#block-param-key-" + keyNum);
+        blockParamValue = $("#block-param-value-" + keyNum);
+        blockParamKey.text("");
+        blockParamValue.val("");
+        blockParamKey.attr("hidden", true);
+        blockParamValue.attr("hidden", true);
+        blockParamValue.attr("disabled", true);
     }
 }
 
@@ -195,8 +201,8 @@ function alignCaption(block) {
 
 function cleanAll() {
     showConfirmation(deleteAllConfirmText, function () {
-        $("#canvas .block").each(function (index, element) {
-            block = $(element);
+        $("#canvas").find(".block").each(function (index, element) {
+            var block = $(element);
             jsPlumbInstance.remove(block.attr("id"));
         });
         changeCurrentBlock();
@@ -205,10 +211,10 @@ function cleanAll() {
 }
 
 function findEqualCaseBlockId(parentBlock, caption) {
-    var result;
+    var result = {};
     $.each(jsPlumbInstance.getConnections(), function (index, connection) {
-        if (connection.source == parentBlock) {
-            if (connection.target.caption == caption) {
+        if (connection.source === parentBlock) {
+            if (connection.target.caption === caption) {
                 result = connection.targetId;
             }
         }

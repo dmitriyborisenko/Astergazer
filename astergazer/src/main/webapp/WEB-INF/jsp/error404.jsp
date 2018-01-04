@@ -12,7 +12,7 @@
 	<hr/>
 	<br/>
 	<c:if test="${not empty errorText}">
-		<label class="label-error-text"><spring:message code="${errorText}"/></label>
+		<label class="label-error-text">${errorText}</label>
 	</c:if>
 </div>
 <jsp:include page="footer.jsp"/>

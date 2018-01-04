@@ -3,7 +3,7 @@ package ua.dborisenko.astergazer.controller;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,6 +30,7 @@ import ua.dborisenko.astergazer.service.IScriptService;
 public class MappingTreeControllerTest {
 
     private static final String CONTROLLER_PATH = "/mapping/tree";
+    private MockMvc mockMvc;
 
     @InjectMocks
     private MappingTreeController controller;
@@ -40,12 +41,9 @@ public class MappingTreeControllerTest {
     @Mock
     private IContextService mockContextService;
 
-    private MockMvc mockMvc;
-
     @Before
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-
     }
 
     @Test
@@ -54,12 +52,13 @@ public class MappingTreeControllerTest {
         Script script = new Script();
         script.setId(1L);
         dtoList.add(new JsTreeNodeDto(script));
-
         when(mockScriptService.getScriptsTreeDto()).thenReturn(dtoList);
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/getscripts")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/getscripts"))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$[0].id", is("script1")));
+
         verify(mockScriptService).getScriptsTreeDto();
     }
 
@@ -70,12 +69,13 @@ public class MappingTreeControllerTest {
         context.setId(1L);
         context.setName("testContext");
         dtoList.add(new JsTreeNodeDto(context));
-
         when(mockContextService.getContextsTreeDto()).thenReturn(dtoList);
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/getcontexts")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/getcontexts"))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$[0].id", is("context1")));
+
         verify(mockContextService).getContextsTreeDto();
     }
 }

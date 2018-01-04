@@ -1,20 +1,14 @@
 package ua.dborisenko.astergazer.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ua.dborisenko.astergazer.util.RestResult;
 import ua.dborisenko.astergazer.exception.DuplicatedValueException;
-import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IChecklistEntryService;
 import ua.dborisenko.astergazer.service.IChecklistService;
@@ -23,86 +17,48 @@ import ua.dborisenko.astergazer.service.IChecklistService;
 @RequestMapping(value = "/checklists/rest")
 public class ChecklistRestController {
 
-    private static final Logger log = LoggerFactory.getLogger(ChecklistRestController.class);
-
     @Autowired
     private IChecklistService checklistService;
 
     @Autowired
     private IChecklistEntryService entryService;
 
-    @RequestMapping(value = "/addchecklist", method = RequestMethod.POST)
-    public RestResult addChecklist(@RequestParam String name) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/addchecklist")
+    public ResponseEntity addChecklist(@RequestParam String name) throws ServiceException {
         checklistService.create(name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/updatechecklist/{id}", method = RequestMethod.POST)
-    public RestResult updateChecklist(@PathVariable Long id, @RequestParam String name) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/updatechecklist/{id}")
+    public ResponseEntity updateChecklist(@PathVariable Long id, @RequestParam String name) throws ServiceException {
         checklistService.update(id, name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/deletechecklist/{id}", method = RequestMethod.POST)
-    public RestResult deleteChecklist(@PathVariable Long id) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/deletechecklist/{id}")
+    public ResponseEntity deleteChecklist(@PathVariable Long id) throws ServiceException {
         checklistService.delete(id);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/addentry", method = RequestMethod.POST)
-    public RestResult addEntry(@RequestParam String controlValue, @RequestParam String returnValue, @RequestParam Long checklistId)
+    @PostMapping(value = "/addentry")
+    public ResponseEntity addEntry(@RequestParam String controlValue, @RequestParam String returnValue, @RequestParam Long checklistId)
             throws DuplicatedValueException, ServiceException {
-        RestResult result = new RestResult();
         entryService.create(controlValue, returnValue, checklistId);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/updateentry/{id}", method = RequestMethod.POST)
-    public RestResult updateEntry(@PathVariable Long id, @RequestParam String controlValue, @RequestParam String returnValue)
+    @PostMapping(value = "/updateentry/{id}")
+    public ResponseEntity updateEntry(@PathVariable Long id, @RequestParam String controlValue, @RequestParam String returnValue)
             throws ServiceException {
-        RestResult result = new RestResult();
         entryService.update(id, controlValue, returnValue);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/deleteentry/{id}", method = RequestMethod.POST)
-    public RestResult deleteEntry(@PathVariable Long id) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/deleteentry/{id}")
+    public ResponseEntity deleteEntry(@PathVariable Long id) throws ServiceException {
         entryService.delete(id);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @ExceptionHandler(DuplicatedValueException.class)
-    public RestResult handleDuplicatedValueException(HttpServletRequest request, Exception e) {
-        log.warn("Duplicated value error during request execution {}", request.getRequestURL());
-        log.debug("", e);
-        RestResult result = new RestResult();
-        result.setCode(400);
-        result.setStatus("Bad Request");
-        result.addToData("description", "Duplicated value");
-        return result;
-    }
-
-    @ExceptionHandler(RecordNotFoundException.class)
-    public RestResult handleRecordNotFoundException(HttpServletRequest request, Exception e) {
-        log.warn("Record not found for request {}", request.getRequestURL(), e);
-        RestResult result = new RestResult();
-        result.setCode(404);
-        result.setStatus("Not Found");
-        result.addToData("description", "Record not found");
-        return result;
-    }
-
-    @ExceptionHandler(ServiceException.class)
-    public RestResult handleServiceException(HttpServletRequest request, Exception e) {
-        log.error("Service error during request execution {}", request.getRequestURL(), e);
-        RestResult result = new RestResult();
-        result.setCode(500);
-        result.setStatus("Internal Server Error");
-        result.addToData("description", "Error during request execution");
-        return result;
-    }
 }

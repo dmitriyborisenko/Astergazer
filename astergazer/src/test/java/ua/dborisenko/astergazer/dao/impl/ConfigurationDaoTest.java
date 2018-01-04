@@ -33,7 +33,6 @@ public class ConfigurationDaoTest {
         ConfigurationParameter expectedParameter = new ConfigurationParameter();
         PARAM_NAME name = PARAM_NAME.FASTAGI_HOST;
         expectedParameter.setName(name);
-
         when(mockEm.find(ConfigurationParameter.class, name)).thenReturn(expectedParameter);
 
         assertThat(configurationDao.get(name), is(expectedParameter));
@@ -43,14 +42,15 @@ public class ConfigurationDaoTest {
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
         PARAM_NAME name = PARAM_NAME.FASTAGI_HOST;
-
         when(mockEm.find(ConfigurationParameter.class, name)).thenThrow(Exception.class);
+
         configurationDao.get(name);
     }
 
     @Test
     public void setTest() throws DaoException {
         ConfigurationParameter parameter = new ConfigurationParameter();
+
         configurationDao.set(parameter);
 
         verify(mockEm).merge(parameter);
@@ -59,6 +59,7 @@ public class ConfigurationDaoTest {
     @Test(expected = DaoException.class)
     public void addExceptionTest() throws DaoException {
         doThrow(Exception.class).when(mockEm).merge(any());
+
         configurationDao.set(new ConfigurationParameter());
     }
 

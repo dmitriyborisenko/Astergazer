@@ -33,6 +33,9 @@ import ua.dborisenko.astergazer.service.IConfigurationService;
 public class ConfigurationRestControllerTest {
 
     private static final String CONTROLLER_PATH = "/configuration/rest";
+    private static final String TEST_VALUE = "Test value";
+    private MockMvc mockMvc;
+    private ObjectMapper mapper = new ObjectMapper();
 
     @InjectMocks
     private ConfigurationRestController controller;
@@ -40,42 +43,35 @@ public class ConfigurationRestControllerTest {
     @Mock
     private IConfigurationService mockConfigurationService;
 
-    private MockMvc mockMvc;
-
-    private ObjectMapper mapper = new ObjectMapper();
-
     @Before
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-
     }
 
     @Test
     public void testGetAll() throws Exception {
         Set<ConfigurationParameter> parameters = new HashSet<>();
-        String expectedValue = "testValue";
-        parameters.add(new ConfigurationParameter(PARAM_NAME.FASTAGI_HOST, expectedValue));
-
+        parameters.add(new ConfigurationParameter(PARAM_NAME.FASTAGI_HOST, TEST_VALUE));
         when(mockConfigurationService.getAll()).thenReturn(parameters);
 
-        mockMvc.perform(get(CONTROLLER_PATH + "/getall")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/getall"))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)))
-                .andExpect(jsonPath("$.data.parameters[0].value", is(expectedValue)));
+                .andExpect(jsonPath("$.parameters[0].value", is(TEST_VALUE)));
+
         verify(mockConfigurationService).getAll();
     }
 
     @Test
     public void testGetStamp() throws Exception {
-        String expectedValue = "testValue";
-        ConfigurationParameter parameter = new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, expectedValue);
-
+        ConfigurationParameter parameter = new ConfigurationParameter(PARAM_NAME.MODIFICATION_STAMP, TEST_VALUE);
         when(mockConfigurationService.getModificationStamp()).thenReturn(parameter);
 
-        mockMvc.perform(get(CONTROLLER_PATH + "/getstamp")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/getstamp"))
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)))
-                .andExpect(jsonPath("$.data.modificationStamp", is(expectedValue)));
+                .andExpect(jsonPath("$.modificationStamp", is(TEST_VALUE)));
+
         verify(mockConfigurationService).getModificationStamp();
     }
 
@@ -83,10 +79,11 @@ public class ConfigurationRestControllerTest {
     public void testSaveAll() throws Exception {
         Set<ConfigurationParameter> parameters = new HashSet<>();
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/saveall").contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(parameters).getBytes())).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
+        mockMvc.perform(post(CONTROLLER_PATH + "/saveall")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(parameters).getBytes()))
+                .andExpect(status().isOk());
+
         verify(mockConfigurationService).setAll(anyObject());
     }
 }

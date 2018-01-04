@@ -2,25 +2,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <script>
-  restControllerUrl = "<c:url value="/constructor/rest" />";
-  constructorControllerUrl = "<c:url value="/constructor" />";
-  scriptId = ${script.id};
-  addCaseText = "<spring:message code="constructor.addCase" />";
+  var restControllerUrl = "<c:url value="/constructor/rest" />";
+  var constructorControllerUrl = "<c:url value="/constructor" />";
+  var scriptId = ${script.id};
+  var addCaseText = "<spring:message code="constructor.addCase" />";
 
-  crossConnectionWarningText = "<spring:message code="constructor.crossConnectionWarning" />";
-  duplicateNameWarningText = "<spring:message code="constructor.duplicateNameWarning" />";
-  cannotRemoveErrorText = "<spring:message code="constructor.cannotRemoveError" />";
-  noSelectedBlockErrorText = "<spring:message code="constructor.noSelectedBlockError" />";
-  cannotCloneErrorText = "<spring:message code="constructor.cannotCloneError" />";
-  deleteAllConfirmText = "<spring:message code="constructor.deleteAllConfirm" />";
-  concurrentModificationConfirmText = "<spring:message code="common.concurrentModificationConfirm" />";
+  var crossConnectionWarningText = "<spring:message code="constructor.crossConnectionWarning" />";
+  var duplicateNameWarningText = "<spring:message code="constructor.duplicateNameWarning" />";
+  var cannotRemoveErrorText = "<spring:message code="constructor.cannotRemoveError" />";
+  var noSelectedBlockErrorText = "<spring:message code="constructor.noSelectedBlockError" />";
+  var cannotCloneErrorText = "<spring:message code="constructor.cannotCloneError" />";
+  var deleteAllConfirmText = "<spring:message code="constructor.deleteAllConfirm" />";
+  var concurrentModificationConfirmText = "<spring:message code="common.concurrentModificationConfirm" />";
 
-  contextMenuCopyText = "<spring:message code="constructor.contextMenu.copy" />";
-  contextMenuPasteText = "<spring:message code="constructor.contextMenu.paste" />";
-  contextMenuDeleteText = "<spring:message code="constructor.contextMenu.delete" />";
-  contextMenuAddCaseText = "<spring:message code="constructor.contextMenu.addCase" />";
+  var contextMenuCopyText = "<spring:message code="constructor.contextMenu.copy" />";
+  var contextMenuPasteText = "<spring:message code="constructor.contextMenu.paste" />";
+  var contextMenuDeleteText = "<spring:message code="constructor.contextMenu.delete" />";
+  var contextMenuAddCaseText = "<spring:message code="constructor.contextMenu.addCase" />";
 
-  blockParams = [];
+  var blockParams = [];
   // AddQueueMember block
   var params = [];
   params.push("<spring:message code="blocks.addQueueMember.queueName" />");

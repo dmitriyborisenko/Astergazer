@@ -1,20 +1,18 @@
 package ua.dborisenko.astergazer.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.dborisenko.astergazer.model.ConfigurationParameter;
-import ua.dborisenko.astergazer.util.RestResult;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IConfigurationService;
 
@@ -22,40 +20,28 @@ import ua.dborisenko.astergazer.service.IConfigurationService;
 @RequestMapping(value = "/configuration/rest")
 public class ConfigurationRestController {
 
-    private static final Logger log = LoggerFactory.getLogger(ConfigurationRestController.class);
-
     @Autowired
     private IConfigurationService configurationService;
 
 
-    @RequestMapping(value = "/getall")
-    public RestResult getAll() throws ServiceException {
-        RestResult result = new RestResult();
-        result.addToData("parameters", configurationService.getAll());
-        return result;
+    @GetMapping(value = "/getall")
+    public ResponseEntity getAll() {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("parameters", configurationService.getAll());
+        return ResponseEntity.ok().body(parameters);
     }
 
-    @RequestMapping(value = "/getstamp")
-    public RestResult getModificationStamp() throws ServiceException {
-        RestResult result = new RestResult();
-        result.addToData("modificationStamp", configurationService.getModificationStamp().getValue());
-        return result;
+    @GetMapping(value = "/getstamp")
+    public ResponseEntity getModificationStamp() {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("modificationStamp", configurationService.getModificationStamp().getValue());
+        return ResponseEntity.ok().body(parameters);
     }
 
-    @RequestMapping(value = "/saveall", method = RequestMethod.POST)
-    public RestResult saveAll(@RequestBody Set<ConfigurationParameter> parameters) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/saveall")
+    public ResponseEntity saveAll(@RequestBody Set<ConfigurationParameter> parameters) throws ServiceException {
         configurationService.setAll(parameters);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @ExceptionHandler(ServiceException.class)
-    public RestResult handleServiceException(HttpServletRequest request, Exception e) {
-        log.error("Service error during request execution {}", request.getRequestURL(), e);
-        RestResult result = new RestResult();
-        result.setCode(500);
-        result.setStatus("Internal Server Error");
-        result.addToData("description", "Error during request execution");
-        return result;
-    }
 }

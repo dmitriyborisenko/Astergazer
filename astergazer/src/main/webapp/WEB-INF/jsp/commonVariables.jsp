@@ -2,11 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <script>
-  successText = "<spring:message code="common.success" />";
-  cancelText = "<spring:message code="common.cancel" />";
-  errorText = "<spring:message code="common.error" />";
-  warningText = "<spring:message code="common.warning" />";
-  informationText = "<spring:message code="common.information" />";
-  confirmationText = "<spring:message code="common.confirmation" />";
+  var successText = "<spring:message code="common.success" />";
+  var cancelText = "<spring:message code="common.cancel" />";
+  var errorText = "<spring:message code="common.error" />";
+  var warningText = "<spring:message code="common.warning" />";
+  var informationText = "<spring:message code="common.information" />";
+  var confirmationText = "<spring:message code="common.confirmation" />";
 </script>
 

@@ -27,8 +27,9 @@ public class ExtensionTest {
         Extension extension = new Extension();
         extension.setName(expectedName);
         Script script = new Script();
-        em.persist(script);
         extension.setScript(script);
+
+        em.persist(script);
         em.persist(extension);
         em.clear();
         Long id = extension.getId();

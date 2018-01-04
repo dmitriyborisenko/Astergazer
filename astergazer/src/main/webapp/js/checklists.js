@@ -1,17 +1,21 @@
+var dialogChecklist;
+var checklistTree;
+
 function addChecklist() {
-    $("#dialog-checklist")
+    dialogChecklist
     .dialog("option", "restUrl", restControllerUrl + "/addchecklist")
     .dialog("option", "name", "")
     .dialog("open");
 }
 
 function addEntryToCurrentChecklist() {
-    var currentNode = $("#div-checklists-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
-        if (currentNode.type == "checklist") {
-            var checklistId = currentNode.data.id;
-        } else if (currentNode.type == "entry") {
-            var checklistId = currentNode.data.checklistId;
+    var currentNode = checklistTree.jstree("get_selected", true)[0];
+    if (typeof currentNode !== "undefined") {
+        var checklistId;
+        if (currentNode.type === "checklist") {
+            checklistId = currentNode.data.id;
+        } else if (currentNode.type === "entry") {
+            checklistId = currentNode.data.checklistId;
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
             return;
@@ -30,13 +34,14 @@ function addEntry(checklistId) {
 }
 
 function editCurrentTreeNode() {
-    var currentNode = $("#div-checklists-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
-        if (currentNode.type == "checklist") {
-            var entityId = currentNode.data.id;
+    var currentNode = checklistTree.jstree("get_selected", true)[0];
+    if (typeof currentNode !== "undefined") {
+        var entityId;
+        if (currentNode.type === "checklist") {
+            entityId = currentNode.data.id;
             editChecklist(entityId, currentNode.text);
-        } else if (currentNode.type == "entry") {
-            var entityId = currentNode.data.id;
+        } else if (currentNode.type === "entry") {
+            entityId = currentNode.data.id;
             editEntry(entityId, currentNode.text, currentNode.data.returnValue);
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
@@ -46,8 +51,8 @@ function editCurrentTreeNode() {
 }
 
 function editChecklist(id, name) {
-    if (typeof id != "undefined") {
-        $("#dialog-checklist")
+    if (typeof id !== "undefined") {
+        dialogChecklist
         .dialog("option", "restUrl", restControllerUrl + "/updatechecklist/" + id)
         .dialog("option", "name", name)
         .dialog("open");
@@ -55,7 +60,7 @@ function editChecklist(id, name) {
 }
 
 function editEntry(id, controlValue, returnValue) {
-    if (typeof id != "undefined") {
+    if (typeof id !== "undefined") {
         $("#dialog-entry").dialog("option", "restUrl", restControllerUrl + "/updateentry/" + id)
         .dialog("option", "controlValue", controlValue)
         .dialog("option", "returnValue", returnValue)
@@ -64,13 +69,14 @@ function editEntry(id, controlValue, returnValue) {
 }
 
 function deleteCurrentTreeNode() {
-    var currentNode = $("#div-checklists-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
-        if (currentNode.type == "checklist") {
-            var entityId = currentNode.data.id;
+    var currentNode = checklistTree.jstree("get_selected", true)[0];
+    if (typeof currentNode !== "undefined") {
+        var entityId;
+        if (currentNode.type ==="checklist") {
+            entityId = currentNode.data.id;
             deleteChecklist(entityId, currentNode.text);
-        } else if (currentNode.type == "entry") {
-            var entityId = currentNode.data.id;
+        } else if (currentNode.type === "entry") {
+            entityId = currentNode.data.id;
             deleteEntry(entityId, currentNode.text);
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
@@ -80,23 +86,18 @@ function deleteCurrentTreeNode() {
 }
 
 function deleteChecklist(id, name) {
-    if (typeof id != "undefined") {
+    if (typeof id !== "undefined") {
         showConfirmation(deleteChecklistConfirmText + " " + name + "?", function () {
             $.ajax({
                 type: "POST",
                 url: restControllerUrl + "/deletechecklist/" + id,
-                dataType: "json",
-                async: false,
+                async: true,
                 cache: false,
-                success: function (data) {
-                    if (data.status == "OK") {
-                        $("#div-checklists-tree").jstree("refresh");
-                    } else {
-                        showErrorMessage(data.data.description);
-                    }
+                success: function () {
+                    checklistTree.jstree("refresh");
                 },
-                failure: function (errMsg) {
-                    showErrorMessage(errMsg);
+                error: function (data) {
+                    showErrorMessage(data.responseText);
                 }
             });
         });
@@ -104,23 +105,18 @@ function deleteChecklist(id, name) {
 }
 
 function deleteEntry(id, controlValue) {
-    if (typeof id != "undefined") {
+    if (typeof id !== "undefined") {
         showConfirmation(deleteEntryConfirmText + " " + controlValue + "?", function () {
             $.ajax({
                 type: "POST",
                 url: restControllerUrl + "/deleteentry/" + id,
-                dataType: "json",
-                async: false,
+                async: true,
                 cache: false,
-                success: function (data) {
-                    if (data.status == "OK") {
-                        $("#div-checklists-tree").jstree("refresh");
-                    } else {
-                        showErrorMessage(data.data.description);
-                    }
+                success: function () {
+                    checklistTree.jstree("refresh");
                 },
-                failure: function (errMsg) {
-                    showErrorMessage(errMsg);
+                error: function (data) {
+                    showErrorMessage(data.responseText);
                 }
             });
         });
@@ -138,18 +134,13 @@ function initCheckListDialog() {
             data: {
                 name: name
             },
-            dataType: "json",
-            async: false,
+            async: true,
             cache: false,
-            success: function (data) {
-                if (data.status == "OK") {
-                    $("#div-checklists-tree").jstree("refresh");
-                } else {
-                    showErrorMessage(data.data.description);
-                }
+            success: function () {
+                checklistTree.jstree("refresh");
             },
-            failure: function (errMsg) {
-                showErrorMessage(errMsg);
+            error: function (data) {
+                showErrorMessage(data.responseText);
             }
         });
         $(this).dialog("close");
@@ -157,11 +148,11 @@ function initCheckListDialog() {
     dialogButtons[cancelText] = function () {
         $(this).dialog("close");
     };
-    $("#dialog-checklist").dialog({
+    dialogChecklist.dialog({
         autoOpen: false,
         modal: true,
         title: checklistNameText,
-        open: function (event, ui) {
+        open: function () {
             $("#input-checklist-name").val($(this).dialog("option", "name"));
         },
         buttons: dialogButtons
@@ -183,18 +174,13 @@ function initEntryDialog() {
                 returnValue: returnValue,
                 checklistId: checklistId
             },
-            dataType: "json",
-            async: false,
+            async: true,
             cache: false,
-            success: function (data) {
-                if (data.status == "OK") {
-                    $("#div-checklists-tree").jstree("refresh");
-                } else {
-                    showErrorMessage(data.data.description);
-                }
+            success: function () {
+                checklistTree.jstree("refresh");
             },
-            failure: function (errMsg) {
-                showErrorMessage(errMsg);
+            error: function (data) {
+                showErrorMessage(data.responseText);
             }
         });
         $(this).dialog("close");
@@ -206,7 +192,7 @@ function initEntryDialog() {
         autoOpen: false,
         modal: true,
         title: entryText,
-        open: function (event, ui) {
+        open: function () {
             $("#input-entry-controlvalue").val($(this).dialog("option", "controlValue"));
             $("#input-entry-returnvalue").val($(this).dialog("option", "returnValue"));
         },
@@ -215,16 +201,17 @@ function initEntryDialog() {
 }
 
 $(document).ready(function () {
+    var spinner = new Spinner();
     $(document).ajaxStart(function () {
         spinner.spin($("body")[0]);
     });
     $(document).ajaxStop(function () {
         spinner.stop();
     });
-    spinner = new Spinner();
+    dialogChecklist = $("#dialog-checklist");
     $(".ui-button").button();
 
-    $("#div-checklists-tree").jstree({
+    checklistTree = $("#div-checklists-tree").jstree({
         "plugins": ["types", "grid"],
         "grid": {
             "columns": [
@@ -241,7 +228,7 @@ $(document).ready(function () {
                     headerClass: "jstreegrid-column-header",
                     columnClass: "jstreegrid-striped"
                 }
-            ],
+            ]
         },
         "core": {
             "multiple": false,
@@ -250,7 +237,7 @@ $(document).ready(function () {
             "data": {
                 "cache": false,
                 "url": function (node) {
-                    if (node.id == "#") {
+                    if (node.id === "#") {
                         return treeControllerUrl + "/getchecklists"
                     } else {
                         return treeControllerUrl + "/getentries/" + node.data.id;
@@ -258,27 +245,33 @@ $(document).ready(function () {
                 },
                 "data": function (node) {
                     return {"id": node.id};
+                },
+                "error": function (data) {
+                    showErrorMessage(data.responseText);
                 }
             }
         },
         "types": {
             "#": {"max_children": 1, "max_depth": 1, "valid_children": ["root"]},
             "checklist": {"icon": imageUrl + "/checklist.svg", "valid_children": ["entry"]},
-            "entry": {"icon": imageUrl + "/checklistEntry.svg", "valid_children": []},
+            "entry": {"icon": imageUrl + "/checklistEntry.svg", "valid_children": []}
         }
-    }).on('select_node.jstree', function (e, data) {
+    });
+    checklistTree.on('select_node.jstree', function () {
         $("#button-add-entry").button("option", "disabled", false);
         $("#button-edit").button("option", "disabled", false);
         $("#button-delete").button("option", "disabled", false);
-    }).on('deselect_all.jstree', function (e, data) {
+    });
+    checklistTree.on('deselect_all.jstree', function () {
         $("#button-add-entry").button("option", "disabled", true);
         $("#button-edit").button("option", "disabled", true);
         $("#button-delete").button("option", "disabled", true);
-    }).jstree("deselect_all");
-
-    $("#div-checklists-tree").delegate("a", "dblclick", function (e) {
+    });
+    checklistTree.jstree("deselect_all");
+    checklistTree.delegate("a", "dblclick", function () {
         editCurrentTreeNode();
     });
+
     initCheckListDialog();
     initEntryDialog();
 });

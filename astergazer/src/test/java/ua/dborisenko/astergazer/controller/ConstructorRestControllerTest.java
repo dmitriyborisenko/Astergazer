@@ -33,6 +33,8 @@ public class ConstructorRestControllerTest {
 
     private static final String CONTROLLER_PATH = "/constructor/rest";
     private static final Long TEST_ID = 1L;
+    private MockMvc mockMvc;
+    private ObjectMapper mapper = new ObjectMapper();
 
     @InjectMocks
     private ConstructorRestController controller;
@@ -40,14 +42,9 @@ public class ConstructorRestControllerTest {
     @Mock
     private IScriptService mockScriptService;
 
-    private MockMvc mockMvc;
-
-    private ObjectMapper mapper = new ObjectMapper();
-
     @Before
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-
     }
 
     @Test
@@ -55,13 +52,12 @@ public class ConstructorRestControllerTest {
         Script script = new Script();
         script.setId(TEST_ID);
         ScriptDataDto expectedDto = new ScriptDataDto(script);
-
         when(mockScriptService.getScriptDataDto(TEST_ID)).thenReturn(expectedDto);
 
         mockMvc.perform(get(CONTROLLER_PATH + "/getscriptdata/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)))
-                .andExpect(jsonPath("$.data.dto", is(notNullValue())));
+                .andExpect(jsonPath("$.dto", is(notNullValue())));
+
         verify(mockScriptService).getScriptDataDto(TEST_ID);
     }
 
@@ -69,10 +65,11 @@ public class ConstructorRestControllerTest {
     public void updateScriptData() throws Exception {
         ScriptDataDto expectedDto = new ScriptDataDto();
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/updatescriptdata/" + TEST_ID).contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(expectedDto).getBytes())).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
+        mockMvc.perform(post(CONTROLLER_PATH + "/updatescriptdata/" + TEST_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(expectedDto).getBytes()))
+                .andExpect(status().isOk());
+
         verify(mockScriptService).updateData(eq(TEST_ID), anyObject());
     }
 
@@ -82,8 +79,8 @@ public class ConstructorRestControllerTest {
 
         mockMvc.perform(get(CONTROLLER_PATH + "/getstamp/" + TEST_ID)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)))
-                .andExpect(jsonPath("$.data.modificationStamp", is("test")));
+                .andExpect(jsonPath("$.modificationStamp", is("test")));
+
         verify(mockScriptService).getModificationStamp(TEST_ID);
     }
 }

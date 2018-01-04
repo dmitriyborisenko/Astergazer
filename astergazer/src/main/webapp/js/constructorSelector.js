@@ -1,3 +1,8 @@
+var selection;
+var selectedBlocks;
+var initialWidth;
+var initialHeight;
+
 function deselectBlocks() {
     jsPlumbInstance.clearDragSelection();
     $(".block").each(function () {
@@ -19,15 +24,16 @@ function isObjectsCollide(a, b) {
 }
 
 function resizeSelector(event) {
-    var canvas = $(".div-canvas-subwrapper"); 
+    var canvas = canvasSubWrapper;
     var posX = event.pageX;
     var posY = event.pageY;
     var width = Math.abs(initialWidth - posX);
     var height = Math.abs(initialHeight - posY);
-    if (posX >= initialWidth) { 
-        var maxWidth = canvas[0].clientWidth + canvas.offset().left - initialWidth;
+    var maxWidth;
+    if (posX >= initialWidth) {
+        maxWidth = canvas[0].clientWidth + canvas.offset().left - initialWidth;
     } else { // selection is inverted at X axis
-        var maxWidth = -1*(canvas.offset().left - initialWidth);
+        maxWidth = -1*(canvas.offset().left - initialWidth);
         var minX = canvas.offset().left;
         if (posX < minX) {
             posX = minX;
@@ -35,16 +41,17 @@ function resizeSelector(event) {
         $("#div-selection").css({
             "left": posX
         });
-    } 
-    if (posY >= initialHeight) { 
-        var maxHeight = canvas[0].clientHeight + canvas.offset().top - initialHeight;
+    }
+    var maxHeight;
+    if (posY >= initialHeight) {
+        maxHeight = canvas[0].clientHeight + canvas.offset().top - initialHeight;
     } else { // selection is inverted at Y axis
-        var maxHeight = -1*(canvas.offset().top - initialHeight);
+        maxHeight = -1*(canvas.offset().top - initialHeight);
         var minY = canvas.offset().top;
         if (posY < minY) {
             posY = minY;
         }
-        $("#div-selection").css({
+        selection.css({
             "top": posY
         });
     }
@@ -54,7 +61,7 @@ function resizeSelector(event) {
     if (height > maxHeight) {
         height = maxHeight;
     }  
-    $("#div-selection").css({
+    selection.css({
         "width": width,
         "height": height
     });
@@ -65,7 +72,7 @@ function selectElements(event) {
     event.preventDefault();
     $(document).unbind("mousemove", resizeSelector);
     $(document).unbind("mouseup", selectElements);
-    window.selectedBlocks = [];
+    selectedBlocks = [];
     var selection = $("#div-selection");
     $(".block").each(function () {
         var block = $(this);
@@ -73,24 +80,24 @@ function selectElements(event) {
             window.selectedBlocks.push(block);
         }
     });
-    if (window.selectedBlocks.length > 1) {
+    if (selectedBlocks.length >= 1) {
         $.each(window.selectedBlocks, function(index, block) {
             block.addClass("selected-block");
             jsPlumbInstance.addToDragSelection(block);
         });
     }
-    if (window.selectedBlocks.length == 1) {
-        window.selectedBlocks[0].click()
+    if (selectedBlocks.length === 1) {
+        selectedBlocks[0].click()
     }
-    $("#div-selection").removeClass("selection-active");
-    $("#div-selection").width(0).height(0);
+    selection.removeClass("selection-active");
+    selection.width(0).height(0);
 }
 
 function startSelection(event) {
-    isSelectionActive = true;
+    selection = $("#div-selection");
     deselectBlocks();
-    $("#div-selection").addClass("selection-active");
-    $("#div-selection").css({
+    selection.addClass("selection-active");
+    selection.css({
         "left": event.pageX,
         "top": event.pageY
     });

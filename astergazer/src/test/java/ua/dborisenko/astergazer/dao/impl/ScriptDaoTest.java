@@ -47,7 +47,6 @@ public class ScriptDaoTest {
     public void getTest() throws DaoException {
         Script expectedScript = new Script();
         expectedScript.setId(TEST_ID);
-
         when(mockEm.find(Script.class, TEST_ID)).thenReturn(expectedScript);
 
         assertThat(scriptDao.get(TEST_ID), is(expectedScript));
@@ -57,12 +56,14 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void getExceptionTest() throws DaoException {
         when(mockEm.find(Script.class, TEST_ID)).thenThrow(Exception.class);
+
         scriptDao.get(TEST_ID);
     }
 
     @Test(expected = RecordNotFoundException.class)
     public void getNotFoundTest() throws DaoException {
         when(mockEm.find(Script.class, TEST_ID)).thenReturn(null);
+
         scriptDao.get(TEST_ID);
     }
 
@@ -73,7 +74,6 @@ public class ScriptDaoTest {
         expectedScript.setId(TEST_ID);
         List<Block> blocks = mock(ArrayList.class);
         List<Connection> connections = mock(ArrayList.class);
-
         when(mockEm.find(Script.class, TEST_ID)).thenReturn(expectedScript);
         when(expectedScript.getBlocks()).thenReturn(blocks);
         when(expectedScript.getConnections()).thenReturn(connections);
@@ -87,12 +87,14 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void getFullExceptionTest() throws DaoException {
         when(mockEm.find(Script.class, TEST_ID)).thenThrow(Exception.class);
+
         scriptDao.getFull(TEST_ID);
     }
 
     @Test
     public void addTest() throws DaoException {
         Script script = new Script();
+
         scriptDao.add(script);
 
         verify(mockEm).persist(script);
@@ -101,6 +103,7 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void addExceptionTest() throws DaoException {
         doThrow(Exception.class).when(mockEm).persist(any());
+
         scriptDao.add(new Script());
     }
 
@@ -109,7 +112,6 @@ public class ScriptDaoTest {
         List<Script> expectedList = new ArrayList<>();
         expectedList.add(new Script());
         Query mockQuery = mock(Query.class);
-
         when(mockEm.createNamedQuery("Script.getAll")).thenReturn(mockQuery);
         when(mockQuery.getResultList()).thenReturn(expectedList);
 
@@ -120,6 +122,7 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void getAllExceptionTest() throws DaoException {
         when(mockEm.createNamedQuery("Script.getAll")).thenThrow(Exception.class);
+
         scriptDao.getAll();
     }
 
@@ -128,7 +131,6 @@ public class ScriptDaoTest {
         String name = "test";
         long expectedResult = 2;
         Query mockQuery = mock(Query.class);
-
         when(mockEm.createNamedQuery("Script.getCount")).thenReturn(mockQuery);
         when(mockQuery.getSingleResult()).thenReturn(expectedResult);
 
@@ -138,14 +140,15 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void getCountExceptionTest() throws DaoException {
         String name = "test";
-
         doThrow(Exception.class).when(mockEm).createNamedQuery("Script.getCount");
+
         scriptDao.getCount(TEST_ID, name);
     }
 
     @Test
     public void updateTest() throws DaoException {
         Script script = new Script();
+
         scriptDao.update(script);
 
         verify(mockEm).merge(script);
@@ -154,14 +157,15 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void updateExceptionTest() throws DaoException {
         doThrow(Exception.class).when(mockEm).merge(any());
+
         scriptDao.update(new Script());
     }
 
     @Test
     public void deleteTest() throws DaoException {
         Script script = mock(Script.class);
-
         doReturn(script).when(spyScriptDao).get(TEST_ID);
+
         spyScriptDao.delete(TEST_ID);
 
         verify(mockEm).remove(script);
@@ -170,9 +174,9 @@ public class ScriptDaoTest {
     @Test(expected = DaoException.class)
     public void deleteExceptionTest() throws DaoException {
         Script script = mock(Script.class);
-
         doReturn(script).when(spyScriptDao).get(TEST_ID);
         doThrow(Exception.class).when(mockEm).remove(any());
+
         spyScriptDao.delete(TEST_ID);
     }
 }

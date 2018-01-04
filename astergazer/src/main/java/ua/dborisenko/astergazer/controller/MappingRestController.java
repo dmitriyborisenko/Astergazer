@@ -1,20 +1,17 @@
 package ua.dborisenko.astergazer.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ua.dborisenko.astergazer.util.RestResult;
-import ua.dborisenko.astergazer.exception.DuplicatedValueException;
-import ua.dborisenko.astergazer.exception.RecordNotFoundException;
 import ua.dborisenko.astergazer.exception.ServiceException;
 import ua.dborisenko.astergazer.service.IContextService;
 import ua.dborisenko.astergazer.service.IExtensionService;
@@ -23,8 +20,6 @@ import ua.dborisenko.astergazer.service.IScriptService;
 @RestController
 @RequestMapping(value = "/mapping/rest")
 public class MappingRestController {
-
-    private static final Logger log = LoggerFactory.getLogger(MappingRestController.class);
 
     @Autowired
     private IScriptService scriptService;
@@ -35,124 +30,83 @@ public class MappingRestController {
     @Autowired
     private IExtensionService extensionService;
 
-    @RequestMapping(value = "/getscripts")
-    public RestResult getScripts() throws ServiceException {
-        RestResult result = new RestResult();
-        result.addToData("scriptList", scriptService.getScriptsDto());
-        return result;
+    @GetMapping(value = "/getscripts")
+    public ResponseEntity getScripts() throws ServiceException {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("scriptList", scriptService.getScriptsDto());
+        return ResponseEntity.ok().body(parameters);
     }
 
-    @RequestMapping(value = "/addscript", method = RequestMethod.POST)
-    public RestResult addScript(@RequestParam String name) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/addscript")
+    public ResponseEntity addScript(@RequestParam String name) throws ServiceException {
         scriptService.create(name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/updatescript/{id}", method = RequestMethod.POST)
-    public RestResult updateScript(@PathVariable Long id, @RequestParam String name)
+    @PostMapping(value = "/updatescript/{id}")
+    public ResponseEntity updateScript(@PathVariable Long id, @RequestParam String name)
             throws ServiceException {
-        RestResult result = new RestResult();
         scriptService.update(id, name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/clonescript/{id}", method = RequestMethod.POST)
-    public RestResult cloneScript(@PathVariable Long id, @RequestParam String name)
+    @PostMapping(value = "/clonescript/{id}")
+    public ResponseEntity cloneScript(@PathVariable Long id, @RequestParam String name)
             throws ServiceException {
-        RestResult result = new RestResult();
         scriptService.clone(id, name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/deletescript/{id}", method = RequestMethod.POST)
-    public RestResult deleteScript(@PathVariable Long id) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/deletescript/{id}")
+    public ResponseEntity deleteScript(@PathVariable Long id) throws ServiceException {
         scriptService.delete(id);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/addcontext", method = RequestMethod.POST)
-    public RestResult addContext(@RequestParam String name) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/addcontext")
+    public ResponseEntity addContext(@RequestParam String name) throws ServiceException {
         contextService.create(name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/updatecontext/{id}", method = RequestMethod.POST)
-    public RestResult updateContext(@PathVariable Long id, @RequestParam String name)
+    @PostMapping(value = "/updatecontext/{id}")
+    public ResponseEntity updateContext(@PathVariable Long id, @RequestParam String name)
             throws ServiceException {
-        RestResult result = new RestResult();
         contextService.update(id, name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/clonecontext/{id}", method = RequestMethod.POST)
-    public RestResult cloneContext(@PathVariable Long id, @RequestParam String name)
+    @PostMapping(value = "/clonecontext/{id}")
+    public ResponseEntity cloneContext(@PathVariable Long id, @RequestParam String name)
             throws ServiceException {
-        RestResult result = new RestResult();
         contextService.clone(id, name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/deletecontext/{id}", method = RequestMethod.POST)
-    public RestResult deleteContext(@PathVariable Long id) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/deletecontext/{id}")
+    public ResponseEntity deleteContext(@PathVariable Long id) throws ServiceException {
         contextService.delete(id);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/addextension", method = RequestMethod.POST)
-    public RestResult addExtension(@RequestParam String name, @RequestParam Long contextId, @RequestParam Long scriptId)
+    @PostMapping(value = "/addextension")
+    public ResponseEntity addExtension(@RequestParam String name, @RequestParam Long contextId, @RequestParam Long scriptId)
             throws ServiceException {
-        RestResult result = new RestResult();
         extensionService.create(name, contextId, scriptId);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/updateextension/{id}", method = RequestMethod.POST)
-    public RestResult updateExtension(@PathVariable Long id, @RequestParam String name, @RequestParam Long scriptId)
+    @PostMapping(value = "/updateextension/{id}")
+    public ResponseEntity updateExtension(@PathVariable Long id, @RequestParam String name, @RequestParam Long scriptId)
             throws ServiceException {
-        RestResult result = new RestResult();
         extensionService.update(id, scriptId, name);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(value = "/deleteextension/{id}", method = RequestMethod.POST)
-    public RestResult deleteExtension(@PathVariable Long id) throws ServiceException {
-        RestResult result = new RestResult();
+    @PostMapping(value = "/deleteextension/{id}")
+    public ResponseEntity deleteExtension(@PathVariable Long id) throws ServiceException {
         extensionService.delete(id);
-        return result;
+        return ResponseEntity.ok().build();
     }
 
-    @ExceptionHandler(DuplicatedValueException.class)
-    public RestResult handleDuplicatedValueException(HttpServletRequest request, Exception e) {
-        log.warn("Duplicated value error during request execution {}", request.getRequestURL());
-        log.debug("", e);
-        RestResult result = new RestResult();
-        result.setCode(400);
-        result.setStatus("Bad Request");
-        result.addToData("description", "Duplicated value");
-        return result;
-    }
-
-    @ExceptionHandler(RecordNotFoundException.class)
-    public RestResult handleRecordNotFoundException(HttpServletRequest request, Exception e) {
-        log.warn("Record not found for request {}", request.getRequestURL(), e);
-        RestResult result = new RestResult();
-        result.setCode(404);
-        result.setStatus("Not Found");
-        result.addToData("description", "Record not found");
-        return result;
-    }
-
-    @ExceptionHandler(ServiceException.class)
-    public RestResult handleServiceException(HttpServletRequest request, Exception e) {
-        log.error("Service error during request execution {}", request.getRequestURL(), e);
-        RestResult result = new RestResult();
-        result.setCode(500);
-        result.setStatus("Internal Server Error");
-        result.addToData("description", "Error during request execution");
-        return result;
-    }
 }

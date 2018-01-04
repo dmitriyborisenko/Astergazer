@@ -1,3 +1,5 @@
+var jsPlumbInstance;
+
 function plumbInitSingleBlock(block) {
     jsPlumbInstance.getContainer().appendChild(block);
     jsPlumbInstance.draggable(block);
@@ -9,7 +11,7 @@ function plumbInitSingleBlock(block) {
         extract:{
             "action":"the-action"
         },
-        maxConnections: 1,
+        maxConnections: 1
     });
     jsPlumbInstance.makeTarget(block, {
         dropOptions: {
@@ -26,7 +28,7 @@ function plumbInitSingleBlock(block) {
 function initJsPlumb() {
     jsPlumbInstance = jsPlumb.getInstance(
        { DragOptions: {
-            stop: function(event) {
+            stop: function() {
                 jsPlumbInstance.repaintEverything();
             }
         },
@@ -51,12 +53,12 @@ function initJsPlumb() {
     });
     jsPlumbInstance.bind("connection", function(currentConnection) {
         // add the caseBlock to the VoiceMenu digits array
-        if (currentConnection.source.type == "VoiceMenu" && currentConnection.target.type == "EqualCase") {
+        if (currentConnection.source.type === "VoiceMenu" && currentConnection.target.type === "EqualCase") {
             currentConnection.source.digitCases.push(currentConnection.target.caption);    
         }
         // check for cross-connection
         $.each(jsPlumbInstance.getConnections(), function (index, connection) {
-            if (connection.sourceId == currentConnection.targetId && connection.targetId == currentConnection.sourceId) {
+            if (connection.sourceId === currentConnection.targetId && connection.targetId === currentConnection.sourceId) {
                 jsPlumbInstance.detach(currentConnection);
                 showWarningMessage(crossConnectionWarningText);
             }
@@ -64,7 +66,7 @@ function initJsPlumb() {
      });
     jsPlumbInstance.bind("connectionDetached", function(currentConnection) {
         // removing case from VoiceMenu block 
-        if (currentConnection.source.type == "VoiceMenu" && currentConnection.target.type == "EqualCase") {
+        if (currentConnection.source.type === "VoiceMenu" && currentConnection.target.type === "EqualCase") {
             currentConnection.source.digitCases.splice(currentConnection.source.digitCases.indexOf(currentConnection.target.caption), 1);
         }
     });

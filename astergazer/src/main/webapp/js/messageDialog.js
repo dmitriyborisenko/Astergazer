@@ -15,7 +15,10 @@ function showErrorMessage(text) {
     .empty()
     .append(text)
     .dialog("option", "title", errorText)
-    .dialog({dialogClass: "dialog-error"})
+    .dialog({
+        dialogClass: "dialog-error",
+        width: 400
+    })
     .dialog("open");
 }
 

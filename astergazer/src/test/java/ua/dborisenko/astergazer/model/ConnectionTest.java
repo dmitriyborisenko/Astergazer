@@ -28,6 +28,7 @@ public class ConnectionTest {
         connection.setIsLocked(true);
         connection.setSourceBlockLocalId(expectedSourceId);
         connection.setTargetBlockLocalId(expectedTargetId);
+
         em.persist(connection);
         em.clear();
         long id = connection.getId();

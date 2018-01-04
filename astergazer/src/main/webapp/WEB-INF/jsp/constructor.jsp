@@ -301,11 +301,11 @@
 		<div class="div-block-properties">
 			<label class="label-current-block-name"><spring:message code="constructor.blockName"/>:</label>
 			<input type="text" id="current-block-name" class="input-current-block-name" maxlength="50"></input>
-			<button id="button-apply" class="ui-button" onclick="applyBlockChanges(window.currentBlock)"><spring:message
+			<button id="button-apply" class="ui-button" onclick="applyBlockChanges(currentBlock)"><spring:message
 							code="constructor.applyChanges"/></button>
-			<button id="button-clone" class="ui-button" onclick="cloneBlock(window.currentBlock)"><spring:message code="constructor.clone"/></button>
-			<button id="button-delete" class="ui-button" onclick="deleteBlock(window.currentBlock)"><spring:message code="constructor.delete"/></button>
-			<button id="button-addcase" class="ui-button" onclick="addCase(window.currentBlock)"><spring:message code="constructor.addCase"/></button>
+			<button id="button-clone" class="ui-button" onclick="cloneBlock(currentBlock)"><spring:message code="constructor.clone"/></button>
+			<button id="button-delete" class="ui-button" onclick="deleteBlock(currentBlock)"><spring:message code="constructor.delete"/></button>
+			<button id="button-addcase" class="ui-button" onclick="addCase(currentBlock)"><spring:message code="constructor.addCase"/></button>
 			<div id="div-command-list">
 				<table>
 					<tr>

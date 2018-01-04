@@ -3,10 +3,10 @@ function initContextMenu() {
         selector: ".div-canvas-subwrapper, .block",
         build: function ($trigger, e) {
             var menuItems = {};
-            posX = e.offsetX / window.canvasScaleFactor;
-            posY = e.offsetY / window.canvasScaleFactor;
+            var posX = e.offsetX / window.canvasScaleFactor;
+            var posY = e.offsetY / window.canvasScaleFactor;
             if ($trigger.hasClass("block")) {
-                block = $trigger[0];
+                var block = $trigger[0];
                 deselectBlocks();
                 changeCurrentBlock(block);
                 if (block.isLocked) {
@@ -15,10 +15,10 @@ function initContextMenu() {
                 if (!block.isCaseBlock) {
                     menuItems["copy"] = {name: contextMenuCopyText};
                 }
-                if (block.type == "Switch") {
+                if (block.type === "Switch") {
                     menuItems["addCase"] = {name: contextMenuAddCaseText};
                 }
-                if (block.type == "VoiceMenu") {
+                if (block.type === "VoiceMenu") {
                     menuItems["addDigitCase"] = {name: contextMenuAddCaseText};
                 }
                 menuItems["delete"] = {name: contextMenuDeleteText};
@@ -32,19 +32,19 @@ function initContextMenu() {
             return {
                 callback: function (key, options) {
                     block = options.$trigger[0];
-                    if (key == "copy") {
+                    if (key === "copy") {
                         window.bufferedBlock = block;
                     }
-                    if (key == "delete") {
+                    if (key === "delete") {
                         deleteBlock(block);
                     }
-                    if (key == "paste") {
+                    if (key === "paste") {
                         cloneBlock(window.bufferedBlock, posX, posY);
                     }
-                    if (key == "addCase") {
+                    if (key === "addCase") {
                         addCase(block);
                     }
-                    if (key == "addDigitCase") {
+                    if (key === "addDigitCase") {
                         addDigitCase(block);
                     }
                 },

@@ -1,32 +1,31 @@
-function defineGlobals() {
-    MAX_PARAMS_PER_BLOCK = 15;
-    MIN_RANDON_POSITION = 100;
-    MAX_RANDON_POSITION = 200;
-    CANVAS_TOP_OFFSET = 50;
-    CANVAS_LEFT_OFFSET = 250;
-    canvasScaleFactor = 1;
-    selectedBlocks = [];
-    canvasClickFlag = false;
-    defaultAnchor = ["Perimeter", {shape: "Square"}];
-    defaultPaintStyle = {strokeStyle: "#555555", lineWidth: 1};
-}
+var MAX_PARAMS_PER_BLOCK = 15;
+var MIN_RANDOM_POSITION = 100;
+var MAX_RANDOM_POSITION = 200;
+var defaultAnchor = ["Perimeter", {shape: "Square"}];
+var defaultPaintStyle = {strokeStyle: "#555555", lineWidth: 1};
+
+var canvasScaleFactor = 1;
+var canvasClickFlag = false;
+var initStamp;
+var currentStamp;
+var divScrollStartX;
+var divScrollStartY;
+var dragScrollStartX;
+var dragScrollStartY;
+var canvas;
+var canvasSubWrapper;
 
 function getModificationStamp() {
     $.ajax({
         type: "GET",
         url: restControllerUrl + "/getstamp/" + scriptId,
-        dataType: "json",
-        async: false,
+        async: true,
         cache: false,
         success: function (data) {
-            if (data.status == "OK") {
-                currentStamp = data.data.modificationStamp;
-            } else {
-                showErrorMessage(data.data.description);
-            }
+            currentStamp = data.modificationStamp;
         },
-        failure: function (errMsg) {
-            showErrorMessage(errMsg);
+        error : function (data) {
+            showErrorMessage(data.responseText);
         }
     });
 }
@@ -45,7 +44,7 @@ function serializeScriptData() {
 function serializeBlocks() {
     var blocks = [];
     var block;
-    $("#canvas .block").each(function (index, element) {
+    canvas.find(".block").each(function (index, element) {
         block = $(element);
         blocks.push({
             localId: block.attr("id"),
@@ -76,40 +75,37 @@ function loadScriptData() {
     $.ajax({
         type: "GET",
         url: restControllerUrl + "/getscriptdata/" + scriptId,
-        dataType: "json",
-        async: false,
+        async: true,
         cache: false,
         success: function (data) {
-            if (data.status == "OK") {
-                currentStamp = data.data.dto.modificationStamp;
-                data.data.dto.blocks.forEach(function (item, i, arr) {
-                    var block = createBlock(item.type, item.localId, item.posX, item.posY);
-                    updateBlockName(block, item.caption);
-                    for (i in item.parameters) {
-                        block.commandParams[i].value = item.parameters[i].value;
-                    }
-                });
-                data.data.dto.connections.forEach(function (item, i, arr) {
-                    jsPlumbInstance.connect({
-                        source: String(item.sourceBlockLocalId),
-                        target: String(item.targetBlockLocalId),
-                        anchor: defaultAnchor,
-                        paintStyle: defaultPaintStyle
-                    }).isLocked = item.isLocked;
-                });
-            } else {
-                showErrorMessage(data.data.description);
-            }
+            /** @namespace data.dto.modificationStamp **/
+            currentStamp = data.dto.modificationStamp;
+            initStamp = currentStamp;
+            data.dto.blocks.forEach(function (item, i) {
+                var block = createBlock(item.type, item.localId, item.posX, item.posY);
+                updateBlockName(block, item.caption);
+                for (i in item.parameters) {
+                    block.commandParams[i].value = item.parameters[i].value;
+                }
+            });
+            data.dto.connections.forEach(function (item) {
+                jsPlumbInstance.connect({
+                    source: String(item.sourceBlockLocalId),
+                    target: String(item.targetBlockLocalId),
+                    anchor: defaultAnchor,
+                    paintStyle: defaultPaintStyle
+                }).isLocked = item.isLocked;
+            });
         },
-        failure: function (errMsg) {
-            showErrorMessage(errMsg);
+        error : function(data) {
+            showErrorMessage(data.responseText);
         }
     });
 }
 
 function saveScriptData() {
     getModificationStamp();
-    if (currentStamp != initStamp) {
+    if (currentStamp !== initStamp) {
         showConfirmation(concurrentModificationConfirmText, function () {
             postData();
         });
@@ -121,19 +117,14 @@ function postData() {
         type: "POST",
         url: restControllerUrl + "/updatescriptdata/" + scriptId,
         contentType: "application/json",
-        dataType: "json",
-        async: false,
+        async: true,
         cache: false,
         data: serializeScriptData(),
-        success: function (data) {
-            if (data.status == "OK") {
-                showInformationMessage(successText);
-            } else {
-                showErrorMessage(data.data.description);
-            }
+        success: function () {
+            showInformationMessage(successText);
         },
-        failure: function (errMsg) {
-            showErrorMessage(errMsg);
+        error : function(data) {
+            showErrorMessage(data.responseText);
         }
     });
     getModificationStamp();
@@ -145,7 +136,7 @@ function initAddCaseDialog(block) {
     dialogButtons["OK"] = function () {
         var posX = getRandomPosition(parseFloat(block.style.left) - 30, parseFloat(block.style.left) + 30);
         var posY = getRandomPosition(parseFloat(block.style.top) + 80, parseFloat(block.style.top) + 100);
-        equalCaseBlock = createBlock("EqualCase", null, posX, posY);
+        var equalCaseBlock = createBlock("EqualCase", null, posX, posY);
         updateBlockName(equalCaseBlock, $("#input-expression-value").val());
         jsPlumbInstance.connect({
             source: block.id,
@@ -173,14 +164,14 @@ function initAddDigitCaseDialog(block) {
     var dialogButtons = {};
     dialogButtons["OK"] = function () {
         $.each($(".input-digit"), function (index, element) {
-            input = $(element);
-            digit = input.attr("digit");
+            var input = $(element);
+            var digit = input.attr("digit");
             // creating missing case blocks
-            if (block.digitCases.indexOf(digit) == -1 && input.prop("checked")) {
+            if (block.digitCases.indexOf(digit) === -1 && input.prop("checked")) {
                 addDigitCaseBlock(block, digit);
             }
             // removing redundant case blocks
-            if (block.digitCases.indexOf(digit) != -1 && !input.prop("checked")) {
+            if (block.digitCases.indexOf(digit) !== -1 && !input.prop("checked")) {
                 jsPlumbInstance.remove(findEqualCaseBlockId(block, digit));
             }
         });
@@ -193,14 +184,14 @@ function initAddDigitCaseDialog(block) {
         autoOpen: false,
         modal: true,
         title: addCaseText,
-        open: function (event, ui) {
+        open: function () {
             $.each($(".input-digit"), function (index, value) {
                 value.checked = false;
             });
-            block.digitCases.forEach(function (digit, index, array) {
-                if (digit == "*") {
+            block.digitCases.forEach(function (digit) {
+                if (digit === "*") {
                     $("#input-digit-star").prop("checked", "true");
-                } else if (digit == "#") {
+                } else if (digit === "#") {
                     $("#input-digit-pound").prop("checked", "true");
                 } else {
                     $("#input-digit-" + digit).prop("checked", "true");
@@ -213,8 +204,7 @@ function initAddDigitCaseDialog(block) {
 
 function rescaleCanvas(scaleFactor) {
     canvasScaleFactor = scaleFactor;
-    var origWidth = parseInt($("#canvas").css("width"));
-    $("#canvas").css({
+    canvas.css({
         "-webkit-transform": "scale(" + scaleFactor + ")",
         "-moz-transform": "scale(" + scaleFactor + ")",
         "-ms-transform": "scale(" + scaleFactor + ")",
@@ -225,8 +215,8 @@ function rescaleCanvas(scaleFactor) {
 }
 
 function startDragScroll(event) {
-    $(".div-canvas-subwrapper").css("cursor", "move");
-    var div = $(".div-canvas-subwrapper")[0];
+    canvasSubWrapper.css("cursor", "move");
+    var div = canvasSubWrapper[0];
     divScrollStartX = div.scrollLeft;
     divScrollStartY = div.scrollTop;
     dragScrollStartX = event.pageX;
@@ -236,21 +226,19 @@ function startDragScroll(event) {
 }
 
 function dragScroll(event) {
-    var div = $(".div-canvas-subwrapper");
-    var currentScrollX = div.scrollLeft;
-    var currentScrollY = div.scrollTop;
-    div.scrollLeft(divScrollStartX - event.pageX + dragScrollStartX);
-    div.scrollTop(divScrollStartY - event.pageY + dragScrollStartY);
+    canvasSubWrapper.scrollLeft(divScrollStartX - event.pageX + dragScrollStartX);
+    canvasSubWrapper.scrollTop(divScrollStartY - event.pageY + dragScrollStartY);
 }
 
-function stopDragScroll(event) {
-    $(".div-canvas-subwrapper").css("cursor", "default");
+function stopDragScroll() {
+    canvasSubWrapper.css("cursor", "default");
     $(document).unbind("mousemove", dragScroll);
     $(document).unbind("mouseup", stopDragScroll);
 }
 
 $(document).ready(function () {
-    defineGlobals();
+    canvas = $("#canvas");
+    canvasSubWrapper = $(".div-canvas-subwrapper");
     $(".draggable").draggable({
         revert: "invalid",
         stack: ".draggable",
@@ -263,11 +251,11 @@ $(document).ready(function () {
             var draggable = ui.draggable;
             var posX = (ui.offset.left - droppable.offset().left + droppable.scrollLeft()) / canvasScaleFactor;
             var posY = (ui.offset.top - droppable.offset().top + droppable.scrollTop()) / canvasScaleFactor;
-            block = createBlock(draggable.attr("type"), null, posX, posY);
+            var block = createBlock(draggable.attr("type"), null, posX, posY);
             changeCurrentBlock(block);
         }
     });
-    $(".div-canvas-subwrapper").on("mousedown", function (event) {
+    canvasSubWrapper.on("mousedown", function (event) {
         canvasClickFlag = true;
         if (event.shiftKey) {
             startSelection(event);
@@ -276,41 +264,41 @@ $(document).ready(function () {
             startDragScroll(event);
         }
     });
-    $(".div-canvas-subwrapper").on("mousemove", function (event) {
+    canvasSubWrapper.on("mousemove", function () {
         canvasClickFlag = false;
     });
-    $(".div-canvas-subwrapper").on("mouseup", function (event) {
+    canvasSubWrapper.on("mouseup", function (event) {
         if (!event.ctrlKey && canvasClickFlag) {
             deselectBlocks();
         }
     });
-    $(".div-canvas-subwrapper").on("wheel", function (event) {
+    canvasSubWrapper.on("wheel", function (event) {
         if (event.shiftKey) {
             event = event.originalEvent || event || window.event;
             var delta = event.deltaY || event.detail || event.wheelDelta;
+            var newScaleFactor;
             if (delta > 0) {
-                var newScaleFactor = canvasScaleFactor - 0.05;
+                newScaleFactor = canvasScaleFactor - 0.05;
             } else {
-                var newScaleFactor = canvasScaleFactor + 0.05;
+                newScaleFactor = canvasScaleFactor + 0.05;
             }
             rescaleCanvas(newScaleFactor);
             return false;
         }
     });
+    var spinner = new Spinner();
     $(document).ajaxStart(function () {
         spinner.spin($("body")[0]);
     });
     $(document).ajaxStop(function () {
         spinner.stop();
     });
-    spinner = new Spinner();
     initJsPlumb();
     initContextMenu();
     $(".ui-button").button();
     loadScriptData();
-    initStamp = currentStamp;
     changeCurrentBlock();
-    window.onbeforeunload = function (event) {
+    window.onbeforeunload = function () {
         return "";
     }
 });

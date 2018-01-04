@@ -1,10 +1,7 @@
 package ua.dborisenko.astergazer.controller;
 
-import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
@@ -24,6 +21,9 @@ public class ChecklistRestControllerTest {
 
     private static final String CONTROLLER_PATH = "/checklists/rest";
     private static final Long TEST_ID = 1L;
+    private static final String TEST_NAME = "Foo Bar";
+    private static final String TEST_CONTROL_VALUE = "Control value";
+    private static final String TEST_RETURN_VALUE = "Return value";
 
     @InjectMocks
     private ChecklistRestController controller;
@@ -39,67 +39,60 @@ public class ChecklistRestControllerTest {
     @Before
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-
     }
 
     @Test
     public void testAddCheckList() throws Exception {
-        String name = "test";
+        mockMvc.perform(post(CONTROLLER_PATH + "/addchecklist")
+                .param("name", TEST_NAME))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/addchecklist").param("name", name)).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockChecklistService).create(name);
+        verify(mockChecklistService).create(TEST_NAME);
     }
 
     @Test
     public void testUpdateCheckList() throws Exception {
-        String name = "test";
+        mockMvc.perform(post(CONTROLLER_PATH + "/updatechecklist/" + TEST_ID)
+                .param("name", TEST_NAME))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/updatechecklist/" + TEST_ID).param("name", name))
-                .andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockChecklistService).update(TEST_ID, name);
+        verify(mockChecklistService).update(TEST_ID, TEST_NAME);
     }
 
     @Test
     public void testDeleteCheckList() throws Exception {
-        mockMvc.perform(post(CONTROLLER_PATH + "/deletechecklist/" + TEST_ID)).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
+        mockMvc.perform(post(CONTROLLER_PATH + "/deletechecklist/" + TEST_ID))
+                .andExpect(status().isOk());
+
         verify(mockChecklistService).delete(TEST_ID);
     }
 
     @Test
     public void testAddEntry() throws Exception {
-        String controlValue = "test1";
-        String returnValue = "test2";
+        mockMvc.perform(post(CONTROLLER_PATH + "/addentry")
+                .param("controlValue", TEST_CONTROL_VALUE)
+                .param("returnValue", TEST_RETURN_VALUE)
+                .param("checklistId", String.valueOf(TEST_ID)))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/addentry").param("controlValue", controlValue)
-                .param("returnValue", returnValue).param("checklistId", String.valueOf(TEST_ID)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockEntryService).create(controlValue, returnValue, TEST_ID);
+        verify(mockEntryService).create(TEST_CONTROL_VALUE, TEST_RETURN_VALUE, TEST_ID);
     }
 
     @Test
     public void testUpdateEntry() throws Exception {
-        String controlValue = "test1";
-        String returnValue = "test2";
+        mockMvc.perform(post(CONTROLLER_PATH + "/updateentry/" + TEST_ID)
+                .param("controlValue", TEST_CONTROL_VALUE)
+                .param("returnValue", TEST_RETURN_VALUE))
+                .andExpect(status().isOk());
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/updateentry/" + TEST_ID).param("controlValue", controlValue)
-                .param("returnValue", returnValue)).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
-        verify(mockEntryService).update(TEST_ID, controlValue, returnValue);
+        verify(mockEntryService).update(TEST_ID, TEST_CONTROL_VALUE, TEST_RETURN_VALUE);
     }
 
     @Test
     public void testDeleteEntry() throws Exception {
-        mockMvc.perform(post(CONTROLLER_PATH + "/deleteentry/" + TEST_ID)).andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.status", is("OK"))).andExpect(jsonPath("$.code", is(200)));
+        mockMvc.perform(post(CONTROLLER_PATH + "/deleteentry/" + TEST_ID))
+                .andExpect(status().isOk());
+
         verify(mockEntryService).delete(TEST_ID);
     }
 }

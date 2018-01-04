@@ -17,11 +17,12 @@ function addExtension(contextId) {
 
 function addExtensionToCurrentContext() {
     var currentNode = $("#div-dialplan-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
-        if (currentNode.type == "context") {
-            var contextId = currentNode.data.id;
-        } else if (currentNode.type == "extension") {
-            var contextId = currentNode.data.contextId;
+    if (typeof currentNode !== "undefined") {
+        var contextId;
+        if (currentNode.type === "context") {
+            contextId = currentNode.data.id;
+        } else if (currentNode.type === "extension") {
+            contextId = currentNode.data.contextId;
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
             return;
@@ -31,7 +32,7 @@ function addExtensionToCurrentContext() {
 }
 
 function editContext(id, name) {
-    if (typeof id != "undefined") {
+    if (typeof id !== "undefined") {
         $("#dialog-context")
                 .dialog("option", "restUrl", restControllerUrl + "/updatecontext/" + id)
                 .dialog("option", "name", name)
@@ -40,23 +41,18 @@ function editContext(id, name) {
 }
 
 function deleteContext(id, name) {
-    if (typeof id != "undefined") {
+    if (typeof id !== "undefined") {
         showConfirmation(deleteContextConfirmText + " " + name + "?", function() {
             $.ajax({
                 type : "POST",
                 url : restControllerUrl + "/deletecontext/" + id,
-                dataType : "json",
-                async : false,
+                async : true,
                 cache : false,
-                success : function(data) {
-                    if (data.status == "OK") {
-                        $("#div-dialplan-tree").jstree("refresh");
-                    } else {
-                        showErrorMessage(data.data.description);
-                    }
+                success : function () {
+                    $("#div-dialplan-tree").jstree("refresh");
                 },
-                failure : function(errMsg) {
-                    showErrorMessage(errMsg);
+                error : function (data) {
+                    showErrorMessage(data.responseText);
                 }
             });
         });
@@ -65,7 +61,7 @@ function deleteContext(id, name) {
 
 function editExtension(id, name, scriptId) {
     loadScriptsForDialogList(scriptId);
-    if (typeof id != "undefined") {
+    if (typeof id !== "undefined") {
         $("#dialog-extension").dialog("option", "restUrl",
                 restControllerUrl + "/updateextension/" + id)
                 .dialog("option", "name", name)
@@ -75,23 +71,18 @@ function editExtension(id, name, scriptId) {
 }
 
 function deleteExtension(id, name) {
-    if (typeof id != "undefined") {
+    if (typeof id !== "undefined") {
         showConfirmation(deleteExtensionConfirmText + " " + name + "?", function() {
             $.ajax({
                 type : "POST",
                 url : restControllerUrl + "/deleteextension/" + id,
-                dataType : "json",
-                async : false,
+                async : true,
                 cache : false,
-                success : function(data) {
-                    if (data.status == "OK") {
-                        $("#div-dialplan-tree").jstree("refresh");
-                    } else {
-                        showErrorMessage(data.data.description);
-                    }
+                success : function () {
+                    $("#div-dialplan-tree").jstree("refresh");
                 },
-                failure : function(errMsg) {
-                    showErrorMessage(errMsg);
+                error : function (data) {
+                    showErrorMessage(data.responseText);
                 }
             });
         });
@@ -100,12 +91,13 @@ function deleteExtension(id, name) {
 
 function editCurrentDialplanTreeNode() {
     var currentNode = $("#div-dialplan-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
-        if (currentNode.type == "context") {
-            var entityId = currentNode.data.id;
+    if (typeof currentNode !== "undefined") {
+        var entityId;
+        if (currentNode.type === "context") {
+            entityId = currentNode.data.id;
             editContext(entityId, currentNode.text);
-        } else if (currentNode.type == "extension") {
-            var entityId = currentNode.data.id;
+        } else if (currentNode.type === "extension") {
+            entityId = currentNode.data.id;
             var scriptId = currentNode.data.scriptId;
             editExtension(entityId, currentNode.text, scriptId);
         } else {
@@ -116,12 +108,13 @@ function editCurrentDialplanTreeNode() {
 
 function deleteCurrentDialplanTreeNode() {
     var currentNode = $("#div-dialplan-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
-        if (currentNode.type == "context") {
-            var entityId = currentNode.data.id;
+    if (typeof currentNode !== "undefined") {
+        var entityId;
+        if (currentNode.type === "context") {
+            entityId = currentNode.data.id;
             deleteContext(entityId, currentNode.text);
-        } else if (currentNode.type == "extension") {
-            var entityId = currentNode.data.id;
+        } else if (currentNode.type === "extension") {
+            entityId = currentNode.data.id;
             deleteExtension(entityId, currentNode.text);
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
@@ -130,7 +123,7 @@ function deleteCurrentDialplanTreeNode() {
 }
 
 function cloneContext(contextId) {
-    if (typeof contextId != "undefined") {
+    if (typeof contextId !== "undefined") {
         $("#dialog-context")
         .dialog("option", "restUrl", restControllerUrl + "/clonecontext/" + contextId)
         .dialog("open");
@@ -139,11 +132,12 @@ function cloneContext(contextId) {
 
 function cloneCurrentContext() {
     var currentNode = $("#div-dialplan-tree").jstree("get_selected", true)[0];
-    if (typeof currentNode != "undefined") {
-        if (currentNode.type == "context") {
-            var contextId = currentNode.data.id;
-        } else if (currentNode.type == "extension") {
-            var contextId = currentNode.data.contextId;
+    if (typeof currentNode !== "undefined") {
+        var contextId;
+        if (currentNode.type === "context") {
+            contextId = currentNode.data.id;
+        } else if (currentNode.type === "extension") {
+            contextId = currentNode.data.contextId;
         } else {
             showErrorMessage(unknownNodeTypeErrorText);
             return;
@@ -163,18 +157,13 @@ function initContextDialog() {
             data : {
                 name : name
             },
-            dataType : "json",
-            async : false,
+            async : true,
             cache : false,
-            success : function(data) {
-                if (data.status == "OK") {
-                    $("#div-dialplan-tree").jstree("refresh");
-                } else {
-                    showErrorMessage(data.data.description);
-                }
+            success : function () {
+                $("#div-dialplan-tree").jstree("refresh");
             },
-            failure : function(errMsg) {
-                showErrorMessage(errMsg);
+            error : function (data) {
+                showErrorMessage(data.responseText);
             }
         });
         $(this).dialog("close");
@@ -186,7 +175,7 @@ function initContextDialog() {
         autoOpen : false,
         modal : true,
         title : contextNameText,
-        open : function(event, ui) {
+        open : function() {
             $("#input-context-name").val($(this).dialog("option", "name"));
         },
         buttons : dialogButtons
@@ -196,14 +185,16 @@ function initContextDialog() {
 function initExtensionDialog() {
     var dialogButtons = {};
     dialogButtons["OK"] = function() {
-        if ($("#select-script").val() === null) {
-            if ($("#select-script").combobox("getInputValue") != "") {
-                var scriptId = $(this).dialog("option", "scriptId");
+        var scriptId;
+        var scriptSelector = $("#select-script");
+        if (scriptSelector.val() === null) {
+            if (scriptSelector.combobox("getInputValue") !== "") {
+                scriptId = $(this).dialog("option", "scriptId");
             } else {
-                var scriptId = 0;
+                scriptId = 0;
             }
         } else {
-            var scriptId = ($("#select-script").val());
+            scriptId = (scriptSelector.val());
         }
         var name = $("#input-extension-name").val();
         var restUrl = $(this).dialog("option", "restUrl");
@@ -216,18 +207,13 @@ function initExtensionDialog() {
                 contextId : contextId,
                 scriptId : scriptId
             },
-            dataType : "json",
-            async : false,
+            async : true,
             cache : false,
-            success : function(data) {
-                if (data.status == "OK") {
-                    $("#div-dialplan-tree").jstree("refresh");
-                } else {
-                    showErrorMessage(data.data.description);
-                }
+            success : function () {
+                $("#div-dialplan-tree").jstree("refresh");
             },
-            failure : function(errMsg) {
-                showErrorMessage(errMsg);
+            error : function (data) {
+                showErrorMessage(data.responseText);
             }
         });
         $(this).dialog("close");
@@ -239,12 +225,12 @@ function initExtensionDialog() {
         autoOpen : false,
         modal : true,
         title : extensionNameText,
-        open : function(event, ui) {
+        open : function() {
             var currentScriptId = $(this).dialog("option", "scriptId");
             $("#input-extension-name").val($(this).dialog("option", "name"));
             $("#select-script").combobox("autocomplete", currentScriptId);
         },
-        buttons : dialogButtons,
+        buttons : dialogButtons
     });
 }
 

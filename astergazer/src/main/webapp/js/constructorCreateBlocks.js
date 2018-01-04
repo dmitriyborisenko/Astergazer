@@ -1,4 +1,5 @@
 function createBlockComplex(blockClass, posX, posY) {
+    var block;
     switch (blockClass) {
         case "SwitchComplex":
         case "Switch":
@@ -23,16 +24,15 @@ function createBlockComplex(blockClass, posX, posY) {
         default:
             alert("Unknown block class: " + blockClass);
             return null;
-            break;
     }
     alignCaption(block);
     return block;
 }
 
 function createBlock(blockClass, localId, posX, posY) {
-    posX = posX || getRandomPosition(MIN_RANDON_POSITION, MAX_RANDON_POSITION);
-    posY = posY || getRandomPosition(MIN_RANDON_POSITION, MAX_RANDON_POSITION);
-    if (blockClass.indexOf("Complex") != -1) {
+    posX = posX || getRandomPosition(MIN_RANDOM_POSITION, MAX_RANDOM_POSITION);
+    posY = posY || getRandomPosition(MIN_RANDOM_POSITION, MAX_RANDOM_POSITION);
+    if (blockClass.indexOf("Complex") !== -1) {
         return createBlockComplex(blockClass, posX, posY);
     } else {
         return createSingleBlock(blockClass, localId, posX, posY);
@@ -50,22 +50,22 @@ function createSingleBlock(blockClass, localId, posX, posY) {
     $.each(blockParams[blockClass], function (index, value) {
         addBlockParam(block, index, value, "");
     });
-    block.isLocked = ["Start", "TrueCase", "FalseCase"].indexOf(blockClass) != -1;
-    block.isCaseBlock = ["TrueCase", "EqualCase"].indexOf(blockClass) != -1;
-    block.isSwitcher = ["Checklist", "GotoIf", "GotoIfTime", "Switch", "VoiceMenu"].indexOf(blockClass) != -1;
-    if (blockClass == "FalseCase") {
+    block.isLocked = ["Start", "TrueCase", "FalseCase"].indexOf(blockClass) !== -1;
+    block.isCaseBlock = ["TrueCase", "EqualCase"].indexOf(blockClass) !== -1;
+    block.isSwitcher = ["Checklist", "GotoIf", "GotoIfTime", "Switch", "VoiceMenu"].indexOf(blockClass) !== -1;
+    if (blockClass === "FalseCase") {
         block.caption = "False";
         setBlockHTML(block);
     }
-    if (blockClass == "TrueCase") {
+    if (blockClass === "TrueCase") {
         block.caption = "True";
         setBlockHTML(block);
     }
-    if (blockClass == "EqualCase") {
+    if (blockClass === "EqualCase") {
         block.caption = "";
         setBlockHTML(block);
     }
-    if (blockClass == "Start") {
+    if (blockClass === "Start") {
         block.caption = "Start";
         setBlockHTML(block);
     }
@@ -75,13 +75,13 @@ function createSingleBlock(blockClass, localId, posX, posY) {
 
 function createGotoIfBlockComplex(posX, posY) {
     var block = createBlock("GotoIf", null, posX, posY);
-    childPosX = posX + 40;
-    trueCaseBlock = createBlock("TrueCase", null, childPosX, posY + 85);
+    var childPosX = posX + 40;
+    var trueCaseBlock = createBlock("TrueCase", null, childPosX, posY + 85);
     childPosX = posX - 40;
     if (childPosX < 0) {
         childPosX = 0;
     }
-    falseCaseBlock = createBlock("FalseCase", null, childPosX, posY + 85);
+    var falseCaseBlock = createBlock("FalseCase", null, childPosX, posY + 85);
     jsPlumbInstance.connect({
         source: block.id,
         target: trueCaseBlock.id,
@@ -100,7 +100,7 @@ function createGotoIfBlockComplex(posX, posY) {
 
 function createSwitchBlockComplex(posX, posY) {
     var block = createBlock("Switch", null, posX, posY);
-    falseCaseBlock = createBlock("FalseCase", null, posX + 40, posY + 85);
+    var falseCaseBlock = createBlock("FalseCase", null, posX + 40, posY + 85);
     jsPlumbInstance.connect({
         source: block.id,
         target: falseCaseBlock.id,
@@ -113,7 +113,7 @@ function createSwitchBlockComplex(posX, posY) {
 
 function createVoiceMenuBlockComplex(posX, posY) {
     var block = createBlock("VoiceMenu", null, posX, posY);
-    falseCaseBlock = createBlock("FalseCase", null, posX + 40, posY + 85);
+    var falseCaseBlock = createBlock("FalseCase", null, posX + 40, posY + 85);
     jsPlumbInstance.connect({
         source: block.id,
         target: falseCaseBlock.id,
@@ -126,13 +126,13 @@ function createVoiceMenuBlockComplex(posX, posY) {
 
 function createChecklistBlockComplex(posX, posY) {
     var block = createBlock("Checklist", null, posX, posY);
-    childPosX = posX + 40;
-    trueCaseBlock = createBlock("TrueCase", null, childPosX, posY + 85);
+    var childPosX = posX + 40;
+    var trueCaseBlock = createBlock("TrueCase", null, childPosX, posY + 85);
     childPosX = posX - 40;
     if (childPosX < 0) {
         childPosX = 0;
     }
-    falseCaseBlock = createBlock("FalseCase", null, childPosX, posY + 85);
+    var falseCaseBlock = createBlock("FalseCase", null, childPosX, posY + 85);
     jsPlumbInstance.connect({
         source: block.id,
         target: trueCaseBlock.id,
@@ -151,13 +151,13 @@ function createChecklistBlockComplex(posX, posY) {
 
 function createGotoIfTimeBlockComplex(posX, posY) {
     var block = createBlock("GotoIfTime", null, posX, posY);
-    childPosX = posX + 40;
-    trueCaseBlock = createBlock("TrueCase", null, childPosX, posY + 85);
+    var childPosX = posX + 40;
+    var trueCaseBlock = createBlock("TrueCase", null, childPosX, posY + 85);
     childPosX = posX - 40;
     if (childPosX < 0) {
         childPosX = 0;
     }
-    falseCaseBlock = createBlock("FalseCase", null, childPosX, posY + 85);
+    var falseCaseBlock = createBlock("FalseCase", null, childPosX, posY + 85);
     jsPlumbInstance.connect({
         source: block.id,
         target: trueCaseBlock.id,

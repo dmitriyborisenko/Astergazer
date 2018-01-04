@@ -3,7 +3,7 @@ package ua.dborisenko.astergazer.controller;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -29,6 +29,7 @@ import ua.dborisenko.astergazer.service.IChecklistService;
 public class ChecklistTreeControllerTest {
 
     private static final String CONTROLLER_PATH = "/checklists/tree";
+    private MockMvc mockMvc;
 
     @InjectMocks
     private ChecklistTreeController controller;
@@ -36,12 +37,9 @@ public class ChecklistTreeControllerTest {
     @Mock
     private IChecklistService mockChecklistService;
 
-    private MockMvc mockMvc;
-
     @Before
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-
     }
 
     @Test
@@ -51,12 +49,12 @@ public class ChecklistTreeControllerTest {
         Checklist checklist = new Checklist();
         checklist.setId(expectedId);
         dtoList.add(new JsTreeNodeDynamicDto(checklist));
-
         when(mockChecklistService.getChecklistsTreeDto()).thenReturn(dtoList);
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/getchecklists")).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/getchecklists")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$[0].id", is("checklist" + expectedId)));
+
         verify(mockChecklistService).getChecklistsTreeDto();
     }
 
@@ -69,12 +67,12 @@ public class ChecklistTreeControllerTest {
         entry.setId(expectedEntryId);
         entry.setChecklist(new Checklist());
         dtoList.add(new JsTreeNodeDynamicDto(entry));
-
         when(mockChecklistService.getEntriesTreeDto(checklistId)).thenReturn(dtoList);
 
-        mockMvc.perform(post(CONTROLLER_PATH + "/getentries/" + checklistId)).andExpect(status().isOk())
+        mockMvc.perform(get(CONTROLLER_PATH + "/getentries/" + checklistId)).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$[0].id", is("entry" + expectedEntryId)));
+
         verify(mockChecklistService).getEntriesTreeDto(checklistId);
     }
 
