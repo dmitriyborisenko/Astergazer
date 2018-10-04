@@ -31,6 +31,9 @@
 			<li id="li-eng"><a href="?language=en">ENG</a></li>
 			|
 			<li id="li-rus"><a href="?language=ru">RUS</a></li>
+			|
+			<li id="li-pt_BR"><a href="?language=pt_BR">BR</a></li>
+
 		</ul>
 	</div>
 </div>
